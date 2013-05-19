@@ -23,6 +23,25 @@ public:
     void loadNote(const unsigned int i);
 //    ExportStrategy* getExporter();
 
+    //Iterator
+
+    class Iterator
+    {
+        friend class NotesManager; //Pour accéder au constructeur de l'Iterator
+    public :
+        Iterator& operator++();
+        Iterator& operator--();
+        Note* operator*();
+        bool operator==(const QSet<Note*>::Iterator& it) const;
+        bool operator!=(const QSet<Note*>::Iterator& it) const;
+    private :
+        Iterator(const QSet<Note*>::Iterator& it);
+        QSet<Note*>::Iterator itNotes;
+    };
+
+    Iterator begin();
+    Iterator end();
+
 private:
     //Implémentation du design pattern Singleton
     NotesManager();

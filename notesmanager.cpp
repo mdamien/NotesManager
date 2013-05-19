@@ -95,3 +95,45 @@ void NotesManager::loadNote(const unsigned int i)
 {
     //A définir
 }
+
+//Iterator sur le contenu de NotesManager
+
+NotesManager::Iterator NotesManager::begin()
+{
+    return Iterator(notes->begin());
+}
+
+NotesManager::Iterator NotesManager::end()
+{
+    return Iterator(notes->end());
+}
+
+NotesManager::Iterator::Iterator(const QSet<Note*>::Iterator& it)
+{
+    itNotes = it;
+}
+
+NotesManager::Iterator& NotesManager::Iterator::operator++()
+{
+    itNotes++;
+}
+
+NotesManager::Iterator& NotesManager::Iterator::operator--()
+{
+    itNotes--;
+}
+
+Note* NotesManager::Iterator::operator*()
+{
+    return *itNotes;
+}
+
+bool NotesManager::Iterator::operator==(const QSet<Note*>::Iterator& it) const
+{
+    return itNotes == it;
+}
+
+bool NotesManager::Iterator::operator!=(const QSet<Note*>::Iterator& it) const
+{
+    return itNotes != it;
+}

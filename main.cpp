@@ -8,6 +8,7 @@
 #include "document.h"
 #include "binary.h"
 #include "mainwindow.h"
+#include "notesmanager.h"
 
 #include "textexport.h"
 
