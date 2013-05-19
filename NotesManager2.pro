@@ -1,3 +1,10 @@
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = NotesManager
+TEMPLATE = app
+
 SOURCES += \
     main.cpp \
     articlewidget.cpp \
@@ -6,7 +13,9 @@ SOURCES += \
     document.cpp \
     binary.cpp \
     mainwindow.cpp \
-    notesmanager.cpp
+    notesmanager.cpp \
+    exportstrategy.cpp \
+    textexport.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -15,4 +24,6 @@ HEADERS += \
     document.h \
     binary.h \
     mainwindow.h \
-    notesmanager.h
+    notesmanager.h \
+    exportstrategy.h \
+    textexport.h

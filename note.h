@@ -5,6 +5,8 @@
 #include <QList>
 #include <QApplication>
 
+class ExportStrategy;
+
 class Note
 {
 public:
@@ -13,10 +15,10 @@ public:
     QString getTitle() const;
     void setTitle(const QString& title);
     bool isModified() const;
-    //   QString exportNote(ExportStrategy* es) const;
-    //   QString exportAsPart(ExportStrategy* es) const;
-    void addSudNote(Note* n);    //Devrait être UNIQUEMENT dans Document, à vérifier
-    void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
+    QString exportNote(ExportStrategy* es) const;
+    //QString exportAsPart(ExportStrategy* es) const;
+    //void addSudNote(Note* n);    //Devrait être UNIQUEMENT dans Document, à vérifier
+    //void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
 
 protected :
     virtual void load() = 0; //Chargement différent en fonction du type de fichier
