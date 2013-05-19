@@ -8,7 +8,6 @@
 class Note
 {
 public:
-    Note(const unsigned int id, const QString& title);
     unsigned int getId() const;
     QString getTitle() const;
     void setTitle(const QString& title);
@@ -19,6 +18,7 @@ public:
     void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
 
 protected :
+    Note(const unsigned int id, const QString& title);
     virtual void load() = 0; //Chargement différent en fonction du type de fichier
     unsigned int id;
     QString title;

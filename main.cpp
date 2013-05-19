@@ -6,6 +6,7 @@
 #include "document.h"
 #include "binary.h"
 #include "mainwindow.h"
+#include "notesmanager.h"
 
 int main(int argc, char *argv[])
 {
