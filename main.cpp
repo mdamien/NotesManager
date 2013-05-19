@@ -15,12 +15,11 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    /*
-    mainWindow FenetrePrincipale;
-    FenetrePrincipale.show();
-    */
-    Article a(1212,"dsdds","sdsd");
+    Article a(1212,"titre de l'article","texte de l'article");
     std::cout << TextExport().exportNote(&a).toStdString() << std::endl;
+    Document d(1314,"Document hyper important");
+    d.addSubNote(&a);
+    std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
 
     return app.exec();
 }
