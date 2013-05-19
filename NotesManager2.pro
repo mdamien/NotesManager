@@ -5,7 +5,8 @@ SOURCES += \
     note.cpp \
     document.cpp \
     binary.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    notesmanager.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -13,4 +14,5 @@ HEADERS += \
     note.h \
     document.h \
     binary.h \
-    mainwindow.h
+    mainwindow.h \
+    notesmanager.h

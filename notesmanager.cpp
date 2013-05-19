@@ -1,0 +1,97 @@
+#include "notesmanager.h"
+
+using namespace std;
+
+NotesManager* NotesManager::notesManager = 0;
+
+NotesManager::NotesManager()
+{
+    notes = new QSet<Note*>();
+}
+
+NotesManager::~NotesManager()
+{
+    //Il faut aussi penser à supprimer tous les pointeurs vers les Notes, donc on sauvegarde tout au moment du delete ?
+
+    for(QSet<Note*>::Iterator it = notes->begin(); it != notes->end() ; it++)
+    {
+        notes->erase(it); //Je vois que ça, je sais pas si ça delete le pointeur...
+    }
+    delete notes;
+}
+
+NotesManager* NotesManager::getInstance()
+{
+    if(!notesManager)
+    {
+        notesManager = new NotesManager;
+        return notesManager;
+    }
+    else
+        return notesManager;
+}
+
+void NotesManager::deleteInstance()
+{
+    if(notesManager)
+    {
+        delete notesManager;
+        notesManager = 0;     //Remise du pointeur à 0
+    }
+}
+
+QString NotesManager::getPath() const
+{
+    return path;
+}
+
+void NotesManager::setPath(const QString& p)
+{
+    path = p;
+}
+
+Note* NotesManager::getNote(const unsigned int i)
+{
+    return 0;
+}
+
+void NotesManager::saveState()
+{
+    //A définir
+}
+
+void NotesManager::addRessource(Note* n)
+{
+    notes->insert(n);
+}
+
+void NotesManager::deleteRessource(Note* n)
+{
+    notes->remove(n);
+}
+
+QString NotesManager::getFileName(const unsigned int i) const
+{
+    //A définir : ajouter un filename à chaque Note, non ?
+    return "";
+}
+
+void NotesManager::load()
+{
+    //A définir
+}
+
+void NotesManager::load(const QString& newPath)
+{
+    //A définir
+}
+
+void NotesManager::reset()
+{
+    //A définir
+}
+
+void NotesManager::loadNote(const unsigned int i)
+{
+    //A définir
+}

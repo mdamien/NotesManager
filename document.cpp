@@ -10,6 +10,11 @@ Document::Document(const unsigned int id, const QString& title, const QList<Note
 
 }
 
+Document::~Document()
+{
+    delete notes;
+}
+
 void Document::addSubNote(Note* n)
 {
     notes->append(n);

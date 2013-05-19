@@ -12,6 +12,7 @@ public:
     void removeSurNote(const unsigned int i);
     Note* getSubNote(const unsigned int i);
     unsigned int getNumberOfSubNotes() const;
+    ~Document();
 
 private :
     QList<Note*>* notes;

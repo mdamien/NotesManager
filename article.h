@@ -18,5 +18,3 @@ private :
 };
 
 #endif // ARTICLE_H
-coucou
-coucou
