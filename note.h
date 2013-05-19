@@ -20,7 +20,7 @@ public:
     //void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
 
 protected :
-    Note(const unsigned int id, const QString& title);
+    Note(const unsigned int id, const QString& title = "");
     virtual void load() = 0; //Chargement différent en fonction du type de fichier
     unsigned int id;
     QString title;

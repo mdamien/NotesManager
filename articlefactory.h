@@ -2,14 +2,15 @@
 #define ARTICLEFACTORY_H
 
 #include "notesfactory.h"
+#include "article.h"
 
 class ArticleFactory : public NotesFactory
 {
 public:
     ArticleFactory();
-    Article* buildNote(const unsigned int id, const QString& title) const;
-    Article* buildNewNote(const QString& title) const;
-    Article* buildNoteCopy(Note* note) const;
+    Note* buildNote(const unsigned int id, const QString& title) const;
+    Note* buildNewNote(const QString& title) const;
+    Note* buildNoteCopy(Article* article) const;
 };
 
 #endif // ARTICLEFACTORY_H

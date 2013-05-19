@@ -3,19 +3,20 @@
 
 #include <ctime>
 #include "note.h"
+#include <QMap>
 
 class NotesFactory
 {
 public:
     NotesFactory();
     unsigned int getNewId() const;
-    Note* buildNote(const unsigned int id, const QString& title) const = 0;
-    Note* buildNewNote(const QString& title) const = 0;
-    Note* buildNoteCopy(Note* note) const = 0;
-    static map<QString, NoteFactory*>* getFactories();
+    virtual Note* buildNote(const unsigned int id, const QString& title) const = 0;
+    virtual Note* buildNewNote(const QString& title) const = 0;
+    virtual Note* buildNoteCopy(Note* note) const = 0;
+   // static Qmap<QString, NotesFactory*>* getFactories();
 
 private :
-    map<QString, NotesFactory*>* factories;
+  //  Qmap<QString, NotesFactory*>* factories;
 };
 
 #endif // NOTESFACTORY_H

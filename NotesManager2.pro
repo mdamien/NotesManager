@@ -15,10 +15,10 @@ SOURCES += \
     mainwindow.cpp \
     notesmanager.cpp \
     exportstrategy.cpp \
-    textexport.cpp
+    textexport.cpp \
     notesfactory.cpp \
     articlefactory.cpp
-    
+
 HEADERS += \
     articlewidget.h \
     article.h \
@@ -28,6 +28,6 @@ HEADERS += \
     mainwindow.h \
     notesmanager.h \
     exportstrategy.h \
-    textexport.h
+    textexport.h \
     notesfactory.h \
     articlefactory.h

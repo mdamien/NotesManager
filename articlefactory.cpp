@@ -5,17 +5,17 @@ ArticleFactory::ArticleFactory()
 
 }
 
-Article* buildNote(const unsigned int id, const QString& title) const
+Note* ArticleFactory::buildNote(const unsigned int id, const QString& title) const
 {
-
+    return new Article(id, title);
 }
 
-Article* buildNewNote(const QString& title) const
+Note* ArticleFactory::buildNewNote(const QString& title) const
 {
-
+    return new Article(getNewId(), title);
 }
 
-Article* buildNoteCopy(Note* note) const
+Note* ArticleFactory::buildNoteCopy(Article* article) const
 {
-
+    return new Article(article);
 }

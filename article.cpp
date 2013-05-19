@@ -19,3 +19,8 @@ void Article::load()
 {
 //A définir
 }
+
+Article::Article(Article* a) : Note(a->getId(), a->getTitle()), text(a->getText())
+{
+
+}

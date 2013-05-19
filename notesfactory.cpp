@@ -10,8 +10,9 @@ unsigned int NotesFactory::getNewId() const //Renvoie un id unique en fonction d
     return std::time(0);
 }
 
-map<QString, NotesFactory::NoteFactory*>* NotesFactory::getFactories()
+/*Qmap<QString, NotesFactory::NotesFactory*>* NotesFactory::getFactories()
 {
     //A définir
     return 0;
 }
+*/
