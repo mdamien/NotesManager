@@ -15,6 +15,9 @@ QString TextExport::base(QString name,Note* note,unsigned int n){
 
 QString TextExport::exportNote(Note* note,unsigned int titleLevel)
 {
+
+
+
     if(typeid(*note) == typeid(Article))
         return exportNote((Article*)note, titleLevel);
     if(typeid(*note) == typeid(Document))

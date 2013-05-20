@@ -32,8 +32,8 @@ public:
         Iterator& operator++();
         Iterator& operator--();
         Note* operator*();
-        bool operator==(const QSet<Note*>::Iterator& it) const;
-        bool operator!=(const QSet<Note*>::Iterator& it) const;
+        bool operator==(const Iterator& it) const;
+        bool operator!=(const Iterator& it) const;
     private :
         Iterator(const QSet<Note*>::Iterator& it);
         QSet<Note*>::Iterator itNotes;

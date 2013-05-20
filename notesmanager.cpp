@@ -128,12 +128,12 @@ Note* NotesManager::Iterator::operator*()
     return *itNotes;
 }
 
-bool NotesManager::Iterator::operator==(const QSet<Note*>::Iterator& it) const
+bool NotesManager::Iterator::operator==(const Iterator& it) const
 {
-    return itNotes == it;
+    return itNotes == it.itNotes;
 }
 
-bool NotesManager::Iterator::operator!=(const QSet<Note*>::Iterator& it) const
+bool NotesManager::Iterator::operator!=(const Iterator& it) const
 {
-    return itNotes != it;
+    return itNotes != it.itNotes;
 }
