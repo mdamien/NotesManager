@@ -27,5 +27,6 @@ int main(int argc, char *argv[])
     d.addSubNote(&e);
     d.addSubNote(&f);
     std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
+    std::cout << d.exportNote(new TextExport()).toStdString() << std::endl;
     return 0;//app.exec();
 }
