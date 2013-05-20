@@ -1,4 +1,5 @@
 #include "note.h"
+#include "exportstrategy.h"
 
 Note::Note(const unsigned int id, const QString& title) : id(id), title(title)
 {
@@ -24,4 +25,8 @@ void Note::setTitle(const QString& t)
 bool Note::isModified() const
 {
     return modified;
-}
+}/*
+QString Note::exportNote(ExportStrategy* es) const
+{
+    return es->exportNote((Note*)this);
+}*/

@@ -1,4 +1,5 @@
 #include "document.h"
+#include "exportstrategy.h"
 
 Document::Document(const unsigned int id, const QString& title) : Note(id, title)
 {
@@ -34,6 +35,12 @@ unsigned int Document::getNumberOfSubNotes() const
 {
     return notes->size();
 }
+
+QString Document::exportNote(ExportStrategy* es) const
+{
+    return es->exportNote((Document*)this);
+}
+
 
 void Document::load()
 {

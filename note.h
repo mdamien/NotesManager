@@ -14,7 +14,7 @@ public:
     QString getTitle() const;
     void setTitle(const QString& title);
     bool isModified() const;
-    QString exportNote(ExportStrategy* es) const;
+    virtual QString exportNote(ExportStrategy* es) const { return "fuck";}; // a mettre
     //QString exportAsPart(ExportStrategy* es) const;
     //void addSudNote(Note* n);    //Devrait être UNIQUEMENT dans Document, à vérifier
     //void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
