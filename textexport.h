@@ -2,12 +2,8 @@
 #define TEXTEXPORT_H
 
 #include  <QString>
-
+#include <typeinfo>
 #include "exportstrategy.h"
-
-class Note;
-class Article;
-class Document;
 
 class TextExport : public ExportStrategy
 {

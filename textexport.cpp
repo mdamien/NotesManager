@@ -13,8 +13,20 @@ QString TextExport::base(QString name,Note* note){
 
 QString TextExport::exportNote(Note* note,unsigned int titleLevel)
 {
-    return base("Note",note);
+    if(typeid(*note) == typeid(Article))
+        return exportNote((Article*)note, titleLevel);
+    if(typeid(*note) == typeid(Document))
+        return exportNote((Document*)note, titleLevel);
+    if(typeid(*note) == typeid(Audio))
+        return exportNote((Audio*)note, titleLevel);
+    if(typeid(*note) == typeid(Video))
+        return exportNote((Video*)note, titleLevel);
+    if(typeid(*note) == typeid(Image))
+        return exportNote((Image*)note, titleLevel);
+
+    return "";
 }
+
 QString TextExport::exportNote(Article* note,unsigned int titleLevel)
 {
     QString str = base("Article",note);

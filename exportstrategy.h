@@ -2,14 +2,16 @@
 #define EXPORTSTRATEGY_H
 
 #include  <QString>
-
-class Note;
+#include "note.h"
+#include "binary.h"
+#include "article.h"
+#include "document.h"
 
 class ExportStrategy
 {
 public:
     ExportStrategy();
-    QString exportNote(Note* note,unsigned int titleLevel = 0); //virtual normalement
+    virtual QString exportNote(Note* note,unsigned int titleLevel = 0) = 0; //virtual normalement
 };
 
 #endif // EXPORTSTRATEGY_H
