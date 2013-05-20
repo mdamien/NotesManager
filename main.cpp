@@ -15,11 +15,17 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Article a(1212,"titre de l'article","texte de l'article");
-    std::cout << TextExport().exportNote(&a).toStdString() << std::endl;
+    Article a(1212,"titre de l'article 1","texte de l'article 1");
+    Article b(1222,"titre de l'article 2","texte de l'article 2");
+    Image c(5623,"Image 1","description 1","http://example.fr/image1.jpg");
+    Video e(5623,"Video 1","description 1","http://example.fr/video1.mpg");
+    Audio f(5623,"Audio 1","description 1","http://example.fr/fichier.mp3");
     Document d(1314,"Document hyper important");
     d.addSubNote(&a);
+    d.addSubNote(&b);
+    d.addSubNote(&c);
+    d.addSubNote(&e);
+    d.addSubNote(&f);
     std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
-
-    return app.exec();
+    return 0;//app.exec();
 }

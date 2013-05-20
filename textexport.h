@@ -12,7 +12,8 @@ class Document;
 class TextExport : public ExportStrategy
 {
 private:
-    QString base(QString name,Note* note);//base commune à chaque export
+    QString base(QString name, Note* note, unsigned int n);//base commune à chaque export
+    QString indent(QString s,unsigned int size);//helper pour indenter
 public:
     TextExport();
     QString exportNote(Note* note,unsigned int titleLevel = 0);
