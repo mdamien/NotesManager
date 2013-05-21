@@ -12,16 +12,29 @@ ExportStrategy::ExportStrategy()
 
 QString ExportStrategy::exportNote(Note* note,unsigned int titleLevel)
 {
+    QString s = "";
     if(typeid(*note) == typeid(Article))
-        return exportArticle((Article*)note, titleLevel);
-    if(typeid(*note) == typeid(Document))
-        return exportDocument((Document*)note, titleLevel);
-    if(typeid(*note) == typeid(Audio))
-        return exportAudio((Audio*)note, titleLevel);
-    if(typeid(*note) == typeid(Video))
-        return exportVideo((Video*)note, titleLevel);
-    if(typeid(*note) == typeid(Image))
-        return exportImage((Image*)note, titleLevel);
-
-    return "ERROR:Note type not yet implemented";
+        s = exportArticle((Article*)note, titleLevel);
+    else if(typeid(*note) == typeid(Document))
+        s = exportDocument((Document*)note, titleLevel);
+    else if(typeid(*note) == typeid(Audio))
+        s = exportAudio((Audio*)note, titleLevel);
+    else if(typeid(*note) == typeid(Video))
+        s = exportVideo((Video*)note, titleLevel);
+    else if(typeid(*note) == typeid(Image))
+        s = exportImage((Image*)note, titleLevel);
+    else
+        return "ERROR:Note type not yet implemented";
+    if(titleLevel == 0){
+        s = header() + s + footer();
+    }
+    return s;
+}
+QString ExportStrategy::header()
+{
+    return "";
+}
+QString ExportStrategy::footer()
+{
+    return "";
 }

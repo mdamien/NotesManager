@@ -17,7 +17,8 @@ SOURCES += \
     exportstrategy.cpp \
     textexport.cpp \
     notesfactory.cpp \
-    articlefactory.cpp
+    articlefactory.cpp \
+    htmlexport.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -30,4 +31,5 @@ HEADERS += \
     exportstrategy.h \
     textexport.h \
     notesfactory.h \
-    articlefactory.h
+    articlefactory.h \
+    htmlexport.h

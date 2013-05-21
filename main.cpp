@@ -11,6 +11,7 @@
 #include "notesmanager.h"
 
 #include "textexport.h"
+#include "htmlexport.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -39,7 +40,7 @@ void testsDamien()
     d.addSubNote(&f);
 
     //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
-    std::cout << d.exportNote(new TextExport()).toStdString() << std::endl;
+    std::cout << d.exportNote(new HTMLExport()).toStdString() << std::endl;
 }
 
 int main(int argc, char *argv[])
