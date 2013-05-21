@@ -25,8 +25,8 @@ void Note::setTitle(const QString& t)
 bool Note::isModified() const
 {
     return modified;
-}/*
+}
 QString Note::exportNote(ExportStrategy* es) const
 {
     return es->exportNote((Note*)this);
-}*/
+}

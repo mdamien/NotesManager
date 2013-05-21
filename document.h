@@ -12,7 +12,6 @@ public:
     void removeSurNote(const unsigned int i);
     Note* getSubNote(const unsigned int i);
     unsigned int getNumberOfSubNotes() const;
-    QString exportNote(ExportStrategy* es) const;
     ~Document();
 
 private :

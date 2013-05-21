@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     d.addSubNote(&a);
     d.addSubNote(&b);
-    testsMaxime();
+    testsDamien();
 
     return 0;//app.exec();
 }
