@@ -17,6 +17,7 @@ QString HTMLExport::exportArticle(Article* note,unsigned int titleLevel)
 {
     QString str = base("Article",note,titleLevel);
     str += indent(" Text:"+note->getText()+"\n",titleLevel);
+    str += indent("<br/>\n",titleLevel);
     return str;
 }
 
@@ -25,6 +26,7 @@ QString HTMLExport::exportBinary(QString name,Binary* note,unsigned int titleLev
     QString str = base(name,note,titleLevel);
     str += indent(" Path:"+note->getPath()+"\n",titleLevel);
     str += indent(" Description:"+note->getDescription()+"\n",titleLevel);
+    str += indent("<br/>\n",titleLevel);
     return str;
 }
 QString HTMLExport::exportImage(Image* note,unsigned int titleLevel)
@@ -46,9 +48,14 @@ QString HTMLExport::exportDocument(Document* note,unsigned int titleLevel)
     str += indent(" Notes: "
                   +QString::number(note->getNumberOfSubNotes())
                   +"\n",titleLevel);
+    str += indent("<ul>\n",titleLevel);
     for(unsigned int i=0;i < note->getNumberOfSubNotes();i++){
+       str += indent("<li>\n",titleLevel);
        str += this->exportNote(note->getSubNote(i),titleLevel+1);
+       str += indent("</li>\n",titleLevel);
     }
+    str += indent("</ul>\n",titleLevel);
+    str += indent("<br/>\n",titleLevel);
     return str;
 }
 
