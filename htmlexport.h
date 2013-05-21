@@ -7,7 +7,6 @@
 class HTMLExport : public ExportStrategy
 {
 private:
-    QString base(Note* note, unsigned int n);
     QString exportBinary(QString tag, Binary* note, unsigned int titleLevel=0);
     QString indent(QString s);
     QString title(Note *n, unsigned int titleLevel);

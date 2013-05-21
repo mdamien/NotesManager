@@ -43,7 +43,7 @@ void testsDamien()
     d.addSubNote(&d2);
 
     //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
-    std::cout << d.exportNote(new HTMLExport()).toStdString() << std::endl;
+    std::cout << d.exportNote(new TextExport()).toStdString() << std::endl;
 }
 
 int main(int argc, char *argv[])

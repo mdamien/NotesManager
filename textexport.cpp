@@ -9,22 +9,21 @@ TextExport::TextExport()
 }
 
 QString TextExport::base(QString name,Note* note,unsigned int n){
-    return indent(name +":\n",n)
-           +indent(" ID:"+QString::number(note->getId())+"\n",n)
-           +indent(" Title:"+note->getTitle() + "\n",n);
+    return name +":\n"+" ID:"+QString::number(note->getId())+"\n"
+            +" Title:"+note->getTitle() + "\n";
 }
 QString TextExport::exportArticle(Article* note,unsigned int titleLevel)
 {
     QString str = base("Article",note,titleLevel);
-    str += indent(" Text:"+note->getText()+"\n",titleLevel);
+    str += " Text:"+note->getText()+"\n";
     return str;
 }
 
 QString TextExport::exportBinary(QString name,Binary* note,unsigned int titleLevel)
 {
     QString str = base(name,note,titleLevel);
-    str += indent(" Path:"+note->getPath()+"\n",titleLevel);
-    str += indent(" Description:"+note->getDescription()+"\n",titleLevel);
+    str += " Path:"+note->getPath()+"\n";
+    str += " Description:"+note->getDescription()+"\n";
     return str;
 }
 QString TextExport::exportImage(Image* note,unsigned int titleLevel)
@@ -43,16 +42,24 @@ QString TextExport::exportAudio(Audio* note,unsigned int titleLevel)
 QString TextExport::exportDocument(Document* note,unsigned int titleLevel)
 {
     QString str = base("Document",note,titleLevel);
-    str += indent(" Notes: "
+    str += " Notes: "
                   +QString::number(note->getNumberOfSubNotes())
-                  +"\n",titleLevel);
+                  +"\n";
     for(unsigned int i=0;i < note->getNumberOfSubNotes();i++){
-       str += this->exportNote(note->getSubNote(i),titleLevel+1);
+       str += indent(this->exportNote(note->getSubNote(i)));
     }
-    return str;
+    return titleLevel ? indent(str) : str;
 }
 
-QString TextExport::indent(QString s,unsigned int titleLevel)
+//ajoute un niveau d'indentation a chaque ligne
+QString TextExport::indent(QString s)
 {
-    return QString().fill(' ',titleLevel*4)+s;
+    QString i = "    ";
+    s.insert(0,i);
+    int j = 0;
+    while ((j = s.indexOf("\n", j)) != -1  && j < s.length()-1) {
+        s.insert(j+1,i);
+        ++j;
+    }
+    return s;
 }

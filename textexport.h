@@ -8,7 +8,7 @@ class TextExport : public ExportStrategy
 {
 private:
     QString base(QString name, Note* note, unsigned int n);//base commune à chaque export
-    QString indent(QString s,unsigned int size);//helper pour indenter
+    QString indent(QString s);//helper pour indenter
     QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//helper pour les binaires
 public:
     TextExport();
