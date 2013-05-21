@@ -38,7 +38,7 @@ void testsDamien()
     d.addSubNote(&e);
     d.addSubNote(&f);
 
-    std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
+    //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
     std::cout << d.exportNote(new TextExport()).toStdString() << std::endl;
 }
 
