@@ -1,16 +1,15 @@
-#ifndef ARTICLEFACTORY_H
-#define ARTICLEFACTORY_H
+#ifndef DOCUMENTFACTORY_H
+#define DOCUMENTFACTORY_H
 
 #include "notesfactory.h"
-#include "article.h"
 
-class ArticleFactory : public NotesFactory
+class DocumentFactory : public NotesFactory
 {
 public:
-    ArticleFactory();
+    DocumentFactory();
     Note* buildNote(const unsigned int id, const QString& title) const;
     Note* buildNewNote(const QString& title) const;
     Note* buildNoteCopy(Note* note) const;
 };
 
-#endif // ARTICLEFACTORY_H
+#endif // DOCUMENTFACTORY_H

@@ -1,8 +1,7 @@
-#include "notesfactory.h"
+#include "articlefactory.h"
 
 NotesFactory::NotesFactory()
 {
-    //A définir peut être
 }
 
 unsigned int NotesFactory::getNewId() const //Renvoie un id unique en fonction de la date "actuelle"
@@ -10,9 +9,11 @@ unsigned int NotesFactory::getNewId() const //Renvoie un id unique en fonction d
     return std::time(0);
 }
 
-/*Qmap<QString, NotesFactory::NotesFactory*>* NotesFactory::getFactories()
+const std::map<QString, NotesFactory::NotesFactory*>& NotesFactory::getFactories()
 {
-    //A définir
-    return 0;
+    std::map<QString, NotesFactory*> factories;
+    ArticleFactory* a = new ArticleFactory;
+    factories[QString("Article")] = a;
+    return factories;
 }
-*/
+

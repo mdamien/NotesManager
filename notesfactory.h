@@ -3,7 +3,12 @@
 
 #include <ctime>
 #include "note.h"
-#include <QMap>
+#include "article.h"
+#include "document.h"
+#include "binary.h"
+#include <map>
+
+
 
 class NotesFactory
 {
@@ -13,10 +18,10 @@ public:
     virtual Note* buildNote(const unsigned int id, const QString& title) const = 0;
     virtual Note* buildNewNote(const QString& title) const = 0;
     virtual Note* buildNoteCopy(Note* note) const = 0;
-   // static Qmap<QString, NotesFactory*>* getFactories();
+    static const std::map<QString, NotesFactory*>& getFactories();
 
 private :
-  //  Qmap<QString, NotesFactory*>* factories;
+ //   std::map<QString, NotesFactory*>* factories;
 };
 
 #endif // NOTESFACTORY_H

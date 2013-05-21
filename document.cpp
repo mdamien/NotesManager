@@ -8,7 +8,20 @@ Document::Document(const unsigned int id, const QString& title) : Note(id, title
 
 Document::Document(const unsigned int id, const QString& title, const QList<Note*>& listeNotes) : Note(id, title)
 {
+    notes = new QList<Note*>;
+    for(unsigned int i =0; i<listeNotes.size(); i++)
+    {
+        notes->append(listeNotes.at(i));
+    }
+}
 
+Document::Document(Document* d) : Note(d->id, d->title)
+{
+    notes = new QList<Note*>;
+    for(unsigned int i =0; i<d->notes->size(); i++)
+    {
+        notes->append(d->notes->at(i));
+    }
 }
 
 Document::~Document()

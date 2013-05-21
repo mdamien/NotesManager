@@ -9,7 +9,7 @@
 #include "binary.h"
 #include "mainwindow.h"
 #include "notesmanager.h"
-
+#include "articlefactory.h"
 #include "textexport.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1");
@@ -47,7 +47,9 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     d.addSubNote(&a);
     d.addSubNote(&b);
-    testsMaxime();
-
+//    testsMaxime();
+    ArticleFactory fact;
+    Article* artou = (Article*) fact.buildNoteCopy(&a);
+    std::cout << TextExport().exportNote(artou).toStdString() << std::endl;
     return 0;//app.exec();
 }
