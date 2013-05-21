@@ -18,10 +18,7 @@ public:
     virtual Note* buildNote(const unsigned int id, const QString& title) const = 0;
     virtual Note* buildNewNote(const QString& title) const = 0;
     virtual Note* buildNoteCopy(Note* note) const = 0;
-    static const std::map<QString, NotesFactory*>& getFactories();
-
-private :
- //   std::map<QString, NotesFactory*>* factories;
+    static std::map<QString, NotesFactory*>* getFactories();
 };
 
 #endif // NOTESFACTORY_H

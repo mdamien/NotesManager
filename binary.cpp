@@ -29,12 +29,27 @@ Image::Image(const unsigned int id, const QString& title, const QString& desc, c
 
 }
 
+Image::Image(Image* im) : Binary(im->getId(), im->getTitle(), im->getDescription(),im->getPath())
+{
+
+}
+
 Video::Video(const unsigned int id, const QString& title, const QString& desc, const QString& path) : Binary(id, title, desc, path)
 {
 
 }
 
+Video::Video(Video* v) : Binary(v->getId(), v->getTitle(), v->getDescription(), v->getPath())
+{
+
+}
+
 Audio::Audio(const unsigned int id, const QString& title, const QString& desc, const QString& path) : Binary(id, title, desc, path)
+{
+
+}
+
+Audio::Audio(Audio* a) : Binary(a->getId(), a->getTitle(), a->getDescription(), a->getPath())
 {
 
 }

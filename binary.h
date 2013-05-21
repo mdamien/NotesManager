@@ -25,7 +25,8 @@ protected :
 class Image : public Binary
 {
 public :
-    Image(const unsigned int id, const QString& title, const QString& desc, const QString& path);
+    Image(const unsigned int id, const QString& title, const QString& desc = "", const QString& path = "");
+    Image(Image* im);
 
 private :
     Image(const Image&);
@@ -36,8 +37,8 @@ private :
 class Video : public Binary
 {
 public :
-    Video(const unsigned int id, const QString& title, const QString& desc, const QString& path);
-
+    Video(const unsigned int id, const QString& title, const QString& desc = "", const QString& path = "");
+    Video(Video * v);
 private :
     Video(const Video&);
     Video& operator=(const Video&);
@@ -47,7 +48,8 @@ private :
 class Audio : public Binary
 {
 public :
-    Audio(const unsigned int id, const QString& title, const QString& desc, const QString& path);
+    Audio(const unsigned int id, const QString& title, const QString& desc = "", const QString& path = "");
+    Audio(Audio* a);
 
 private :
     Audio(const Audio&);

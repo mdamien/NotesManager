@@ -7,6 +7,7 @@ NotesManager* NotesManager::notesManager = 0;
 NotesManager::NotesManager()
 {
     notes = new QSet<Note*>();
+    factories = NotesFactory::getFactories();
 }
 
 NotesManager::~NotesManager()
@@ -17,7 +18,15 @@ NotesManager::~NotesManager()
     {
         notes->erase(it); //Je vois que ça, je sais pas si ça delete le pointeur...
     }
+    notes->clear();
     delete notes;
+    notes = 0;
+
+    for(std::map<QString, NotesFactory*>::iterator it = factories->begin(); it != factories->end(); it++)
+    {
+        delete it->second;
+    }
+    delete factories;
 }
 
 NotesManager* NotesManager::getInstance()

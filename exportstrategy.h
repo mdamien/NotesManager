@@ -2,6 +2,7 @@
 #define EXPORTSTRATEGY_H
 
 #include  <QString>
+#include <map>
 #include "note.h"
 #include "binary.h"
 #include "article.h"
@@ -11,8 +12,18 @@ class ExportStrategy
 {
 public:
     ExportStrategy();
+    QString exportNote(Note* note,unsigned int titleLevel = 0);
+    static std::map<QString, ExportStrategy*>* getExportStrategies();
 
-    virtual QString exportNote(Note* note,unsigned int titleLevel = 0) = 0;
+protected:
+    virtual QString header(Note* note);
+    virtual QString footer(Note* note);
+
+    virtual QString exportArticle(Article* note,unsigned int titleLevel = 0) = 0;
+    virtual QString exportDocument(Document* note,unsigned int titleLevel = 0) = 0;
+    virtual QString exportImage(Image* note,unsigned int titleLevel=0) = 0;
+    virtual QString exportVideo(Video* note,unsigned int titleLevel=0) = 0;
+    virtual QString exportAudio(Audio* note, unsigned int titleLevel=0) = 0;
 };
 
 #endif // EXPORTSTRATEGY_H

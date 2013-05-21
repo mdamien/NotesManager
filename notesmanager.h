@@ -2,8 +2,9 @@
 #define NOTESMANAGER_H
 
 #include "note.h"
+#include "notesfactory.h"
 #include <QSet>
-#include <QMap>
+#include <map>
 
 class NotesManager
 {
@@ -53,8 +54,8 @@ private:
     static NotesManager* notesManager;
     QSet<Note*>* notes; //Set pour ne pas avoir deux fois la même Note dans le NM
     QString path;
-//    QMap<QString, NotesFactory>* factories;
-//    QMap<QString, ExportStrategy*>* strategies;
+    std::map<QString, NotesFactory*>* factories;
+//  std::map<QString, ExportStrategy*>* strategies;
 };
 
 #endif // NOTESMANAGER_H

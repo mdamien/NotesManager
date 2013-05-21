@@ -1,18 +1,22 @@
-#ifndef TEXTEXPORT_H
-#define TEXTEXPORT_H
+#ifndef HTMLEXPORT_H
+#define HTMLEXPORT_H
 
 #include  <QString>
 #include "exportstrategy.h"
 
-class TextExport : public ExportStrategy
+class HTMLExport : public ExportStrategy
 {
 private:
-    QString base(QString name, Note* note, unsigned int n);//base commune à chaque export
-    QString indent(QString s,unsigned int size);//helper pour indenter
-    QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//helper pour les binaires
+    QString base(Note* note, unsigned int n);
+    QString exportBinary(QString tag, Binary* note, unsigned int titleLevel=0);
+    QString indent(QString s);
+    QString title(Note *n, unsigned int titleLevel);
 public:
-    TextExport();
+    HTMLExport();
 protected:
+    QString header(Note* note);
+    QString footer(Note* note);
+
     QString exportArticle(Article* note,unsigned int titleLevel = 0);
     QString exportDocument(Document* note,unsigned int titleLevel = 0);
     QString exportImage(Image* note,unsigned int titleLevel=0);
@@ -20,4 +24,5 @@ protected:
     QString exportAudio(Audio* note, unsigned int titleLevel=0);
 };
 
-#endif // TEXTEXPORT_H
+
+#endif // HTMLEXPORT_H
