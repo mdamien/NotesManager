@@ -8,6 +8,7 @@ NotesManager::NotesManager()
 {
     notes = new QSet<Note*>();
     factories = NotesFactory::getFactories();
+    strategies = ExportStrategy::getExportStrategies();
 }
 
 NotesManager::~NotesManager()
@@ -22,11 +23,21 @@ NotesManager::~NotesManager()
     delete notes;
     notes = 0;
 
+    //Suppression de la map contenant les Factories
     for(std::map<QString, NotesFactory*>::iterator it = factories->begin(); it != factories->end(); it++)
     {
         delete it->second;
     }
     delete factories;
+    factories = 0;
+
+    //Suppression de la map contenant les Strategies
+    for(std::map<QString, ExportStrategy*>::iterator it = strategies->begin(); it != strategies->end(); it++)
+    {
+        delete it->second;
+    }
+    delete strategies;
+    strategies = 0;
 }
 
 NotesManager* NotesManager::getInstance()

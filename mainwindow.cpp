@@ -18,5 +18,9 @@ mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
 
     QMenu* menuFichier = menuBar()->addMenu("&Fichier");
     QAction* aNouveau = menuFichier->addAction("&Nouveau");
+    QAction* aAjouter = menuFichier->addAction("&Ajouter");
+    QAction* aAudio = menuFichier->addAction("Audi&o");
+    QAction* aImage = menuFichier->addAction("&Image");
+    QAction* aVideo = menuFichier->addAction("&Video");
     connect(aNouveau, SIGNAL(triggered()), this, SLOT(addArticle()));
 }

@@ -3,6 +3,7 @@
 
 #include "note.h"
 #include "notesfactory.h"
+#include "exportstrategy.h"
 #include <QSet>
 #include <map>
 
@@ -55,7 +56,7 @@ private:
     QSet<Note*>* notes; //Set pour ne pas avoir deux fois la même Note dans le NM
     QString path;
     std::map<QString, NotesFactory*>* factories;
-//  std::map<QString, ExportStrategy*>* strategies;
+    std::map<QString, ExportStrategy*>* strategies;
 };
 
 #endif // NOTESMANAGER_H
