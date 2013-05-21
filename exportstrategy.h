@@ -13,8 +13,8 @@ public:
     ExportStrategy();
     QString exportNote(Note* note,unsigned int titleLevel = 0);
 protected:
-    virtual QString header();
-    virtual QString footer();
+    virtual QString header(Note* note);
+    virtual QString footer(Note* note);
 
     virtual QString exportArticle(Article* note,unsigned int titleLevel = 0) = 0;
     virtual QString exportDocument(Document* note,unsigned int titleLevel = 0) = 0;

@@ -26,15 +26,15 @@ QString ExportStrategy::exportNote(Note* note,unsigned int titleLevel)
     else
         return "ERROR:Note type not yet implemented";
     if(titleLevel == 0){
-        s = header() + s + footer();
+        s = header(note) + s + footer(note);
     }
     return s;
 }
-QString ExportStrategy::header()
+QString ExportStrategy::header(Note* note)
 {
     return "";
 }
-QString ExportStrategy::footer()
+QString ExportStrategy::footer(Note* note)
 {
     return "";
 }

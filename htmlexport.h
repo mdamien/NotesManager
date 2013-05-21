@@ -7,14 +7,15 @@
 class HTMLExport : public ExportStrategy
 {
 private:
-    QString base(QString name, Note* note, unsigned int n);
-    QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);
-    QString indent(QString s,unsigned int titleLevel);
+    QString base(Note* note, unsigned int n);
+    QString exportBinary(QString tag, Binary* note, unsigned int titleLevel=0);
+    QString indent(QString s);
+    QString title(Note *n, unsigned int titleLevel);
 public:
     HTMLExport();
 protected:
-    QString header();
-    QString footer();
+    QString header(Note* note);
+    QString footer(Note* note);
 
     QString exportArticle(Article* note,unsigned int titleLevel = 0);
     QString exportDocument(Document* note,unsigned int titleLevel = 0);
