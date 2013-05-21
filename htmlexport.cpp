@@ -43,19 +43,6 @@ QString HTMLExport::exportDocument(Document* note,unsigned int titleLevel)
     return indent(str);
 }
 
-//ajoute un niveau d'indentation a chaque ligne
-QString HTMLExport::indent(QString s)
-{
-    QString i = "    ";
-    s.insert(0,i);
-    int j = 0;
-    while ((j = s.indexOf("\n", j)) != -1  && j < s.length()-1) {
-        s.insert(j+1,i);
-        ++j;
-    }
-    return s;
-}
-
 QString HTMLExport::title(Note* n,unsigned int titleLevel)
 {
     return "<h"+QString::number(titleLevel+1)+">"+n->getTitle()

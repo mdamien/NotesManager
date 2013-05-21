@@ -50,16 +50,3 @@ QString TextExport::exportDocument(Document* note,unsigned int titleLevel)
     }
     return titleLevel ? indent(str) : str;
 }
-
-//ajoute un niveau d'indentation a chaque ligne
-QString TextExport::indent(QString s)
-{
-    QString i = "    ";
-    s.insert(0,i);
-    int j = 0;
-    while ((j = s.indexOf("\n", j)) != -1  && j < s.length()-1) {
-        s.insert(j+1,i);
-        ++j;
-    }
-    return s;
-}
