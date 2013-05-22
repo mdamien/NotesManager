@@ -1,8 +1,30 @@
 #include "tagmanager.h"
 
+TagManager* TagManager::tagManager = 0;
+
 TagManager::TagManager()
 {
 
+}
+
+TagManager* TagManager::getInstance()
+{
+    if(!tagManager)
+    {
+        tagManager = new TagManager;
+        return tagManager;
+    }
+    else
+        return tagManager;
+}
+
+void TagManager::deleteInstance()
+{
+    if(tagManager)
+    {
+        delete tagManager;
+        tagManager = 0;     //Remise du pointeur à 0
+    }
 }
 
 void TagManager::addTag(QString name,Note* note)

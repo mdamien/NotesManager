@@ -13,6 +13,7 @@
 #include "textexport.h"
 #include "htmlexport.h"
 #include "savetextexport.h"
+#include "tagmanager.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -29,6 +30,8 @@ void testsMaxime()
     nm.addRessource(&b);
     nm.addRessource(&d);
 
+    mainWindow f;
+    f.show();
 }
 
 void testsDamien()
@@ -39,26 +42,26 @@ void testsDamien()
     d2.addSubNote(&a);
     d2.addSubNote(&c);
     d.addSubNote(&d2);
-
+/*
     //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
     std::cout << d.exportNote(new SaveTextExport()).toStdString() << std::endl;
     std::cout << a.exportNote(new SaveTextExport()).toStdString() << std::endl;
     std::cout << b.exportNote(new SaveTextExport()).toStdString() << std::endl;
     std::cout << c.exportNote(new SaveTextExport()).toStdString() << std::endl;
     std::cout << e.exportNote(new SaveTextExport()).toStdString() << std::endl;
-}
+    */
+
+    TagManager* tm = TagManager::getInstance();
+    tm->addTag("tag1",&a);
+    std::cout << tm->getNoteTags(&a).at(0).toStdString() << std::endl;
+};
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     d.addSubNote(&a);
     d.addSubNote(&b);
-    testsMaxime();/*
-    ArticleFactory fact;
-    Article* artou = (Article*) fact.buildNoteCopy(&a);
-    std::cout << TextExport().exportNote(artou).toStdString() << std::endl;
-    testsDamien();*/
-    mainWindow f;
-    f.show();
-    app.exec();
+    testsMaxime();
+    testsDamien();
+    return 0;//app.exec();
 }

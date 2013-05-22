@@ -17,7 +17,7 @@ void Tag::removeNote(Note* note){
 }
 
 unsigned int Tag::find(Note* note){
-    return this->find(note);
+    return this->indexOf(note);
 }
 
 Tag::Iterator Tag::begin(){
