@@ -23,7 +23,9 @@ SOURCES += \
     videofactory.cpp \
     audiofactory.cpp \
     imagefactory.cpp \
-    savetextexport.cpp
+    savetextexport.cpp \
+    tag.cpp \
+    tagmanager.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -42,4 +44,6 @@ HEADERS += \
     videofactory.h \
     audiofactory.h \
     imagefactory.h \
-    savetextexport.h
+    savetextexport.h \
+    tag.h \
+    tagmanager.h
