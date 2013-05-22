@@ -12,8 +12,9 @@
 #include "articlefactory.h"
 #include "textexport.h"
 #include "htmlexport.h"
+#include "savetextexport.h"
 
-Article a(1212,"titre de l'article 1","texte de l'article 1");
+Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
 Image c(5623,"Image 1","description 1","http://www.canevas.com/I-Grande-123873-bouquet-de-tulipes.net.jpg");
 Video e(5623,"Video 1","description 1","http://example.fr/video1.mpg");
@@ -43,7 +44,11 @@ void testsDamien()
     d.addSubNote(&d2);
 
     //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
-    std::cout << d.exportNote(new TextExport()).toStdString() << std::endl;
+    std::cout << d.exportNote(new SaveTextExport()).toStdString() << std::endl;
+    std::cout << a.exportNote(new SaveTextExport()).toStdString() << std::endl;
+    std::cout << b.exportNote(new SaveTextExport()).toStdString() << std::endl;
+    std::cout << c.exportNote(new SaveTextExport()).toStdString() << std::endl;
+    std::cout << e.exportNote(new SaveTextExport()).toStdString() << std::endl;
 }
 
 int main(int argc, char *argv[])
