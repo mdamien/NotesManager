@@ -13,7 +13,7 @@ unsigned int NotesFactory::getNewId() const //Renvoie un id unique en fonction d
 
 std::map<QString, NotesFactory*>* NotesFactory::getFactories()
 {
-    std::map<QString, NotesFactory*>* factories = new std::map<QString, NotesFactory::NotesFactory*>;
+    std::map<QString, NotesFactory*>* factories = new std::map<QString, NotesFactory*>;
     (*factories)[QString("Article")] = new ArticleFactory;
     (*factories)[QString("Document")] = new DocumentFactory;
 
