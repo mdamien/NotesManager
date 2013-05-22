@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include "imagewidget.h"
 mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
 {
     QFrame* frameEditor = new QFrame;
@@ -50,7 +50,8 @@ mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
     onglets->addTab(areaLatex, "LaTeX");
 
     setCentralWidget(onglets);
-
+    ImageWidget* im = new ImageWidget("down.png", this);
+    layoutEditor->addWidget(im);
     //Ajout des menus :
 
     //Fichier

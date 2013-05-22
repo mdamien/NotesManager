@@ -2,7 +2,7 @@
 #include <QPushButton>
 
 #include <iostream>
-
+#include "imagewidget.h"
 #include "note.h"
 #include "article.h"
 #include "document.h"
@@ -14,6 +14,9 @@
 #include "htmlexport.h"
 #include "savetextexport.h"
 #include "tagmanager.h"
+#include <QLabel>
+#include <QWidget>
+#include <QPixmap>
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -56,11 +59,15 @@ void testsDamien()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    d.addSubNote(&a);
+ /*   d.addSubNote(&a);
     d.addSubNote(&b);
     testsMaxime();
     //testsDamien();
     mainWindow f;
-    f.show();
+    f.show(); */
+    QWidget fenetre;
+    QLabel *label = new QLabel(&fenetre);
+    label->setPixmap(QPixmap("down.png"));
+    fenetre.show();
     return app.exec();
 }

@@ -25,7 +25,8 @@ SOURCES += \
     imagefactory.cpp \
     savetextexport.cpp \
     tag.cpp \
-    tagmanager.cpp
+    tagmanager.cpp \
+    imagewidget.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -46,4 +47,5 @@ HEADERS += \
     imagefactory.h \
     savetextexport.h \
     tag.h \
-    tagmanager.h
+    tagmanager.h \
+    imagewidget.h
