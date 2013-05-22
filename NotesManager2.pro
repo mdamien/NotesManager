@@ -22,7 +22,8 @@ SOURCES += \
     htmlexport.cpp \
     videofactory.cpp \
     audiofactory.cpp \
-    imagefactory.cpp
+    imagefactory.cpp \
+    savetextexport.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -40,4 +41,5 @@ HEADERS += \
     htmlexport.h \
     videofactory.h \
     audiofactory.h \
-    imagefactory.h
+    imagefactory.h \
+    savetextexport.h
