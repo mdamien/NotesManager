@@ -1,20 +1,16 @@
-#ifndef HTMLEXPORT_H
-#define HTMLEXPORT_H
+#ifndef SAVETEXTEXPORT_H
+#define SAVETEXTEXPORT_H
 
-#include  <QString>
 #include "exportstrategy.h"
 
-class HTMLExport : public ExportStrategy
+class SaveTextExport : public ExportStrategy
 {
 private:
-    QString exportBinary(QString tag, Binary* note, unsigned int titleLevel=0);
-    QString title(Note *n, unsigned int titleLevel);
+    QString base(QString name, Note* note, unsigned int n);//base commune à chaque export
+    QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//helper pour les binaires
 public:
-    HTMLExport();
+    SaveTextExport();
 protected:
-    QString header(Note* note);
-    QString footer(Note* note);
-
     QString exportArticle(Article* note,unsigned int titleLevel = 0);
     QString exportDocument(Document* note,unsigned int titleLevel = 0);
     QString exportImage(Image* note,unsigned int titleLevel=0);
@@ -22,5 +18,4 @@ protected:
     QString exportAudio(Audio* note, unsigned int titleLevel=0);
 };
 
-
-#endif // HTMLEXPORT_H
+#endif // SAVETEXTEXPORT_H

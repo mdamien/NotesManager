@@ -24,6 +24,8 @@ protected:
     virtual QString exportImage(Image* note,unsigned int titleLevel=0) = 0;
     virtual QString exportVideo(Video* note,unsigned int titleLevel=0) = 0;
     virtual QString exportAudio(Audio* note, unsigned int titleLevel=0) = 0;
+
+    QString indent(QString s);
 };
 
 #endif // EXPORTSTRATEGY_H

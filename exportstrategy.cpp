@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include "textexport.h"
 #include "htmlexport.h"
+#include "savetextexport.h"
 
 ExportStrategy::ExportStrategy()
 {
@@ -47,9 +48,22 @@ QString ExportStrategy::footer(Note* note)
 
 std::map<QString, ExportStrategy*>* ExportStrategy::getExportStrategies()
 {
-    std::map<QString, ExportStrategy*>* factories = new std::map<QString, ExportStrategy*>;
-    (*factories)["TextExport"] = new TextExport;
-    (*factories)["HTMLExport"] = new HTMLExport;
+    std::map<QString, ExportStrategy*>* strategies = new std::map<QString, ExportStrategy*>;
+    (*strategies)["TextExport"] = new TextExport;
+    (*strategies)["HTMLExport"] = new HTMLExport;
+    (*strategies)["SaveTextExport"] = new SaveTextExport;
+    return strategies;
+}
 
-    return factories;
+//ajoute un niveau d'indentation a chaque ligne
+QString ExportStrategy::indent(QString s)
+{
+    QString i = "    ";
+    s.insert(0,i);
+    int j = 0;
+    while ((j = s.indexOf("\n", j)) != -1  && j < s.length()-1) {
+        s.insert(j+1,i);
+        ++j;
+    }
+    return s;
 }
