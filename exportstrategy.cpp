@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include "textexport.h"
 #include "htmlexport.h"
+#include "savetextexport.h"
 
 ExportStrategy::ExportStrategy()
 {
@@ -50,7 +51,7 @@ std::map<QString, ExportStrategy*>* ExportStrategy::getExportStrategies()
     std::map<QString, ExportStrategy*>* strategies = new std::map<QString, ExportStrategy*>;
     (*strategies)["TextExport"] = new TextExport;
     (*strategies)["HTMLExport"] = new HTMLExport;
-
+    (*strategies)["SaveTextExport"] = new SaveTextExport;
     return strategies;
 }
 
