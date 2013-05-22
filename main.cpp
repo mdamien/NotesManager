@@ -29,9 +29,6 @@ void testsMaxime()
     nm.addRessource(&a);
     nm.addRessource(&b);
     nm.addRessource(&d);
-
-    mainWindow f;
-    f.show();
 }
 
 void testsDamien()
@@ -62,6 +59,8 @@ int main(int argc, char *argv[])
     d.addSubNote(&a);
     d.addSubNote(&b);
     testsMaxime();
-    testsDamien();
-    return 0;//app.exec();
+    //testsDamien();
+    mainWindow f;
+    f.show();
+    return app.exec();
 }

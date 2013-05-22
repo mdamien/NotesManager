@@ -10,13 +10,15 @@ HTMLExport::HTMLExport()
 
 QString HTMLExport::exportArticle(Article* note,unsigned int titleLevel)
 {
-    return title(note,titleLevel)+"<p>"+note->getText().replace("\n","<br/>")+"<\p>\n";
+    QString s = title(note,titleLevel)+"<p>"+note->getText().replace("\n","<br/>")+"<\p>\n";
+    return titleLevel == 0 ? indent(s) : s;
 }
 
 QString HTMLExport::exportBinary(QString tag,Binary* note,unsigned int titleLevel)
 {
-    return title(note,titleLevel)+"<p>"+note->getDescription().replace("\n","<br/>")+"<\p>\n"
+    QString s = title(note,titleLevel)+"<p>"+note->getDescription().replace("\n","<br/>")+"<\p>\n"
             +"<"+tag+" src='"+note->getPath()+"' alt='"+note->getDescription()+"' />\n";
+    return titleLevel == 0 ? indent(s) : s;
 }
 QString HTMLExport::exportImage(Image* note,unsigned int titleLevel)
 {
@@ -54,8 +56,8 @@ QString HTMLExport::header(Note* note)
     return "<!DOCTYPE html>\n"
             "<html>\n"
             "<head>\n"
-            "<meta charset=utf-8 />\n"
-            "<title>"+note->getTitle()+"</title>\n"
+            "   <meta charset=utf-8 />\n"
+            "   <title>"+note->getTitle()+"</title>\n"
             "</head>\n"
             "<body>\n";
 }
