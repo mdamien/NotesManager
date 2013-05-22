@@ -6,6 +6,8 @@
 #include "exportstrategy.h"
 #include <QSet>
 #include <map>
+#include "textexport.h"
+#include "htmlexport.h"
 
 class NotesManager
 {
@@ -23,7 +25,7 @@ public:
     void load(const QString& newPath);
     void reset();
     void loadNote(const unsigned int i);
-//    ExportStrategy* getExporter();
+    std::map<QString, ExportStrategy*>* getExporter();
 
     //Iterator
 

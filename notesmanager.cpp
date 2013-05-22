@@ -60,6 +60,11 @@ void NotesManager::deleteInstance()
     }
 }
 
+std::map<QString, ExportStrategy*>* NotesManager::getExporter()
+{
+    return strategies;
+}
+
 QString NotesManager::getPath() const
 {
     return path;

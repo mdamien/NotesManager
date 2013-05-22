@@ -2,25 +2,122 @@
 
 mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    sa = new QScrollArea(this);
-    QFrame* container = new QFrame;
-    vLayout = new QVBoxLayout(container);
-    ArticleWidget* a1 = new ArticleWidget("titre1", "contenu1", this);
-    ArticleWidget* a2 = new ArticleWidget("titre2", "contenu2", this);
+    QFrame* frameEditor = new QFrame;
+    QFrame* frameText = new QFrame;
+    QFrame* frameHTML = new QFrame;
+    QFrame* frameLatex = new QFrame;
 
-    vLayout->addWidget(a1);
-    vLayout->addWidget(a2);
+    layoutEditor = new QVBoxLayout(frameEditor);
+    layoutText = new QVBoxLayout(frameText);
+    layoutHTML = new QVBoxLayout(frameHTML);
+    layoutLatex = new QVBoxLayout(frameLatex);
 
-    sa->setWidget(container);
-    setCentralWidget(sa);
+    textText = new QTextEdit;
+    textText->setReadOnly(true);
+    layoutText->addWidget(textText);
+
+    textHTML = new QTextEdit;
+    textHTML->setReadOnly(true);
+    layoutHTML->addWidget(textHTML);
+
+
+    textLatex = new QTextEdit;
+    textLatex->setReadOnly(true);
+    layoutLatex->addWidget(textLatex);
+
+    onglets = new QTabWidget;
+
+    areaEditor = new QScrollArea(onglets);
+    areaEditor->setWidgetResizable(true);
+    areaEditor->setWidget(frameEditor);
+
+    areaText = new QScrollArea(onglets);
+    areaText->setWidgetResizable(true);
+    areaText->setWidget(frameText);
+
+    areaHTML = new QScrollArea(onglets);
+    areaHTML->setWidgetResizable(true);
+    areaHTML->setWidget(frameHTML);
+
+    areaLatex = new QScrollArea(this);
+    areaLatex->setWidgetResizable(true);
+    areaLatex->setWidget(frameLatex);
+
+
+    onglets->addTab(areaEditor, "Editor");
+    onglets->addTab(areaText, "Text");
+    onglets->addTab(areaHTML, "HTML");
+    onglets->addTab(areaLatex, "LaTeX");
+
+    setCentralWidget(onglets);
 
     //Ajout des menus :
 
-    QMenu* menuFichier = menuBar()->addMenu("&Fichier");
-    QAction* aNouveau = menuFichier->addAction("&Nouveau");
-    QAction* aAjouter = menuFichier->addAction("&Ajouter");
-    QAction* aAudio = menuFichier->addAction("Audi&o");
-    QAction* aImage = menuFichier->addAction("&Image");
-    QAction* aVideo = menuFichier->addAction("&Video");
-    connect(aNouveau, SIGNAL(triggered()), this, SLOT(addArticle()));
+    //Fichier
+    QMenu* menuFile = menuBar()->addMenu("&File");
+    QAction* aNew = menuFile->addAction("&New");
+
+    QMenu* menuAdd = menuFile->addMenu("&Add");
+    QAction* aArticle = menuAdd->addAction("A&rticle");
+    QAction* aDocument = menuAdd->addAction("&Document");
+    QAction* aAudio = menuAdd->addAction("Audi&o");
+    QAction* aImage = menuAdd->addAction("&Image");
+    QAction* aVideo = menuAdd->addAction("&Video");
+
+    QAction* aOpen = menuFile->addAction("&Open");
+    QAction* aClose = menuFile->addAction("&Close");
+
+    connect(aArticle, SIGNAL(triggered()), this, SLOT(addArticle()));
+
+    //Edition
+    QMenu* menuEdit = menuBar()->addMenu("&Edit");
+    QAction* aUndo = menuEdit->addAction("&Undo");
+    QAction* aRedo = menuEdit->addAction("&Redo");
+    QAction* aCoppy = menuEdit->addAction("&Copy");
+    QAction* aPaste = menuEdit->addAction("&Paste");
+
+    //Affichage
+    QMenu* menuView = menuBar()->addMenu("&Affichage");
+    aEditor = menuView->addAction("E&ditor");
+    aText = menuView->addAction("&Texte");
+    aHTML = menuView->addAction("&HTML");
+    aLatex = menuView->addAction("&LaTeX");
+
+    //Aide
+    QMenu* menuHelp = menuBar()->addMenu("He&lp");
+    QAction* aAbout = menuHelp->addAction("A&bout");
+
+    connect(onglets, SIGNAL(currentChanged(int)), this, SLOT(ongletChanged(int)));
+    connect(menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
+}
+
+void mainWindow::ongletChanged(int onglet)
+{
+    if(onglet != 0) //Si on n'a pas cliqué sur l'Editor, on utilise les fonctions d'import
+    {
+        QTextEdit* current = onglets->currentWidget()->findChild<QTextEdit*>();
+        QString s = "";
+
+        switch(onglet)
+        {
+        case 1:    //ExportText
+            for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
+            {
+                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["TextExport"]);
+            }
+            current->setPlainText(s);
+            break;
+
+        case 2 :   //ExportHTML
+            for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
+            {
+                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
+            }
+            current->setPlainText(s);
+            break;
+
+        case 3 :   //ExportLaTeX
+            break;
+        }
+    }
 }

@@ -27,10 +27,7 @@ void testsMaxime()
     nm.addRessource(&a);
     nm.addRessource(&b);
     nm.addRessource(&d);
-    for(NotesManager::Iterator it = nm.begin(); it != nm.end(); ++it)
-    {
-        std::cout << TextExport().exportNote(*it).toStdString() << std::endl;
-    }
+
 }
 
 void testsDamien()
@@ -51,10 +48,12 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     d.addSubNote(&a);
     d.addSubNote(&b);
-//    testsMaxime();
+    testsMaxime();/*
     ArticleFactory fact;
     Article* artou = (Article*) fact.buildNoteCopy(&a);
     std::cout << TextExport().exportNote(artou).toStdString() << std::endl;
-    testsDamien();
-    return 0;//app.exec();
+    testsDamien();*/
+    mainWindow f;
+    f.show();
+    app.exec();
 }

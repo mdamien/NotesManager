@@ -9,6 +9,10 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QFrame>
+#include <QTabWidget>
+#include "notesmanager.h"
+#include "textexport.h"
+#include "htmlexport.h"
 
 class mainWindow : public QMainWindow
 {
@@ -22,16 +26,37 @@ public slots:
     void addArticle()
     {
         ArticleWidget* a = new ArticleWidget("Titre", "Contenu", this);
-        a->setMinimumSize(500, 150);
-        vLayout->addWidget(a);
+        layoutEditor->addWidget(a);
+    }
 
-        setCentralWidget(sa);
+    void ongletChanged(int);
+
+    void displayView(QAction* a)
+    {
+        if(a == aEditor)
+        {
+            onglets->setCurrentIndex(0);
+        }
+        else if(a == aText)
+        {
+            onglets->setCurrentIndex(1);
+        }
+        else if(a == aHTML)
+        {
+            onglets->setCurrentIndex(2);
+        }
+        else if(a == aLatex)
+        {
+            onglets->setCurrentIndex(3);
+        }
     }
 
 private :
-    QVBoxLayout* vLayout;
-    QScrollArea* sa;
-    QFrame* container;
+    QVBoxLayout* layoutEditor, *layoutHTML, *layoutText, *layoutLatex;
+    QScrollArea *areaEditor, *areaHTML, *areaLatex, *areaText;
+    QTextEdit *textText, *textHTML, *textLatex;
+    QTabWidget* onglets;
+    QAction *aEditor, *aText, *aHTML, *aLatex;
 };
 
 #endif // MAINWINDOW_H
