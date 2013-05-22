@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "imagewidget.h"
-mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
+
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     QFrame* frameEditor = new QFrame;
     QFrame* frameText = new QFrame;
@@ -50,8 +51,7 @@ mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
     onglets->addTab(areaLatex, "LaTeX");
 
     setCentralWidget(onglets);
-    ImageWidget* im = new ImageWidget("down.png", this);
-    layoutEditor->addWidget(im);
+
     //Ajout des menus :
 
     //Fichier
@@ -59,16 +59,15 @@ mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
     QAction* aNew = menuFile->addAction("&New");
 
     QMenu* menuAdd = menuFile->addMenu("&Add");
-    QAction* aArticle = menuAdd->addAction("A&rticle");
-    QAction* aDocument = menuAdd->addAction("&Document");
-    QAction* aAudio = menuAdd->addAction("Audi&o");
-    QAction* aImage = menuAdd->addAction("&Image");
-    QAction* aVideo = menuAdd->addAction("&Video");
+    aArticle = menuAdd->addAction("A&rticle");
+    aAudio = menuAdd->addAction("Audi&o");
+    aImage = menuAdd->addAction("&Image");
+    aVideo = menuAdd->addAction("&Video");
 
     QAction* aOpen = menuFile->addAction("&Open");
     QAction* aClose = menuFile->addAction("&Close");
 
-    connect(aArticle, SIGNAL(triggered()), this, SLOT(addArticle()));
+    connect(menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
 
     //Edition
     QMenu* menuEdit = menuBar()->addMenu("&Edit");
@@ -92,7 +91,7 @@ mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent)
     connect(menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
 }
 
-void mainWindow::ongletChanged(int onglet)
+void MainWindow::ongletChanged(int onglet)
 {
     if(onglet != 0) //Si on n'a pas cliqué sur l'Editor, on utilise les fonctions d'import
     {
@@ -120,5 +119,39 @@ void mainWindow::ongletChanged(int onglet)
         case 3 :   //ExportLaTeX
             break;
         }
+    }
+}
+
+void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
+{
+    if(a == aEditor)
+    {
+        onglets->setCurrentIndex(0);
+    }
+    else if(a == aText)
+    {
+        onglets->setCurrentIndex(1);
+    }
+    else if(a == aHTML)
+    {
+        onglets->setCurrentIndex(2);
+    }
+    else if(a == aLatex)
+    {
+        onglets->setCurrentIndex(3);
+    }
+}
+
+void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du menu d'ajout de Note : permet de n'utiliser qu'une méthode pour plusieurs actions
+{
+    if(a == aArticle)
+    {
+        ArticleWidget* a = new ArticleWidget("Titre", "Contenu", this);
+        layoutEditor->addWidget(a);
+    }
+    else if(a == aImage)
+    {
+        ImageWidget* im = new ImageWidget();
+        layoutEditor->addWidget(im);
     }
 }

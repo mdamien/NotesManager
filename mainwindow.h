@@ -14,49 +14,26 @@
 #include "textexport.h"
 #include "htmlexport.h"
 
-class mainWindow : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit mainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     
 signals:
     
 public slots:
-    void addArticle()
-    {
-        ArticleWidget* a = new ArticleWidget("Titre", "Contenu", this);
-        layoutEditor->addWidget(a);
-    }
-
+    void addNote(QAction* a);
     void ongletChanged(int);
 
-    void displayView(QAction* a)
-    {
-        if(a == aEditor)
-        {
-            onglets->setCurrentIndex(0);
-        }
-        else if(a == aText)
-        {
-            onglets->setCurrentIndex(1);
-        }
-        else if(a == aHTML)
-        {
-            onglets->setCurrentIndex(2);
-        }
-        else if(a == aLatex)
-        {
-            onglets->setCurrentIndex(3);
-        }
-    }
+    void displayView(QAction* a);
 
 private :
     QVBoxLayout* layoutEditor, *layoutHTML, *layoutText, *layoutLatex;
     QScrollArea *areaEditor, *areaHTML, *areaLatex, *areaText;
     QTextEdit *textText, *textHTML, *textLatex;
     QTabWidget* onglets;
-    QAction *aEditor, *aText, *aHTML, *aLatex;
+    QAction *aEditor, *aText, *aHTML, *aLatex, *aArticle, *aImage, *aVideo, *aAudio;
 };
 
 #endif // MAINWINDOW_H

@@ -54,7 +54,7 @@ void testsDamien()
     TagManager* tm = TagManager::getInstance();
     tm->addTag("tag1",&a);
     std::cout << tm->getNoteTags(&a).at(0).toStdString() << std::endl;
-};
+}
 
 int main(int argc, char *argv[])
 {
@@ -62,12 +62,9 @@ int main(int argc, char *argv[])
  /*   d.addSubNote(&a);
     d.addSubNote(&b);
     testsMaxime();
-    //testsDamien();
-    mainWindow f;
-    f.show(); */
-    QWidget fenetre;
-    QLabel *label = new QLabel(&fenetre);
-    label->setPixmap(QPixmap("down.png"));
-    fenetre.show();
+  */  //testsDamien();
+    MainWindow f;
+    f.show();
+
     return app.exec();
 }

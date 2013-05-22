@@ -10,7 +10,7 @@
 class ArticleWidget : public QWidget
 {
 public :
-    ArticleWidget(const QString& tit, const QString& cont, QWidget* parent = 0);
+    ArticleWidget(const QString& tit = "", const QString& cont = "", QWidget* parent = 0);
 
 protected :
     QLineEdit* title;

@@ -7,14 +7,30 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QImage>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QObject>
 
 class ImageWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
-    ImageWidget(const QString& filename = "", QWidget* parent = 0);
+    ImageWidget(const QString& filename = "", const QString& tit = "Title", const QString& desc = "Description", QWidget* parent = 0);
+
+signals :
 
 protected :
-    QImage* image;
+    QLineEdit* title;
+    QTextEdit* description;
+    QString filename;
+    QLabel* image;
+    QPushButton* path;
+
+public slots :
+    void openExplorer();
 };
 
 #endif // IMAGEWIDGET_H
