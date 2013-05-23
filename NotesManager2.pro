@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui += phonon
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,7 +28,8 @@ SOURCES += \
     tagmanager.cpp \
     imagewidget.cpp \
     videowidget.cpp \
-    notewidget.cpp
+    notewidget.cpp \
+    audiowidget.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -52,4 +53,5 @@ HEADERS += \
     tagmanager.h \
     imagewidget.h \
     videowidget.h \
-    notewidget.h
+    notewidget.h \
+    audiowidget.h

@@ -154,4 +154,14 @@ void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du me
         ImageWidget* im = new ImageWidget();
         layoutEditor->addWidget(im);
     }
+    else if(a == aVideo)
+    {
+        VideoWidget* vw = new VideoWidget();
+        layoutEditor->addWidget(vw);
+    }
+    else if(a == aAudio)
+    {
+        AudioWidget* audw = new AudioWidget();
+        layoutEditor->addWidget(audw);
+    }
 }

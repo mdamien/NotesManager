@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QTextEdit>
+#include <QHBoxLayout>
 
 class NoteWidget : public QWidget
 {

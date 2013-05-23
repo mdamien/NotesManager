@@ -13,6 +13,8 @@
 #include "notesmanager.h"
 #include "textexport.h"
 #include "htmlexport.h"
+#include "audiowidget.h"
+#include "videowidget.h"
 
 class MainWindow : public QMainWindow
 {

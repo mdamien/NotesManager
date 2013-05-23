@@ -14,7 +14,7 @@
 #include "htmlexport.h"
 #include "savetextexport.h"
 #include "tagmanager.h"
-#include <QSound>
+#include "audiowidget.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -61,10 +61,8 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
-//    MainWindow f;
-//    f.show();
-    QSound s("pan.wav");
-    s.play();
-    s.stop();
+    MainWindow f;
+    f.show();
+
     return app.exec();
 }
