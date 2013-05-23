@@ -26,7 +26,9 @@ SOURCES += \
     savetextexport.cpp \
     tag.cpp \
     tagmanager.cpp \
-    imagewidget.cpp
+    imagewidget.cpp \
+    videowidget.cpp \
+    notewidget.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -48,4 +50,6 @@ HEADERS += \
     savetextexport.h \
     tag.h \
     tagmanager.h \
-    imagewidget.h
+    imagewidget.h \
+    videowidget.h \
+    notewidget.h

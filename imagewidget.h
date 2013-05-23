@@ -1,11 +1,7 @@
 #ifndef IMAGEWIDGET_H
 #define IMAGEWIDGET_H
 
-#include <QString>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QTextEdit>
+#include "notewidget.h"
 #include <QImage>
 #include <QLabel>
 #include <QPixmap>
@@ -13,19 +9,17 @@
 #include <QFileDialog>
 #include <QObject>
 
-class ImageWidget : public QWidget
+class ImageWidget : public NoteWidget
 {
     Q_OBJECT
 
 public:
-    ImageWidget(const QString& filename = "", const QString& tit = "Title", const QString& desc = "Description", QWidget* parent = 0);
+    ImageWidget(const QString& filePath = "", const QString& tit = "Title", const QString& desc = "Description", QWidget* parent = 0);
 
 signals :
 
 protected :
-    QLineEdit* title;
-    QTextEdit* description;
-    QString filename;
+    QString filePath;
     QLabel* image;
     QPushButton* path;
 

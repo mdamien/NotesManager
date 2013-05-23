@@ -1,19 +1,17 @@
 #include "imagewidget.h"
 
-ImageWidget::ImageWidget(const QString& filename, const QString& tit, const QString& desc, QWidget* parent) : QWidget(parent), filename(filename)
+ImageWidget::ImageWidget(const QString& filePath, const QString& tit, const QString& desc, QWidget* parent) : NoteWidget(tit, desc, parent), filePath(filePath)
 {
     image = new QLabel(this);
-    image->setPixmap(QPixmap(filename));
+    image->setPixmap(QPixmap(filePath));
 
-    title = new QLineEdit(tit);
-    description = new QTextEdit(desc);
     path = new QPushButton("Set Image", this);
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(title);
     layout->addWidget(image);
     layout->addWidget(path);
-    layout->addWidget(description);
+    layout->addWidget(content);
 
     setLayout(layout);
     QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));

@@ -61,10 +61,8 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
-//    MainWindow f;
-//    f.show();
-    QSound s("pan.wav");
-    s.play();
-    s.stop();
+    MainWindow f;
+    f.show();
+
     return app.exec();
 }

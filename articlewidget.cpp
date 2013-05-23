@@ -2,12 +2,8 @@
 
 using namespace std;
 
-ArticleWidget::ArticleWidget(const QString& tit, const QString& cont,QWidget* parent) : QWidget(parent)
+ArticleWidget::ArticleWidget(const QString& tit, const QString& cont,QWidget* parent) : NoteWidget(tit, cont, parent)
 {
-    title = new QLineEdit(tit);
-    content = new QTextEdit();
-    content->setPlainText(cont);
-
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(title);
     layout->addWidget(content);
