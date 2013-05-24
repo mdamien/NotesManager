@@ -1,6 +1,6 @@
-QT       += core gui += phonon
+QT       += core gui += phonon += multimedia
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets += multimedia
 
 TARGET = NotesManager
 TEMPLATE = app

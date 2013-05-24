@@ -2,6 +2,9 @@
 #define VIDEOWIDGET_H
 
 #include "notewidget.h"
+#include <QPushButton>
+#include <Phonon>
+#include <QFileDialog>
 
 class VideoWidget : public NoteWidget
 {
@@ -12,7 +15,15 @@ public:
 signals:
     
 public slots:
-    
+    void player();
+    void openExplorer();
+    void restartPlayer();
+private :
+    Phonon::VideoPlayer *videoPlayer;
+    QPushButton *path, *play, *restart;
+    bool playing;
+    QLineEdit* fileName;
+    QString filePath;
 };
 
 #endif // VIDEOWIDGET_H

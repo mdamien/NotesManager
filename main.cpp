@@ -15,6 +15,7 @@
 #include "savetextexport.h"
 #include "tagmanager.h"
 #include "audiowidget.h"
+#include "videowidget.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -61,8 +62,9 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
-    MainWindow f;
-    f.show();
-
+    MainWindow mw;
+    mw.show();
+ //   VideoWidget w;
+ //   w.show();
     return app.exec();
 }

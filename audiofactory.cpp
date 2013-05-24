@@ -17,8 +17,18 @@ Note* AudioFactory::buildNewNote(const QString& title, const QString& desc, cons
 
 Note* AudioFactory::buildNoteCopy(Note* note) const
 {
-    if(note = dynamic_cast<Audio*> (note))    //Ne pas copier quelque chose qui n'est pas une Audio
+    if(note = dynamic_cast<Audio*> (note))    //Ne pas copier quelque chose qui n'est pas une note Audio
       return new Audio((Audio*) note);
 
     return 0;
+}
+
+Note* AudioFactory::buildNote(const unsigned int id, const QString& title) const
+{
+    return new Audio(id, title);
+}
+
+Note* AudioFactory::buildNewNote(const QString& title) const
+{
+    return new Audio(getNewId(), title);
 }

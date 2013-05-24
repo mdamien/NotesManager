@@ -9,7 +9,7 @@ AudioWidget::AudioWidget(const QString& filePath, const QString& tit, const QStr
     QVBoxLayout* layout = new QVBoxLayout;
     QHBoxLayout* playerLayout = new QHBoxLayout;
 
-    fileName = new QLineEdit;
+    fileName = new QLineEdit(filePath);
     fileName->setReadOnly(true);
 
     layout->addWidget(title);
@@ -55,10 +55,7 @@ void AudioWidget::openExplorer()
 
 void AudioWidget::restartPlayer()
 {
-    if(playing)
-    {
-        music->stop();
-        play->setText("Play");
-        playing = false;
-    }
+    music->stop();
+    play->setText("Play");
+    playing = false;
 }

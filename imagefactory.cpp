@@ -22,3 +22,14 @@ Note* ImageFactory::buildNoteCopy(Note* note) const
 
     return 0;
 }
+
+Note* ImageFactory::buildNote(const unsigned int id, const QString& title) const
+{
+    return new Image(id, title);
+}
+
+Note* ImageFactory::buildNewNote(const QString& title) const
+{
+    return new Image(getNewId(), title);
+}
+

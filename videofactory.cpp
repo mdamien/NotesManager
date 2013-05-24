@@ -22,3 +22,14 @@ Note* VideoFactory::buildNoteCopy(Note* note) const
 
     return 0;
 }
+
+Note* VideoFactory::buildNote(const unsigned int id, const QString& title) const
+{
+    return new Video(id, title);
+}
+
+Note* VideoFactory::buildNewNote(const QString& title) const
+{
+    return new Video(getNewId(), title);
+}
+
