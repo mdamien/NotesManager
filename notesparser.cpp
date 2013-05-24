@@ -1,22 +1,5 @@
 #include "notesparser.h"
 
-#include <QFile>
-#include <QTextStream>
-#include <QIODevice>
-#include <QStringList>
-#include <iostream>
-#include <QDir>
-
-#include "note.h"
-#include "article.h"
-#include "document.h"
-#include "binary.h"
-#include "notesfactory.h"
-#include "notesmanager.h"
-#include "tag.h"
-#include "tagmanager.h"
-
-
 NotesParser::NotesParser()
 {
 

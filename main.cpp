@@ -51,7 +51,7 @@ void testsDamien()
     */
 
     TagManager* tm = TagManager::getInstance();
-    tm->addTag("tag1",&a);
+//    tm->addTag(QString("tag1"), &a);
     std::cout << tm->getNoteTags(&a).at(0).toStdString() << std::endl;
 }
 
