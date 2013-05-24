@@ -4,18 +4,18 @@
 #include <QList>
 #include "note.h"
 
-//static helper for loading .note files
+//static helper for loading .note files and the workplace
 class NotesParser
 {
 public:
-    static Note* parseArticle(QTextStream* in,unsigned int id);
-    static Note* parseBinary(QTextStream* in,unsigned int id,QString type);
-    static Note* parseDocument(QTextStream* in,unsigned int id,QString path);
-    static Note* parseNote(QString path, unsigned int id);
-    static QList<Note*>* parseWorkplace(QString path);
-    //TODO: parse metafile
-private:
     NotesParser();
+    Note* parseArticle(QTextStream* in,unsigned int id);
+    Note* parseBinary(QTextStream* in,unsigned int id,QString type);
+    Note* parseDocument(QTextStream* in,unsigned int id,QString path);
+    Note* parseNote(QString path, unsigned int id);
+    void parseWorkplace(QString path); //put all notes in the NotesManager
+    void parseMetafile(QString path); //set witch note are opened
+    void parseTags(QString path); // put all tags in the tagmanager
 };
 
 #endif // NOTESPARSER_H

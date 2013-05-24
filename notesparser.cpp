@@ -5,18 +5,33 @@
 #include <QIODevice>
 #include <QStringList>
 #include <iostream>
+#include <QDir>
 
 #include "note.h"
 #include "article.h"
 #include "document.h"
 #include "binary.h"
 #include "notesfactory.h"
+#include "notesmanager.h"
+#include "tag.h"
+#include "tagmanager.h"
+
+
+NotesParser::NotesParser()
+{
+
+}
 
 Note* NotesParser::parseArticle(QTextStream* in,unsigned int id)
 {
     QString title = in->readLine();
-    QString content = in->readAll(); //TODO:Be careful to the export final \n (unit-test it)
-    return new Article(id,title,content);
+    QString content = in->readAll();
+    NotesManager* nm = NotesManager::getInstance();
+    if(nm->getNoteByID(id) == NULL){
+        nm->addRessource(new Article(id,title,content));
+    }
+
+    return nm->getNoteByID(id);
 }
 
 Note* NotesParser::parseBinary(QTextStream* in,unsigned int id,QString type)
@@ -24,14 +39,19 @@ Note* NotesParser::parseBinary(QTextStream* in,unsigned int id,QString type)
     QString title = in->readLine();
     QString path = in->readLine();
     QString description = in->readAll();
-    if(type == "IMAGE"){
-        new Image(id,title,description,path);
-    }else if(type == "VIDEO"){
-        new Video(id,title,description,path);
-    }else if(type == "AUDIO"){
-        new Audio(id,title,description,path);
+    NotesManager* nm = NotesManager::getInstance();
+    if(nm->getNoteByID(id) == NULL){
+        Note* n = NULL;
+        if(type == "IMAGE"){
+            n = new Image(id,title,description,path);
+        }else if(type == "VIDEO"){
+            n= new Video(id,title,description,path);
+        }else if(type == "AUDIO"){
+            n = new Audio(id,title,description,path);
+        }
+        nm->addRessource(n);
     }
-    return NULL;
+    return nm->getNoteByID(id);
 }
 
 Note* NotesParser::parseDocument(QTextStream* in,unsigned int id,QString path)
@@ -43,7 +63,11 @@ Note* NotesParser::parseDocument(QTextStream* in,unsigned int id,QString path)
         Note* n = parseNote(path,notes_s.at(i).toInt());
         notes->append(n);
     }
-    return new Document(id,title,*notes);
+    NotesManager* nm = NotesManager::getInstance();
+    if(nm->getNoteByID(id) == NULL){
+        nm->addRessource(new Document(id,title,*notes));
+    }
+    return nm->getNoteByID(id);
 }
 
 Note* NotesParser::parseNote(QString path,unsigned int id)
@@ -51,7 +75,7 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
     QString filepath = path+"/"+QString::number(id)+".note";
     QFile file(filepath);
     if(!file.open(QIODevice::ReadOnly)) {
-        return NULL;//TODO: return file.errorString : 404 FILE NOT FOUND! ^^
+        return NULL;
     }
     QTextStream in(&file);
     QString type = in.readLine();
@@ -68,7 +92,60 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
     return n;
 }
 
-QList<Note*>* NotesParser::parseWorkplace(QString path)
+void NotesParser::parseWorkplace(QString path)
 {
-    return new QList<Note*>();
+    QDir dir;
+    dir.setCurrent(path);
+    dir.setFilter(QDir::Files);
+    QFileInfoList list = dir.entryInfoList();
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+        if(fileInfo.fileName().contains(".note") && fileInfo.fileName() != ".notes"){
+            parseNote(path,fileInfo.baseName().toInt());
+        }
+    }
+}
+
+void NotesParser::parseMetafile(QString path)
+{
+    QString filepath = path+"/.notes";
+    QFile file(filepath);
+    if(!file.open(QIODevice::ReadOnly)) {
+        return;
+    }
+    QTextStream in(&file);
+    QList<QString> notes_s = in.readAll().split("\n");
+    NotesManager* nm = NotesManager::getInstance();
+    for (int i = 0; i < notes_s.size(); ++i) {
+        Note* n = nm->getNoteByID(notes_s.at(i).toInt());
+        if(n != NULL){
+            //n->setOpened(true);
+        }
+    }
+}
+
+void NotesParser::parseTags(QString path)
+{
+    QString filepath = path+"/.tags";
+    QFile file(filepath);
+    if(!file.open(QIODevice::ReadOnly)) {
+        return;
+    }
+    QTextStream in(&file);
+    while(!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList fields = line.split("|");
+
+        Tag* tag = new Tag(fields.at(0));
+        QStringList ids = fields.at(1).split(";");
+        for (int i = 0; i < ids.size(); i++) {
+            Note* n = NotesManager::getInstance()->getNoteByID(ids.at(i).toInt());
+            if(n != NULL){
+                tag->addNote(n);
+            }
+        }
+        TagManager::getInstance()->addTag(tag);
+    }
+
+    file.close();
 }

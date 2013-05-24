@@ -27,8 +27,9 @@ public:
     void loadNote(const unsigned int i);
     std::map<QString, ExportStrategy*>* getExporter();
 
-    //Iterator
+    Note* getNoteByID(unsigned int id);
 
+    //Iterator
     class Iterator
     {
         friend class NotesManager; //Pour accéder au constructeur de l'Iterator
