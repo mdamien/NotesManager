@@ -4,7 +4,7 @@ TagManager* TagManager::tagManager = 0;
 
 TagManager::TagManager()
 {
-
+    tags = new QSet<Tag*>;
 }
 
 TagManager* TagManager::getInstance()
@@ -29,19 +29,19 @@ void TagManager::deleteInstance()
 
 void TagManager::addTag(Tag* t)
 {
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         if((*it)->getName() == t->getName()){
             return;
         }
     }
-    this->append(t);
+    tags->insert(t);
 }
 
 void TagManager::removeTag(QString name)
 {
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         if((*it)->getName() == name){
-            this->removeOne(*it);
+            tags->remove(*it);
             return;
         }
     }
@@ -49,7 +49,7 @@ void TagManager::removeTag(QString name)
 
 void TagManager::removeTaggedNote(Note* note)
 {
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         (*it)->removeNote(note);
         return;
     }
@@ -58,7 +58,7 @@ void TagManager::removeTaggedNote(Note* note)
 QList<QString> TagManager::getTags()
 {
     QList<QString> l;
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         l.append((*it)->getName());
     }
     return l;
@@ -67,8 +67,8 @@ QList<QString> TagManager::getTags()
 QList<QString> TagManager::getNoteTags(Note* note) //Tags of a Note
 {
     QList<QString> l;
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
-        if((*it)->find(note) != -1){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
+        if((*it)->contains(note)){
             l.append((*it)->getName());
         }
     }
@@ -78,7 +78,7 @@ QList<QString> TagManager::getNoteTags(Note* note) //Tags of a Note
 Tag* TagManager::getTag(QString name) //Notes of a tag
 {
     QList<Note*> l;
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         if((*it)->getName() == name){
             return *it;
         }
@@ -86,7 +86,50 @@ Tag* TagManager::getTag(QString name) //Notes of a tag
     return NULL;
 }
 TagManager::~TagManager(){
-    for(TagManager::Iterator it = this->begin(); it != this->end();it++){
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         delete *it;
     }
+    delete tags;
+}
+
+//Iterator
+
+TagManager::Iterator TagManager::begin()
+{
+    return Iterator(tags->begin());
+}
+
+TagManager::Iterator TagManager::end()
+{
+    return Iterator(tags->end());
+}
+
+TagManager::Iterator::Iterator(const QSet<Tag*>::Iterator& it)
+{
+    itNotes = it;
+}
+
+TagManager::Iterator& TagManager::Iterator::operator++()
+{
+    itNotes++;
+}
+
+TagManager::Iterator& TagManager::Iterator::operator--()
+{
+    itNotes--;
+}
+
+Tag* TagManager::Iterator::operator*()
+{
+    return *itNotes;
+}
+
+bool TagManager::Iterator::operator==(const Iterator& it) const
+{
+    return itNotes == it.itNotes;
+}
+
+bool TagManager::Iterator::operator!=(const Iterator& it) const
+{
+    return itNotes != it.itNotes;
 }

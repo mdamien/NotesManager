@@ -1,7 +1,12 @@
 #include "tag.h"
 
 Tag::Tag(QString name):name(name){
+    notes = new QSet<Note*>;
+}
 
+Tag::~Tag()
+{
+    delete notes;
 }
 
 QString Tag::getName(){
@@ -9,20 +14,55 @@ QString Tag::getName(){
 }
 
 void Tag::addNote(Note* note){
-    this->append(note);
+    notes->insert(note);
 }
 
 void Tag::removeNote(Note* note){
-    this->removeOne(note);
+     notes->remove(note);
 }
 
-unsigned int Tag::find(Note* note){
-    return this->indexOf(note);
+bool Tag::contains(Note* note){
+    return notes->contains(note);
 }
 
-Tag::Iterator Tag::begin(){
-    return this->begin();
+//Iterator
+
+Tag::Iterator Tag::begin()
+{
+    return Iterator(notes->begin());
 }
-Tag::Iterator Tag::end(){
-    return this->end();
+
+Tag::Iterator Tag::end()
+{
+    return Iterator(notes->end());
+}
+
+Tag::Iterator::Iterator(const QSet<Note*>::Iterator& it)
+{
+    itNotes = it;
+}
+
+Tag::Iterator& Tag::Iterator::operator++()
+{
+    itNotes++;
+}
+
+Tag::Iterator& Tag::Iterator::operator--()
+{
+    itNotes--;
+}
+
+Note* Tag::Iterator::operator*()
+{
+    return *itNotes;
+}
+
+bool Tag::Iterator::operator==(const Iterator& it) const
+{
+    return itNotes == it.itNotes;
+}
+
+bool Tag::Iterator::operator!=(const Iterator& it) const
+{
+    return itNotes != it.itNotes;
 }

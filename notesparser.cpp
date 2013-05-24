@@ -1,21 +1,5 @@
 #include "notesparser.h"
-
-#include <QFile>
-#include <QTextStream>
-#include <QIODevice>
-#include <QStringList>
-#include <iostream>
-#include <QDir>
-
-#include "note.h"
-#include "article.h"
-#include "document.h"
-#include "binary.h"
-#include "notesfactory.h"
-#include "notesmanager.h"
-#include "tag.h"
-#include "tagmanager.h"
-
+#include <QDebug>
 
 NotesParser::NotesParser()
 {
@@ -75,6 +59,7 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
     QString filepath = path+"/"+QString::number(id)+".note";
     QFile file(filepath);
     if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "File not found: " << id << "  E:" << file.errorString();
         return NULL;
     }
     QTextStream in(&file);
@@ -104,6 +89,8 @@ void NotesParser::parseWorkplace(QString path)
             parseNote(path,fileInfo.baseName().toInt());
         }
     }
+    parseMetafile(path);
+    parseTags(path);
 }
 
 void NotesParser::parseMetafile(QString path)
@@ -111,6 +98,7 @@ void NotesParser::parseMetafile(QString path)
     QString filepath = path+"/.notes";
     QFile file(filepath);
     if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << ".notes not found: " << path << "  E:" << file.errorString();
         return;
     }
     QTextStream in(&file);
@@ -129,6 +117,7 @@ void NotesParser::parseTags(QString path)
     QString filepath = path+"/.tags";
     QFile file(filepath);
     if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << ".tags not found: " << path << "  E:" << file.errorString();
         return;
     }
     QTextStream in(&file);

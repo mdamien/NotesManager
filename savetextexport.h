@@ -10,6 +10,9 @@ private:
     QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//helper pour les binaires
 public:
     SaveTextExport();
+
+    QString exportTagsMetafile();
+    QString exportNotesMetafile();
 protected:
     QString exportArticle(Article* note,unsigned int titleLevel = 0);
     QString exportDocument(Document* note,unsigned int titleLevel = 0);

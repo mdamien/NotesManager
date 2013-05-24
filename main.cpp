@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QPushButton>
+#include <QDebug>
 
 #include <iostream>
 #include "imagewidget.h"
@@ -16,6 +17,7 @@
 #include "tagmanager.h"
 #include "audiowidget.h"
 #include "videowidget.h"
+#include "notesparser.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
 Article b(1222,"titre de l'article 2","texte de l'article 2");
@@ -51,7 +53,6 @@ void testsDamien()
     */
 
     TagManager* tm = TagManager::getInstance();
-    tm->addTag("tag1",&a);
     std::cout << tm->getNoteTags(&a).at(0).toStdString() << std::endl;
 }
 
@@ -62,6 +63,11 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
+    NotesParser().parseWorkplace("../notesmanager/workplace");
+    NotesManager* nm = NotesManager::getInstance();
+    TagManager* tm = TagManager::getInstance();
+    SaveTextExport e;
+    qDebug() << e.exportTagsMetafile();
     MainWindow mw;
     mw.show();
  //   VideoWidget w;
