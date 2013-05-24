@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
-    NotesParser().parseWorkplace("../notesmanager/workplace");
+    NotesParser().parseWorkplace("/home/tic/prog/cours/lo21/notesmanager/workplace");
     NotesManager* nm = NotesManager::getInstance();
     TagManager* tm = TagManager::getInstance();
     SaveTextExport e;
@@ -72,5 +72,5 @@ int main(int argc, char *argv[])
     mw.show();
  //   VideoWidget w;
  //   w.show();
-    return app.exec();
+    return 0;//app.exec();
 }

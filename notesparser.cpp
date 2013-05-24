@@ -44,8 +44,12 @@ Note* NotesParser::parseDocument(QTextStream* in,unsigned int id,QString path)
     QList<QString> notes_s = in->readAll().split("\n");
     QList<Note*>* notes = new QList<Note*>;
     for (int i = 0; i < notes_s.size(); ++i) {
-        Note* n = parseNote(path,notes_s.at(i).toInt());
-        notes->append(n);
+        if(notes_s.at(i).length()>1){
+            Note* n = parseNote(path,notes_s.at(i).toUInt());
+            if(n != NULL){
+                notes->append(n);
+            }
+        }
     }
     NotesManager* nm = NotesManager::getInstance();
     if(nm->getNoteByID(id) == NULL){
@@ -59,7 +63,7 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
     QString filepath = path+"/"+QString::number(id)+".note";
     QFile file(filepath);
     if(!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "File not found: " << id << "  E:" << file.errorString();
+        qDebug() << "File not found: " << filepath << "  E:" << file.errorString();
         return NULL;
     }
     QTextStream in(&file);
@@ -86,7 +90,7 @@ void NotesParser::parseWorkplace(QString path)
     for (int i = 0; i < list.size(); ++i) {
         QFileInfo fileInfo = list.at(i);
         if(fileInfo.fileName().contains(".note") && fileInfo.fileName() != ".notes"){
-            parseNote(path,fileInfo.baseName().toInt());
+            parseNote(path,fileInfo.baseName().toUInt());
         }
     }
     parseMetafile(path);
@@ -105,7 +109,7 @@ void NotesParser::parseMetafile(QString path)
     QList<QString> notes_s = in.readAll().split("\n");
     NotesManager* nm = NotesManager::getInstance();
     for (int i = 0; i < notes_s.size(); ++i) {
-        Note* n = nm->getNoteByID(notes_s.at(i).toInt());
+        Note* n = nm->getNoteByID(notes_s.at(i).toUInt());
         if(n != NULL){
             //n->setOpened(true);
         }
@@ -128,7 +132,7 @@ void NotesParser::parseTags(QString path)
         Tag* tag = new Tag(fields.at(0));
         QStringList ids = fields.at(1).split(";");
         for (int i = 0; i < ids.size(); i++) {
-            Note* n = NotesManager::getInstance()->getNoteByID(ids.at(i).toInt());
+            Note* n = NotesManager::getInstance()->getNoteByID(ids.at(i).toUInt());
             if(n != NULL){
                 tag->addNote(n);
             }
