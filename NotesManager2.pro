@@ -1,6 +1,6 @@
-QT       += core gui += phonon += multimedia
+QT       += core gui += phonon
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets += multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = NotesManager
 TEMPLATE = app
@@ -29,7 +29,8 @@ SOURCES += \
     imagewidget.cpp \
     videowidget.cpp \
     notewidget.cpp \
-    audiowidget.cpp
+    audiowidget.cpp \
+    notesparser.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -54,4 +55,5 @@ HEADERS += \
     imagewidget.h \
     videowidget.h \
     notewidget.h \
-    audiowidget.h
+    audiowidget.h \
+    notesparser.h

@@ -27,15 +27,13 @@ void TagManager::deleteInstance()
     }
 }
 
-void TagManager::addTag(QString name,Note* note)
+void TagManager::addTag(Tag* t)
 {
     for(TagManager::Iterator it = this->begin(); it != this->end();it++){
-        if((*it)->getName() == name){
+        if((*it)->getName() == t->getName()){
             return;
         }
     }
-    Tag* t = new Tag(name);
-    t->addNote(note);
     this->append(t);
 }
 

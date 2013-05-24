@@ -121,6 +121,17 @@ void NotesManager::loadNote(const unsigned int i)
     //A définir
 }
 
+Note* NotesManager::getNoteByID(unsigned int id)
+{
+    for(Iterator it = begin();it != end();++it)
+    {
+        if ((*it)->getId() == id){
+            return *it;
+        }
+    }
+    return NULL;
+}
+
 //Iterator sur le contenu de NotesManager
 
 NotesManager::Iterator NotesManager::begin()

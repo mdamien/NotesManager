@@ -13,7 +13,7 @@ public:
     static TagManager* getInstance();
     static void deleteInstance();
 
-    void addTag(QString name,Note* note);
+    void addTag(Tag *t);
     void removeTag(QString name);
     void removeTaggedNote(Note* note);
     QList<QString> getTags();
