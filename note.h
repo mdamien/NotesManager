@@ -18,6 +18,8 @@ public:
     //QString exportAsPart(ExportStrategy* es) const;
     //void addSudNote(Note* n);    //Devrait être UNIQUEMENT dans Document, à vérifier
     //void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
+    void setLoaded(const bool);
+    bool isLoaded() const;
 
 protected :
     Note(const unsigned int id, const QString& title = "");

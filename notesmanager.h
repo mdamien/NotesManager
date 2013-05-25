@@ -8,6 +8,7 @@
 #include <map>
 #include "textexport.h"
 #include "htmlexport.h"
+#include "mainwindow.h"
 
 class NotesManager
 {

@@ -103,7 +103,14 @@ QString NotesManager::getFileName(const unsigned int i) const
 
 void NotesManager::load()
 {
-    //A définir
+    NotesManager* nm = NotesManager::getInstance();
+    MainWindow* mw = MainWindow::getInstance();
+
+    for(NotesManager::Iterator it = nm->begin(); it != nm->end(); ++it)
+    {
+        if((*it)->isLoaded())
+            mw->addNoteWidget(*it);
+    }
 }
 
 void NotesManager::load(const QString& newPath)
@@ -125,7 +132,8 @@ Note* NotesManager::getNoteByID(unsigned int id)
 {
     for(Iterator it = begin();it != end();++it)
     {
-        if ((*it)->getId() == id){
+        if ((*it)->getId() == id)
+        {
             return *it;
         }
     }

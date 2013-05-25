@@ -1,6 +1,35 @@
 #include "mainwindow.h"
 #include "imagewidget.h"
 
+MainWindow* MainWindow::mw = 0;
+
+MainWindow* MainWindow::getInstance(QWidget *parent)
+{
+    if(mw)
+    {
+        return mw;
+    }
+    else
+    {
+        mw = new MainWindow(parent);
+        return mw;
+    }
+}
+
+void MainWindow::deleteInstance()
+{
+    if(mw)
+    {
+        delete mw;
+        mw = 0;   //Remise du pointeur à 0
+    }
+}
+
+MainWindow::~MainWindow()
+{
+
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     QFrame* frameEditor = new QFrame;
@@ -8,7 +37,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QFrame* frameHTML = new QFrame;
     QFrame* frameLatex = new QFrame;
 
-    layoutEditor = new QVBoxLayout(frameEditor);
+
+
+    //
+
+
+    QHBoxLayout* hLayout = new QHBoxLayout(frameEditor);
+    QVBoxLayout* tagNotesLayout = new QVBoxLayout;
+
+    notesList = new QListWidget;
+    notesList->setMaximumWidth(150);
+    tagNotesLayout->addWidget(notesList);
+    notesList->setStyleSheet("* { background-color:rgb(50,100,150); padding: 7px ; color:rgb(255,255,255)}");
+    //
+
+
+
+    layoutEditor = new QVBoxLayout;
     layoutText = new QVBoxLayout(frameText);
     layoutHTML = new QVBoxLayout(frameHTML);
     layoutLatex = new QVBoxLayout(frameLatex);
@@ -50,6 +95,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     onglets->addTab(areaHTML, "HTML");
     onglets->addTab(areaLatex, "LaTeX");
 
+
+
+
+
+
+
+
+    hLayout->addLayout(tagNotesLayout);
+ //   hLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding,QSizePolicy::Expanding ));
+    hLayout->addLayout(layoutEditor);
+
+
+
+
+
+
+
     setCentralWidget(onglets);
 
     //Ajout des menus :
@@ -89,6 +151,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(onglets, SIGNAL(currentChanged(int)), this, SLOT(ongletChanged(int)));
     connect(menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
+    connect(aClose, SIGNAL(triggered()), this, SLOT(closeNote()));
 }
 
 void MainWindow::ongletChanged(int onglet)
@@ -117,6 +180,11 @@ void MainWindow::ongletChanged(int onglet)
             break;
 
         case 3 :   //ExportLaTeX
+            for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
+            {
+                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
+            }
+            current->setHtml(s);
             break;
         }
     }
@@ -144,8 +212,35 @@ void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action d
 
 void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du menu d'ajout de Note : permet de n'utiliser qu'une méthode pour plusieurs actions
 {
-    if(a == aArticle)
+    if(layoutEditor->isEmpty())
     {
+        //S'il s'agit d'une nouvelle note, on demande son titre à l'utilisateur, et il ne doit pas être vide
+        QHBoxLayout* layoutTitle = new QHBoxLayout; //Layout avec QLabel et QPushButton pour afficher/modifier le titre
+
+        QPushButton* newName = new QPushButton("Change title", this);
+        newName->setMaximumWidth(100);
+        QString noteTitle = "";
+        do
+        {
+             noteTitle = QInputDialog::getText(this, "Note title", "Please, enter the title of the new note.");
+             if(noteTitle == "")
+                 QMessageBox::critical(this, "Non valide name", "Please enter a name !");
+        }
+        while(noteTitle == "");
+
+        noteTitleLabel = new QLabel("Note title : " + noteTitle, this);
+
+        layoutTitle->addWidget(noteTitleLabel);
+        layoutTitle->addWidget(newName);
+
+        layoutEditor->addLayout(layoutTitle);
+
+        connect(newName, SIGNAL(clicked()), this, SLOT(changeNoteTitle()));
+    }
+
+    //Ajout du widget demandé en fonction de l'action
+    if(a == aArticle)
+    {     
         ArticleWidget* a = new ArticleWidget("Titre", "Contenu", this);
         layoutEditor->addWidget(a);
     }
@@ -164,4 +259,55 @@ void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du me
         AudioWidget* audw = new AudioWidget();
         layoutEditor->addWidget(audw);
     }
+}
+
+void MainWindow::addNoteWidget(Note* n)
+{
+    if(Article* art = dynamic_cast<Article*> (n))
+    {
+        ArticleWidget* aw = new ArticleWidget(art->getTitle(), art->getText(), this);
+        layoutEditor->addWidget(aw);
+    }
+    else if(Video* vid = dynamic_cast<Video*> (n))
+    {
+        VideoWidget* vw = new VideoWidget(vid->getPath(), vid->getTitle(), vid->getDescription(), this);
+        layoutEditor->addWidget(vw);
+    }
+    else if(Image* im = dynamic_cast<Image*> (n))
+    {
+        ImageWidget* iw = new ImageWidget(im->getPath(), im->getTitle(), im->getDescription(), this);
+        layoutEditor->addWidget(iw);
+    }
+    else if(Audio* aud = dynamic_cast<Audio*> (n))
+    {
+        AudioWidget* auw = new AudioWidget(aud->getPath(), aud->getTitle(), aud->getDescription(), this);
+        layoutEditor->addWidget(auw);
+    }
+    notesList->addItem(new QListWidgetItem(n->getTitle()));
+
+    connect(notesList,SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(changeNote())); //connect à faire : lier chaque QListWidgetItem à une note ?
+}
+
+void MainWindow::changeNoteTitle()
+{
+    QString noteTitle = "";
+    do
+    {
+         noteTitle = QInputDialog::getText(this, "Note title", "Please, enter the title of the new note.");
+         if(noteTitle == "")
+             QMessageBox::critical(this, "Non valide name", "Please enter a name !");
+    }
+    while(noteTitle == "");
+
+    noteTitleLabel->setText("Note title : " + noteTitle);
+
+}
+
+void MainWindow::closeNote() //Fermeture de la note courante : penser à ajouter la sauvegarde...
+{
+    for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
+    {
+        (*it)->setLoaded(false);
+    }
+    //layoutEditor
 }

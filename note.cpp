@@ -31,3 +31,13 @@ QString Note::exportNote(ExportStrategy* es) const
 {
     return es->exportNote((Note*)this);
 }
+
+void Note::setLoaded(const bool b)
+{
+    loaded = b;
+}
+
+bool Note::isLoaded() const
+{
+    return loaded;
+}

@@ -68,12 +68,11 @@ int main(int argc, char *argv[])
     NotesParser().parseWorkplace("C:\\Qt\\Qt5.0.2\\Tools\\QtCreator\\bin\\NotesManager2\\workplace");
     NotesManager* nm = NotesManager::getInstance();
     TagManager* tm = TagManager::getInstance();
+    nm->load();
     SaveTextExport e;
     qDebug() << e.exportTagsMetafile();
     e.save();
-    MainWindow mw;
-    mw.show();
- //   VideoWidget w;
- //   w.show();
-    return 0;//app.exec();
+    MainWindow::getInstance()->show();
+
+    return app.exec();
 }

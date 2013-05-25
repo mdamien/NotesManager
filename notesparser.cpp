@@ -120,7 +120,7 @@ void NotesParser::parseMetafile(QString path)
     for (int i = 0; i < notes_s.size(); ++i) {
         Note* n = nm->getNoteByID(notes_s.at(i).toUInt());
         if(n != NULL){
-            //n->setOpened(true);
+            n->setLoaded(true);
         }
     }
 }
