@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
     TagManager* tm = TagManager::getInstance();
     SaveTextExport e;
     qDebug() << e.exportTagsMetafile();
+    e.save();
     MainWindow mw;
     mw.show();
  //   VideoWidget w;

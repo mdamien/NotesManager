@@ -5,6 +5,8 @@
 #include <typeinfo>
 #include "tagmanager.h"
 #include "notesmanager.h"
+#include <QDir>
+#include <QDebug>
 
 SaveTextExport::SaveTextExport()
 {
@@ -74,6 +76,44 @@ QString SaveTextExport::exportNotesMetafile()
     return str;
 }
 
+void SaveTextExport::writeToFile(QString path,QString content){
+    QFile file(path);
+    if(!file.open(QIODevice::WriteOnly)) {
+        qDebug() << "ERROR: " << file.fileName() << "  E:" << file.errorString();
+        return;
+    }
+    QTextStream out(&file);
+    out << content;
+    file.close();
+}
+
+void SaveTextExport::save()
+{
+    SaveTextExport e;
+    NotesManager* nm = NotesManager::getInstance();
+    QString workplace = nm->getPath();
+
+    //CLEAN
+    QDir dir(workplace);
+    dir.setFilter(QDir::Hidden | QDir::Files);
+    QFileInfoList list = dir.entryInfoList();
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+        if(fileInfo.fileName().contains(".note")
+                || fileInfo.fileName() == ".notes"
+                || fileInfo.fileName() == ".tags" ){
+            QFile(fileInfo.absoluteFilePath()).remove();
+        }
+    }
+
+    //SERIALIZE
+    QString base = QDir(workplace).absolutePath();
+    writeToFile(base+"/.notes",e.exportNotesMetafile());
+    writeToFile(base+"/.tags",e.exportTagsMetafile());
+    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
+        writeToFile(base+"/"+QString::number((*it)->getId())+".note",e.exportNote(*it));
+    }
+}
 QString SaveTextExport::exportDocument(Document* note,unsigned int titleLevel)
 {
     QString str = base("Document",note,titleLevel);

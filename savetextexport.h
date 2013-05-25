@@ -13,12 +13,16 @@ public:
 
     QString exportTagsMetafile();
     QString exportNotesMetafile();
+
+    static void save();
 protected:
     QString exportArticle(Article* note,unsigned int titleLevel = 0);
     QString exportDocument(Document* note,unsigned int titleLevel = 0);
     QString exportImage(Image* note,unsigned int titleLevel=0);
     QString exportVideo(Video* note,unsigned int titleLevel=0);
     QString exportAudio(Audio* note, unsigned int titleLevel=0);
+
+    static void writeToFile(QString path,QString content);
 };
 
 #endif // SAVETEXTEXPORT_H
