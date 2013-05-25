@@ -63,18 +63,24 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
 {
     QString filepath = path+"/"+QString::number(id)+".note";
     QFile file(filepath);
-    if(!file.open(QIODevice::ReadOnly)) {
+    if(!file.open(QIODevice::ReadOnly))
+    {
         qDebug() << "File not found: " << filepath << "  E:" << file.errorString();
         return NULL;
     }
     QTextStream in(&file);
     QString type = in.readLine();
     Note* n = NULL;
-    if(type == "ARTICLE"){
+    if(type == "ARTICLE")
+    {
         n = parseArticle(&in,id);
-    }else if(type == "IMAGE" || type == "AUDIO" || type == "VIDEO"){
+    }
+    else if(type == "IMAGE" || type == "AUDIO" || type == "VIDEO")
+    {
         n = parseBinary(&in,id,type);
-    }else if(type == "DOCUMENT"){
+    }
+    else if(type == "DOCUMENT")
+    {
         n = parseDocument(&in,id,path);
     }
     file.close();
@@ -88,9 +94,11 @@ void NotesParser::parseWorkplace(QString path)
     dir.setCurrent(path);
     dir.setFilter(QDir::Files);
     QFileInfoList list = dir.entryInfoList();
-    for (int i = 0; i < list.size(); ++i) {
+    for (int i = 0; i < list.size(); ++i)
+    {
         QFileInfo fileInfo = list.at(i);
-        if(fileInfo.fileName().contains(".note") && fileInfo.fileName() != ".notes"){
+        if(fileInfo.fileName().contains(".note") && fileInfo.fileName() != ".notes")
+        {
             parseNote(path,fileInfo.baseName().toUInt());
         }
     }
