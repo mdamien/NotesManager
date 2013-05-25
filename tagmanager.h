@@ -7,7 +7,7 @@
 #include "note.h"
 #include "tag.h"
 
-class TagManager : private QList<Tag*>
+class TagManager
 {
 public:
     static TagManager* getInstance();
@@ -19,6 +19,24 @@ public:
     QList<QString> getTags();
     QList<QString> getNoteTags(Note* note); //Tags of a Note
     Tag* getTag(QString name);
+
+    //Iterator
+    class Iterator
+    {
+        friend class TagManager;
+    public :
+        Iterator& operator++();
+        Iterator& operator--();
+        Tag* operator*();
+        bool operator==(const Iterator& it) const;
+        bool operator!=(const Iterator& it) const;
+    private :
+        Iterator(const QSet<Tag*>::Iterator& it);
+        QSet<Tag*>::Iterator itNotes;
+    };
+
+    Iterator begin();
+    Iterator end();
 private:
     //Implémentation du design pattern Singleton
     TagManager();
@@ -27,6 +45,7 @@ private:
     ~TagManager();
 
     static TagManager* tagManager;
+    QSet<Tag*>* tags;
 };
 
 #endif // TAGMANAGER_H

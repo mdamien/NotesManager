@@ -2,22 +2,41 @@
 #define TAG_H
 
 #include <QString>
-#include <QList>
+#include <QSet>
 
 #include "note.h"
 
-class Tag : private QList<Note*>
+class Tag
 {
 public:
     Tag(QString name);
     QString getName();
     void addNote(Note* note);
     void removeNote(Note* note);
-    unsigned int find(Note* note);
-    Tag::Iterator begin();
-    Tag::Iterator end();
+    bool contains(Note* note);
+
+    //Iterator
+    class Iterator
+    {
+        friend class Tag;
+    public :
+        Iterator& operator++();
+        Iterator& operator--();
+        Note* operator*();
+        bool operator==(const Iterator& it) const;
+        bool operator!=(const Iterator& it) const;
+    private :
+        Iterator(const QSet<Note*>::Iterator& it);
+        QSet<Note*>::Iterator itNotes;
+    };
+
+    Iterator begin();
+    Iterator end();
+
+    ~Tag();
 private:
     QString name;
+    QSet<Note*>* notes;
 };
 
 

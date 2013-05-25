@@ -3,7 +3,7 @@
 
 #include "notewidget.h"
 #include <QPushButton>
-#include <Phonon>
+#include <phonon>
 #include <QFileDialog>
 
 class AudioWidget : public NoteWidget
