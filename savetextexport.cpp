@@ -70,8 +70,9 @@ QString SaveTextExport::exportNotesMetafile()
     QString str = "";
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it)
     {
-        //if note.opened
-        str += QString::number((*it)->getId())+"\n";
+        if((*it)->isLoaded()){
+            str += QString::number((*it)->getId())+"\n";
+        }
     }
     return str;
 }

@@ -31,7 +31,8 @@ SOURCES += \
     notewidget.cpp \
     audiowidget.cpp \
     notesparser.cpp \
-    documentwidget.cpp
+    documentwidget.cpp \
+    latexexport.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -58,4 +59,5 @@ HEADERS += \
     notewidget.h \
     audiowidget.h \
     notesparser.h \
-    documentwidget.h
+    documentwidget.h \
+    latexexport.h
