@@ -15,9 +15,7 @@ Note* NotesParser::parseArticle(QTextStream* in,unsigned int id)
     QString content = in->readAll();
     if(nm->getNoteByID(id) == NULL){
         Article* n = new Article(id,title,content);
-        qDebug() << "hummm... 1" << n->getId() << "VS" << id;
         nm->addRessource(n);
-        qDebug() << "hummm... 2" << n->getId() << "VS" << id;
     }
     return nm->getNoteByID(id);
 }

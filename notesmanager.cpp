@@ -89,7 +89,7 @@ void NotesManager::saveState()
 
 void NotesManager::addRessource(Note* n)
 {
-    qDebug() << "Ressource added:" << n->getId() << n->getTitle();
+    //qDebug() << "Ressource added:" << n->getId() << n->getTitle();
     notes->insert(n);
 }
 

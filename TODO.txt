@@ -1,4 +1,4 @@
-Enlever Factory
+Enlever Factory ^_^
 note() -> loaded = false
 loaded -> opened
 LaTeX a finir
