@@ -27,52 +27,19 @@ Audio f(5623,"Audio 1","description 1","http://example.fr/fichier.mp3");
 Document d(1314,"Document hyper important");
 Document d2(13314,"Document moins important");
 
-void testsMaxime()
-{
-    NotesManager& nm = *NotesManager::getInstance();
-    nm.addRessource(&a);
-    nm.addRessource(&b);
-    nm.addRessource(&d);
-}
-
-void testsDamien()
-{
-    d.addSubNote(&c);
-    d.addSubNote(&e);
-    d.addSubNote(&f);
-    d2.addSubNote(&a);
-    d2.addSubNote(&c);
-    d.addSubNote(&d2);
-/*
-    //std::cout << TextExport().exportNote(&d).toStdString() << std::endl;
-    std::cout << d.exportNote(new SaveTextExport()).toStdString() << std::endl;
-    std::cout << a.exportNote(new SaveTextExport()).toStdString() << std::endl;
-    std::cout << b.exportNote(new SaveTextExport()).toStdString() << std::endl;
-    std::cout << c.exportNote(new SaveTextExport()).toStdString() << std::endl;
-    std::cout << e.exportNote(new SaveTextExport()).toStdString() << std::endl;
-    */
-
-    TagManager* tm = TagManager::getInstance();
-//    tm->addTag(QString("tag1"), &a);
-
-    std::cout << tm->getNoteTags(&a).at(0).toStdString() << std::endl;
-}
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
- /*   d.addSubNote(&a);
-    d.addSubNote(&b);
-    testsMaxime();
-  */  //testsDamien();
-    NotesParser().parseWorkplace("C:\\Qt\\Qt5.0.2\\Tools\\QtCreator\\bin\\NotesManager2\\workplace2");
     NotesManager* nm = NotesManager::getInstance();
+    nm->setPath("../notesmanager/workplace");
     TagManager* tm = TagManager::getInstance();
-    nm->load();
-    SaveTextExport e;
-    qDebug() << e.exportTagsMetafile();
-    e.save();
-    MainWindow::getInstance()->show();
+    NotesParser().parseWorkplace();
+    //nm->load();
+    //MainWindow::getInstance()->show();
+    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
+        qDebug() << (*it)->getId();
+    }
 
-    return app.exec();
+    return 0;//app.exec();
 }

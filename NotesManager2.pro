@@ -61,3 +61,6 @@ HEADERS += \
     notesparser.h \
     documentwidget.h \
     latexexport.h
+
+OTHER_FILES += \
+    TODO.txt

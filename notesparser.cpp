@@ -2,20 +2,23 @@
 
 #include <QDebug>
 
+#include "notesmanager.h"
+
 NotesParser::NotesParser()
 {
-
+    nm = NotesManager::getInstance();
 }
 
 Note* NotesParser::parseArticle(QTextStream* in,unsigned int id)
 {
     QString title = in->readLine();
     QString content = in->readAll();
-    NotesManager* nm = NotesManager::getInstance();
     if(nm->getNoteByID(id) == NULL){
-        nm->addRessource(new Article(id,title,content));
+        Article* n = new Article(id,title,content);
+        qDebug() << "hummm... 1" << n->getId() << "VS" << id;
+        nm->addRessource(n);
+        qDebug() << "hummm... 2" << n->getId() << "VS" << id;
     }
-
     return nm->getNoteByID(id);
 }
 
@@ -24,7 +27,6 @@ Note* NotesParser::parseBinary(QTextStream* in,unsigned int id,QString type)
     QString title = in->readLine();
     QString path = in->readLine();
     QString description = in->readAll();
-    NotesManager* nm = NotesManager::getInstance();
     if(nm->getNoteByID(id) == NULL){
         Note* n = NULL;
         if(type == "IMAGE"){
@@ -45,14 +47,13 @@ Note* NotesParser::parseDocument(QTextStream* in,unsigned int id,QString path)
     QList<QString> notes_s = in->readAll().split("\n");
     QList<Note*>* notes = new QList<Note*>;
     for (int i = 0; i < notes_s.size(); ++i) {
-        if(notes_s.at(i).length()>1){
+        if(notes_s.at(i).length()>0){
             Note* n = parseNote(path,notes_s.at(i).toUInt());
             if(n != NULL){
                 notes->append(n);
             }
         }
     }
-    NotesManager* nm = NotesManager::getInstance();
     if(nm->getNoteByID(id) == NULL){
         nm->addRessource(new Document(id,title,*notes));
     }
@@ -88,10 +89,10 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
     return n;
 }
 
-void NotesParser::parseWorkplace(QString path)
+void NotesParser::parseWorkplace()
 {
     QDir dir;
-    dir.setCurrent(path);
+    dir.setCurrent(nm->getPath());
     dir.setFilter(QDir::Files);
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i)
@@ -99,11 +100,11 @@ void NotesParser::parseWorkplace(QString path)
         QFileInfo fileInfo = list.at(i);
         if(fileInfo.fileName().contains(".note") && fileInfo.fileName() != ".notes")
         {
-            parseNote(path,fileInfo.baseName().toUInt());
+            parseNote(dir.absolutePath(),fileInfo.baseName().toUInt());
         }
     }
-    parseMetafile(path);
-    parseTags(path);
+    parseMetafile(dir.absolutePath());
+    parseTags(dir.absolutePath());
 }
 
 void NotesParser::parseMetafile(QString path)

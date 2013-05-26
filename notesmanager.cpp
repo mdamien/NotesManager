@@ -1,5 +1,7 @@
 #include "notesmanager.h"
 
+#include <QDebug>
+
 using namespace std;
 
 NotesManager* NotesManager::notesManager = 0;
@@ -87,6 +89,7 @@ void NotesManager::saveState()
 
 void NotesManager::addRessource(Note* n)
 {
+    qDebug() << "Ressource added:" << n->getId() << n->getTitle();
     notes->insert(n);
 }
 
@@ -134,7 +137,7 @@ Note* NotesManager::getNoteByID(unsigned int id)
     {
         if ((*it)->getId() == id)
         {
-            return *it;
+            return (*it);
         }
     }
     return NULL;
