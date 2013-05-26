@@ -4,7 +4,7 @@
 Note::Note(const unsigned int id, const QString& title) : id(id), title(title)
 {
     modified = false;
-    loaded = false;
+    loaded = true;
 }
 
 unsigned int Note::getId() const

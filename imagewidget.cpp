@@ -13,6 +13,9 @@ ImageWidget::ImageWidget(const QString& filePath, const QString& tit, const QStr
     layout->addWidget(path);
     layout->addWidget(content);
 
+    note = new Image(NotesFactory::getNewId(), tit, desc, filePath);
+    NotesManager::getInstance()->addRessource(note);
+
     setLayout(layout);
     QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
 }

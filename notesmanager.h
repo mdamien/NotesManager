@@ -27,7 +27,7 @@ public:
     void reset();
     void loadNote(const unsigned int i);
     std::map<QString, ExportStrategy*>* getExporter();
-
+    std::map<QString, NotesFactory*>* getFactory();
     Note* getNoteByID(unsigned int id);
 
     //Iterator

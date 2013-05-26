@@ -9,7 +9,7 @@ NotesFactory::NotesFactory()
 
 }
 
-unsigned int NotesFactory::getNewId() const //Renvoie un id unique en fonction de la date "actuelle"
+unsigned int NotesFactory::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
 {
     return std::time(0);
 }

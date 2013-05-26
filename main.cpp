@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     d.addSubNote(&b);
     testsMaxime();
   */  //testsDamien();
-    NotesParser().parseWorkplace("C:\\Qt\\Qt5.0.2\\Tools\\QtCreator\\bin\\NotesManager2\\workplace");
+    NotesParser().parseWorkplace("C:\\Qt\\Qt5.0.2\\Tools\\QtCreator\\bin\\NotesManager2\\workplace2");
     NotesManager* nm = NotesManager::getInstance();
     TagManager* tm = TagManager::getInstance();
     nm->load();

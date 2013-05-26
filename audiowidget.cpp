@@ -1,4 +1,5 @@
 #include "audiowidget.h"
+#include "notesmanager.h"
 
 AudioWidget::AudioWidget(const QString& filePath, const QString& tit, const QString& desc, QWidget* parent) : NoteWidget(tit, desc, parent), filePath(filePath)
 {
@@ -20,7 +21,12 @@ AudioWidget::AudioWidget(const QString& filePath, const QString& tit, const QStr
     layout->addLayout(playerLayout);
     layout->addWidget(content);
     setLayout(layout);
+
     music = Phonon::createPlayer(Phonon::MusicCategory);
+
+    note = new Audio(NotesFactory::getNewId(), tit, desc, filePath);
+    NotesManager::getInstance()->addRessource(note);
+
     QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
     QObject::connect(play, SIGNAL(clicked()), this, SLOT(player()));
     QObject::connect(restart, SIGNAL(clicked()), this, SLOT(restartPlayer()));

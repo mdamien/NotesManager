@@ -28,6 +28,9 @@ VideoWidget::VideoWidget(const QString& filePath, const QString& tit, const QStr
 
     setLayout(layout);
 
+    note = new Video(NotesFactory::getNewId(), tit, desc, filePath);
+    NotesManager::getInstance()->addRessource(note);
+
  //   videoPlayer->play(Phonon::MediaSource("MVI_0040.avi"));
  //   videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(filePath));
     videoPlayer->setMinimumSize(400, 400);

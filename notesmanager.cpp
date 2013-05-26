@@ -181,3 +181,8 @@ bool NotesManager::Iterator::operator!=(const Iterator& it) const
 {
     return itNotes != it.itNotes;
 }
+
+std::map<QString, NotesFactory*>* NotesManager::getFactory()
+{
+    return factories;
+}

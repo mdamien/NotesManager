@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <phonon>
 #include <QFileDialog>
+#include "notesmanager.h"
 
 class VideoWidget : public NoteWidget
 {

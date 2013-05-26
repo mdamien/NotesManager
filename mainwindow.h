@@ -53,8 +53,10 @@ private :
     QTabWidget* onglets;
     QAction *aEditor, *aText, *aHTML, *aLatex, *aArticle, *aImage, *aVideo, *aAudio;
     QListWidget* notesList;
-    QLabel* noteTitleLabel;
+    QLineEdit* noteTitleEdit;
     static MainWindow* mw;
+
+    void closeEvent(QCloseEvent *);
 };
 
 #endif // MAINWINDOW_H

@@ -30,7 +30,8 @@ SOURCES += \
     videowidget.cpp \
     notewidget.cpp \
     audiowidget.cpp \
-    notesparser.cpp
+    notesparser.cpp \
+    documentwidget.cpp
 
 HEADERS += \
     articlewidget.h \
@@ -56,4 +57,5 @@ HEADERS += \
     videowidget.h \
     notewidget.h \
     audiowidget.h \
-    notesparser.h
+    notesparser.h \
+    documentwidget.h

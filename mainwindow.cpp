@@ -40,8 +40,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
     //
-
-
     QHBoxLayout* hLayout = new QHBoxLayout(frameEditor);
     QVBoxLayout* tagNotesLayout = new QVBoxLayout;
 
@@ -166,7 +164,8 @@ void MainWindow::ongletChanged(int onglet)
         case 1:    //ExportText
             for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
             {
-                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["TextExport"]);
+                if((*it)->isLoaded())
+                  s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["TextExport"]);
             }
             current->setPlainText(s);
             break;
@@ -174,7 +173,8 @@ void MainWindow::ongletChanged(int onglet)
         case 2 :   //ExportHTML
             for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
             {
-                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
+                if((*it)->isLoaded())
+                  s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
             }
             current->setPlainText(s);
             break;
@@ -182,7 +182,8 @@ void MainWindow::ongletChanged(int onglet)
         case 3 :   //ExportLaTeX
             for(NotesManager::Iterator it = NotesManager::getInstance()->begin(); it != NotesManager::getInstance()->end(); ++it)
             {
-                s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
+                if((*it)->isLoaded())
+                   s += (*it)->exportNote((*NotesManager::getInstance()->getExporter())["HTMLExport"]);
             }
             current->setHtml(s);
             break;
@@ -212,13 +213,11 @@ void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action d
 
 void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du menu d'ajout de Note : permet de n'utiliser qu'une méthode pour plusieurs actions
 {
+    NotesManager* nm = NotesManager::getInstance();
+
     if(layoutEditor->isEmpty())
     {
-        //S'il s'agit d'une nouvelle note, on demande son titre à l'utilisateur, et il ne doit pas être vide
-        QHBoxLayout* layoutTitle = new QHBoxLayout; //Layout avec QLabel et QPushButton pour afficher/modifier le titre
-
-        QPushButton* newName = new QPushButton("Change title", this);
-        newName->setMaximumWidth(100);
+        //On crée un document si on a déjà une Note et qu'on ajoute une, on demande son titre à l'utilisateur, et il ne doit pas être vide
         QString noteTitle = "";
         do
         {
@@ -228,19 +227,14 @@ void MainWindow::addNote(QAction* a) //SLOT gérant le clic sur une action du me
         }
         while(noteTitle == "");
 
-        noteTitleLabel = new QLabel("Note title : " + noteTitle, this);
+        noteTitleEdit = new QLineEdit(noteTitle, this);
 
-        layoutTitle->addWidget(noteTitleLabel);
-        layoutTitle->addWidget(newName);
-
-        layoutEditor->addLayout(layoutTitle);
-
-        connect(newName, SIGNAL(clicked()), this, SLOT(changeNoteTitle()));
+        layoutEditor->addWidget(noteTitleEdit);
     }
 
     //Ajout du widget demandé en fonction de l'action
     if(a == aArticle)
-    {     
+    {
         ArticleWidget* a = new ArticleWidget("Titre", "Contenu", this);
         layoutEditor->addWidget(a);
     }
@@ -266,6 +260,7 @@ void MainWindow::addNoteWidget(Note* n)
     if(Article* art = dynamic_cast<Article*> (n))
     {
         ArticleWidget* aw = new ArticleWidget(art->getTitle(), art->getText(), this);
+
         layoutEditor->addWidget(aw);
     }
     else if(Video* vid = dynamic_cast<Video*> (n))
@@ -299,8 +294,7 @@ void MainWindow::changeNoteTitle()
     }
     while(noteTitle == "");
 
-    noteTitleLabel->setText("Note title : " + noteTitle);
-
+    //noteTitleLabel->setText("Note title : " + noteTitle);
 }
 
 void MainWindow::closeNote() //Fermeture de la note courante : penser à ajouter la sauvegarde...
@@ -310,4 +304,23 @@ void MainWindow::closeNote() //Fermeture de la note courante : penser à ajouter
         (*it)->setLoaded(false);
     }
     //layoutEditor
+    QLayoutItem* child;
+    child=layoutEditor->takeAt(0);
+    while(child != 0)
+    {
+        if(child->widget()!=0)
+            child->widget()->hide();
+        layoutEditor->removeWidget(child->widget());
+        delete child;
+        child=layoutEditor->takeAt(0);
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent* q)
+{
+ //   int answer = QMessageBox::question(this, "Closing NotesManager", "Would you like to save your not saved notes ?", QMessageBox::Yes | QMessageBox::No);
+  //  if(answer == QMessageBox::Yes)
+    {
+
+    }
 }

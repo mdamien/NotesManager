@@ -14,7 +14,7 @@ class NotesFactory
 {
 public:
     NotesFactory();
-    unsigned int getNewId() const;
+    static unsigned int getNewId();
     virtual Note* buildNote(const unsigned int id, const QString& title) const = 0;
     virtual Note* buildNewNote(const QString& title) const = 0;
     virtual Note* buildNoteCopy(Note* note) const = 0;

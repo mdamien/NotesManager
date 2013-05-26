@@ -1,8 +1,9 @@
 #include "article.h"
 
-Article::Article(const unsigned int id, const QString& title, const QString& text) : Note(id, title), text(text)
+Article::Article(const unsigned int ID, const QString& title, const QString& text) : Note(id, title), text(text)
 {
-
+    if(ID == 0)
+        id = NotesFactory::getNewId();
 }
 
 QString Article::getText() const

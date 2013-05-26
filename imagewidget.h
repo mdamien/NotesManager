@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QObject>
+#include "notesmanager.h"
 
 class ImageWidget : public NoteWidget
 {

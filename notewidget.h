@@ -7,6 +7,10 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QHBoxLayout>
+#include "note.h"
+#include "article.h"
+#include "document.h"
+#include "binary.h"
 
 class NoteWidget : public QWidget
 {
@@ -21,6 +25,7 @@ public slots:
 protected :
     QLineEdit* title;
     QTextEdit* content;
+    Note* note;
 };
 
 #endif // NOTEWIDGET_H

@@ -2,6 +2,7 @@
 #define ARTICLEWIDGET_H
 
 #include "notewidget.h"
+#include "notesmanager.h"
 
 class ArticleWidget : public NoteWidget
 {
