@@ -15,12 +15,6 @@ QString LaTeXExport::exportArticle(Article* note,unsigned int titleLevel)
     return s;
 }
 
-QString LaTeXExport::exportBinary(QString tag,Binary* note,unsigned int titleLevel)
-{
-    QString s = section(note,titleLevel)+"<p>"+note->getDescription().replace("\n","<br/>")+"<\p>\n"
-            +"<"+tag+" src='"+note->getPath()+"' alt='"+note->getDescription()+"' />\n";
-    return titleLevel == 0 ? indent(s) : s;
-}
 QString LaTeXExport::exportImage(Image* note,unsigned int titleLevel)
 {
     return section(note,titleLevel)
@@ -31,11 +25,19 @@ QString LaTeXExport::exportImage(Image* note,unsigned int titleLevel)
 }
 QString LaTeXExport::exportVideo(Video* note,unsigned int titleLevel)
 {
-    return exportBinary("video",note,titleLevel);
+    return section(note,titleLevel)
+            + "\\begin{center}\n"
+            + "\\url{"+note->getPath()+"}\n"
+            +"\\paragraph{}"+note->getDescription()+"\n"
+            +"\\end{center}\n\n";
 }
 QString LaTeXExport::exportAudio(Audio* note,unsigned int titleLevel)
 {
-    return exportBinary("audio",note,titleLevel);
+    return section(note,titleLevel)
+            + "\\begin{center}\n"
+            + "\\url{"+note->getPath()+"}\n"
+            +"\\paragraph{}"+note->getDescription()+"\n"
+            +"\\end{center}\n\n";
 }
 
 QString LaTeXExport::exportDocument(Document* note,unsigned int titleLevel)

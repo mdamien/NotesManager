@@ -28,12 +28,13 @@ public:
     void addNoteWidget(Note* n);
 
     void loadNote(NoteWidget* n);
-    static NoteWidget* makeWidget(Note* note, QWidget* parent=0);
+    NoteWidget* makeWidget(Note* note, QWidget* parent=0);
 
-public slots:
+private slots:
     void tabChanged(int i);
     void addNote(QAction* a);
     void loadSidebarNote(QListWidgetItem* item);
+    void updateNotesList();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur
@@ -43,7 +44,6 @@ private:
     ~MainWindow();
 
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
-    void updateNotesList();
 
     Ui::MainWindow *ui;
     NotesManager* nm;

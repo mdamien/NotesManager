@@ -7,7 +7,6 @@
 class LaTeXExport : public ExportStrategy
 {
 private:
-    QString exportBinary(QString tag, Binary* note, unsigned int titleLevel=0);
     QString section(Note *n, unsigned int titleLevel);
 public:
     LaTeXExport();

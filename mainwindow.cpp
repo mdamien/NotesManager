@@ -71,19 +71,21 @@ void MainWindow::loadNote(NoteWidget *n)
 
 NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
 {
+    NoteWidget* n = NULL;
     if(typeid(*note) == typeid(Article))
-        return new ArticleWidget((Article*)note, parent);
+        n = new ArticleWidget((Article*)note, parent);
     else if(typeid(*note) == typeid(Document))
-        return new DocumentWidget((Document*)note, parent);
+        n = new DocumentWidget((Document*)note, parent);
     else if(typeid(*note) == typeid(Image))
-        return new ImageWidget((Image*)note, parent);
+        n = new ImageWidget((Image*)note, parent);
     else if(typeid(*note) == typeid(Audio))
-        return new AudioWidget((Audio*)note, parent);
+        n = new AudioWidget((Audio*)note, parent);
     else if(typeid(*note) == typeid(Video))
-        return new VideoWidget((Video*)note, parent);
+        n = new VideoWidget((Video*)note, parent);
     else
         qDebug() << "ERROR:Note type not implemented yet in Qt Widgets";
-    return NULL;
+    connect(n,SIGNAL(titleChanged(QString)),this,SLOT(updateNotesList()));
+    return n;
 }
 
 void MainWindow::tabChanged(int i)

@@ -25,7 +25,7 @@ Note* DocumentWidget::getNote(){
 
 void DocumentWidget::addNote(Note *n)
 {
-    addNoteWidget(MainWindow::makeWidget(n,this));
+    addNoteWidget(MainWindow::getInstance()->makeWidget(n,this));
 }
 void DocumentWidget::addNoteWidget(NoteWidget *n)
 {
