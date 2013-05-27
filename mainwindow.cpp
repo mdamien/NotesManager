@@ -40,7 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
     updateNotesList();
 
     for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
-        ui->tag_list->addItem((*it)->getName());
+        QListWidgetItem* item = new QListWidgetItem((*it)->getName());
+        item->setCheckState(Qt::Unchecked);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        ui->tag_list->addItem(item);
     }
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));

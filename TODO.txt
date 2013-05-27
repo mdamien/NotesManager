@@ -8,3 +8,5 @@ _ copier notes ou sauvegarder opération par opération ?
 
 Nouvelle note: Choisir type avec dialog ?
 
+TRASH (qset dans notesmanager)
+

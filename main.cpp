@@ -27,7 +27,7 @@ Document d2(13314,"Document moins important");
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    app.setApplicationName("NotesManager");
+    app.setApplicationName("Notes Manager");
     NotesManager* nm = NotesManager::getInstance();
     nm->setPath("../notesmanager/workplace");
     nm->load();
