@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <typeinfo>
 #include <QDebug>
+#include "savetextexport.h"
 
 MainWindow* MainWindow::mw = 0;
 
@@ -45,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
+    connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(newNote()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
 }
 void MainWindow::updateNotesList(){
@@ -61,6 +63,11 @@ void MainWindow::newNote()
 {
     clearLayout(ui->editor_area->layout());
     currentNote = NULL;
+}
+
+void MainWindow::save()
+{
+    SaveTextExport().save();
 }
 
 MainWindow::~MainWindow()

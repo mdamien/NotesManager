@@ -124,7 +124,7 @@
              <x>0</x>
              <y>0</y>
              <width>522</width>
-             <height>341</height>
+             <height>339</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -248,6 +248,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionNew"/>
+   <addaction name="actionSave"/>
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
    <addaction name="actionArticle"/>
