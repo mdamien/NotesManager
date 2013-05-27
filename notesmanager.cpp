@@ -1,6 +1,7 @@
 #include "notesmanager.h"
 #include <ctime>
 #include <QDebug>
+#include "notesparser.h"
 
 using namespace std;
 
@@ -97,12 +98,14 @@ QString NotesManager::getFileName(const unsigned int i) const
 
 void NotesManager::load()
 {
-    //A définir
+    notes->clear();
+    NotesParser().parseWorkplace();
 }
 
 void NotesManager::load(const QString& newPath)
 {
-    //A définir
+    this->setPath(newPath);
+    load();
 }
 
 void NotesManager::reset()

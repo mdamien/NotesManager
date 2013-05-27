@@ -30,8 +30,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("NotesManager");
     NotesManager* nm = NotesManager::getInstance();
     nm->setPath("../notesmanager/workplace");
-    TagManager* tm = TagManager::getInstance();
-    NotesParser().parseWorkplace();
+    nm->load();
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
         qDebug() << (*it)->getId() << (*it)->getTitle();
     }

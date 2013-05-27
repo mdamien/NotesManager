@@ -33,11 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     tm = TagManager::getInstance();
     currentNote = NULL;
 
-    currentNote = makeWidget(nm->getNoteByID(3),this);
-    ui->editor_area->layout()->addWidget(currentNote);
+    //currentNote = makeWidget(nm->getNoteByID(3),this);
+    //ui->editor_area->layout()->addWidget(currentNote);
 
     updateNotesList();
-
 
     for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
         ui->tag_list->addItem((*it)->getName());
@@ -45,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
+    connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
 }
 void MainWindow::updateNotesList(){
@@ -55,6 +55,12 @@ void MainWindow::updateNotesList(){
             ui->notes_list->addItem(item);
         }
     }
+}
+
+void MainWindow::newNote()
+{
+    clearLayout(ui->editor_area->layout());
+    currentNote = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -90,17 +96,19 @@ NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
 
 void MainWindow::tabChanged(int i)
 {
-    switch(i)
-    {
-    case 1:    //ExportText
-        ui->text_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("Text")));
-        break;
-    case 2 :   //ExportHTML
-        ui->html_textedit->setHtml(currentNote->getNote()->exportNote(nm->getExporter("HTML")));
-        break;
-    case 3 :   //ExportLaTeX
-        ui->latex_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("LaTeX")));
-        break;
+    if(currentNote != NULL){
+        switch(i)
+        {
+        case 1:    //ExportText
+            ui->text_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("Text")));
+            break;
+        case 2 :   //ExportHTML
+            ui->html_textedit->setHtml(currentNote->getNote()->exportNote(nm->getExporter("HTML")));
+            break;
+        case 3 :   //ExportLaTeX
+            ui->latex_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("LaTeX")));
+            break;
+        }
     }
 }
 void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
@@ -145,7 +153,6 @@ void MainWindow::addNote(QAction* a)
     {
         n = new Video(nm->getNewId(),"Titre Video","Description");
     }
-
     if(n == NULL){
         return;
     }
@@ -153,11 +160,12 @@ void MainWindow::addNote(QAction* a)
 
     NoteWidget* w = makeWidget(n,this);
 
-    if(currentNote == NULL || ui->editor_area->layout()->isEmpty()){
+    if(currentNote == NULL){
+        n->setLoaded(true);
         loadNote(w);
+        updateNotesList();
     }
-    if(currentNote != NULL)
-    {
+    else{
         if(QString(currentNote->metaObject()->className()) == "DocumentWidget"){
             ((DocumentWidget*)currentNote)->addNoteWidget(w);
             ((Document*)((DocumentWidget*)currentNote)->getNote())->addSubNote(n);

@@ -2,3 +2,9 @@ loaded -> opened
 LaTeX a finir
 unit-tests pour le parsage / save
 Enlever load()!!!
+
+Historique:
+_ copier notes ou sauvegarder opération par opération ?
+
+Nouvelle note: Choisir type avec dialog ?
+
