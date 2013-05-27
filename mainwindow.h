@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void loadNote(Note* n);
+    void loadNote(NoteWidget* n);
     static NoteWidget* makeWidget(Note* note, QWidget* parent=0);
 
 public slots:

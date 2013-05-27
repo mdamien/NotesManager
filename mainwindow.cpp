@@ -40,7 +40,6 @@ void MainWindow::loadNote(NoteWidget *n)
     currentNote = n;
 }
 
-
 NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
 {
     if(typeid(*note) == typeid(Article))
@@ -116,9 +115,7 @@ void MainWindow::addNote(QAction* a)
     }
     if(currentNote != NULL)
     {
-        qDebug() << currentNote->metaObject()->className();
         if(QString(currentNote->metaObject()->className()) == "DocumentWidget"){
-            qDebug() << "here we are..";
             ((DocumentWidget*)currentNote)->addNoteWidget(w);
             ((Document*)((DocumentWidget*)currentNote)->getNote())->addSubNote(n);
         }else{
