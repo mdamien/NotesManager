@@ -2,7 +2,7 @@
 
 ArticleWidget::ArticleWidget(Article* article,QWidget* parent):NoteWidget(parent),note(article)
 {
-    text = new QTextEdit(note->getText());
+    text = new QPlainTextEdit(note->getText());
     title->setText(note->getTitle());
 
     layout->addWidget(text);

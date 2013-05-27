@@ -15,10 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     currentNote = makeWidget(nm->getNoteByID(3),this);
     ui->editor_area->layout()->addWidget(currentNote);
 
-    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
-        if((*it)->isLoaded())
-            ui->notes_list->addItem((*it)->getTitle());
-    }
+    updateNotesList();
+
 
     for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
         ui->tag_list->addItem((*it)->getName());
@@ -26,6 +24,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
+    connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
+}
+void MainWindow::updateNotesList(){
+    ui->notes_list->clear();
+    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
+        if((*it)->isLoaded()){
+            QListWidgetItem* item = new NoteListItem((*it)->getTitle(),(*it));
+            ui->notes_list->addItem(item);
+        }
+    }
 }
 
 MainWindow::~MainWindow()
@@ -122,8 +130,18 @@ void MainWindow::addNote(QAction* a)
             Document* d = new Document(nm->getNewId(),"Document");
             nm->addRessource(d);
             d->addSubNote(currentNote->getNote());
+            currentNote->getNote()->setLoaded(false);
+            d->setLoaded(true);
             d->addSubNote(n);
             loadNote(makeWidget(d,this));
+            updateNotesList();
         }
     }
+}
+
+void MainWindow::loadSidebarNote(QListWidgetItem *item)
+{
+    NoteListItem* i = (NoteListItem*) item;
+    loadNote(makeWidget(i->getNote(),this));
+    ui->tabs->setCurrentIndex(0);
 }

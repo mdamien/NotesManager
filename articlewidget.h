@@ -1,7 +1,7 @@
 #ifndef ARTICLEWIDGET_H
 #define ARTICLEWIDGET_H
 
-#include <QTextEdit>
+#include <QPlainTextEdit>
 
 #include "notewidget.h"
 #include "article.h"
@@ -16,7 +16,7 @@ signals:
 public slots:
     void updateNote();
 private:
-    QTextEdit* text;
+    QPlainTextEdit* text;
     Article* note;
 };
 
