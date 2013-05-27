@@ -124,7 +124,7 @@
              <x>0</x>
              <y>0</y>
              <width>522</width>
-             <height>339</height>
+             <height>328</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -212,7 +212,7 @@
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
     <addaction name="actionCopy"/>
-    <addaction name="actionPaste_2"/>
+    <addaction name="actionPaste"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
    </widget>
@@ -220,10 +220,10 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionEditor"/>
     <addaction name="actionHTML"/>
     <addaction name="actionLaTeX"/>
     <addaction name="actionText"/>
-    <addaction name="actionText_2"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -258,16 +258,25 @@
    <addaction name="actionImage"/>
   </widget>
   <action name="actionNew">
+   <property name="icon">
+    <iconset theme="document-new"/>
+   </property>
    <property name="text">
     <string>New</string>
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset theme="document-open"/>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset theme="document-save"/>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -278,51 +287,65 @@
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset theme="edit-undo"/>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset theme="edit-redo"/>
+   </property>
    <property name="text">
     <string>Redo</string>
    </property>
   </action>
   <action name="actionCopy">
+   <property name="icon">
+    <iconset theme="edit-copy"/>
+   </property>
    <property name="text">
     <string>Copy</string>
    </property>
   </action>
   <action name="actionPaste">
-   <property name="text">
-    <string>Cut</string>
+   <property name="icon">
+    <iconset theme="edit-paste"/>
    </property>
-  </action>
-  <action name="actionPaste_2">
    <property name="text">
     <string>Paste</string>
    </property>
   </action>
-  <action name="actionHTML">
+  <action name="actionEditor">
+   <property name="icon">
+    <iconset theme="document"/>
+   </property>
    <property name="text">
     <string>Editor</string>
    </property>
   </action>
-  <action name="actionLaTeX">
+  <action name="actionHTML">
+   <property name="icon">
+    <iconset theme="html"/>
+   </property>
    <property name="text">
     <string>HTML</string>
    </property>
   </action>
-  <action name="actionText">
+  <action name="actionLaTeX">
+   <property name="icon">
+    <iconset theme="document"/>
+   </property>
    <property name="text">
     <string>LaTeX</string>
    </property>
   </action>
-  <action name="actionEditor">
-   <property name="text">
-    <string>Editor</string>
+  <action name="actionText">
+   <property name="icon">
+    <iconset theme="text"/>
    </property>
-  </action>
-  <action name="actionText_2">
    <property name="text">
     <string>Text</string>
    </property>
@@ -333,6 +356,9 @@
    </property>
   </action>
   <action name="actionHelp">
+   <property name="icon">
+    <iconset theme="help"/>
+   </property>
    <property name="text">
     <string>Help</string>
    </property>
@@ -343,26 +369,41 @@
    </property>
   </action>
   <action name="actionArticle">
+   <property name="icon">
+    <iconset theme="text"/>
+   </property>
    <property name="text">
     <string>Article</string>
    </property>
   </action>
   <action name="actionDocument">
+   <property name="icon">
+    <iconset theme="document"/>
+   </property>
    <property name="text">
     <string>Document</string>
    </property>
   </action>
   <action name="actionVideo">
+   <property name="icon">
+    <iconset theme="video"/>
+   </property>
    <property name="text">
     <string>Video</string>
    </property>
   </action>
   <action name="actionAudio">
+   <property name="icon">
+    <iconset theme="sound"/>
+   </property>
    <property name="text">
     <string>Audio</string>
    </property>
   </action>
   <action name="actionImage">
+   <property name="icon">
+    <iconset theme="image"/>
+   </property>
    <property name="text">
     <string>Image</string>
    </property>

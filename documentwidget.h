@@ -2,7 +2,7 @@
 #define DOCUMENTWIDGET_H
 
 #include <QTextEdit>
-
+#include <QPushButton>
 #include "notewidget.h"
 #include "document.h"
 

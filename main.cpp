@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
         qDebug() << (*it)->getId() << (*it)->getTitle();
     }
+    SaveTextExport().save();
     MainWindow* m = MainWindow::getInstance();
     m->show();
     return app.exec();

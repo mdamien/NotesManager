@@ -95,7 +95,8 @@ void SaveTextExport::save()
     QString workplace = nm->getPath();
 
     //CLEAN
-    QDir dir(workplace);
+    QDir dir;
+    dir.setCurrent(workplace);
     dir.setFilter(QDir::Hidden | QDir::Files);
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i) {
@@ -108,7 +109,7 @@ void SaveTextExport::save()
     }
 
     //SERIALIZE
-    QString base = QDir(workplace).absolutePath();
+    QString base = dir.absolutePath();
     writeToFile(base+"/.notes",e.exportNotesMetafile());
     writeToFile(base+"/.tags",e.exportTagsMetafile());
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){

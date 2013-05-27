@@ -55,3 +55,5 @@ HEADERS += \
 
 OTHER_FILES += \
     TODO.txt
+
+RESOURCES +=

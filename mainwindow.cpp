@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
-    connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(newNote()));
+    connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(save()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
 }
 void MainWindow::updateNotesList(){
