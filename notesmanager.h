@@ -2,13 +2,11 @@
 #define NOTESMANAGER_H
 
 #include "note.h"
-#include "notesfactory.h"
 #include "exportstrategy.h"
 #include <QSet>
 #include <map>
 #include "textexport.h"
 #include "htmlexport.h"
-#include "mainwindow.h"
 
 class NotesManager
 {
@@ -26,9 +24,10 @@ public:
     void load(const QString& newPath);
     void reset();
     void loadNote(const unsigned int i);
-    std::map<QString, ExportStrategy*>* getExporter();
-    std::map<QString, NotesFactory*>* getFactory();
+    ExportStrategy* getExporter(QString exporter);
     Note* getNoteByID(unsigned int id);
+
+    unsigned int getNewId();
 
     //Iterator
     class Iterator
@@ -59,7 +58,6 @@ private:
     static NotesManager* notesManager;
     QSet<Note*>* notes; //Set pour ne pas avoir deux fois la même Note dans le NM
     QString path;
-    std::map<QString, NotesFactory*>* factories;
     std::map<QString, ExportStrategy*>* strategies;
 };
 

@@ -1,26 +1,35 @@
 #include "imagewidget.h"
+#include <QFileDialog>
 
-ImageWidget::ImageWidget(const QString& filePath, const QString& tit, const QString& desc, QWidget* parent) : NoteWidget(tit, desc, parent), filePath(filePath)
+ImageWidget::ImageWidget(Image* img,QWidget* parent):NoteWidget(parent),note(img)
 {
     image = new QLabel(this);
-    image->setPixmap(QPixmap(filePath));
-
-    path = new QPushButton("Set Image", this);
-
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(title);
+    image->setPixmap(QPixmap(note->getPath()));
+    description = new QTextEdit(note->getDescription());
+    title->setText(note->getTitle());
+    button = new QPushButton("Chooser image");
     layout->addWidget(image);
-    layout->addWidget(path);
-    layout->addWidget(content);
-
-    note = new Image(NotesFactory::getNewId(), tit, desc, filePath);
-    NotesManager::getInstance()->addRessource(note);
-
-    setLayout(layout);
-    QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
+    layout->addWidget(button);
+    layout->addWidget(description);
+    connect(description,SIGNAL(textChanged()),this,SLOT(updateNote()));
+    connect(button,SIGNAL(clicked()),this,SLOT(chooseImage()));
 }
 
-void ImageWidget::openExplorer()
+void ImageWidget::updateNote()
 {
-    image->setPixmap(QPixmap(QFileDialog::getOpenFileName()));
+    note->setTitle(title->text());
+    note->setDescription(description->toPlainText());
+    //note->setModified(true);
 }
+
+void ImageWidget::chooseImage()
+{
+    QString path = QFileDialog::getOpenFileName();
+    image->setPixmap(QPixmap(path));
+    note->setPath(path);
+}
+
+Note* ImageWidget::getNote(){
+    return note;
+}
+

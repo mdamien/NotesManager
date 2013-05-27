@@ -1,16 +1,22 @@
 #include "articlewidget.h"
 
-using namespace std;
-
-ArticleWidget::ArticleWidget(const QString& tit, const QString& cont, QWidget* parent) : NoteWidget(tit, cont, parent)
+ArticleWidget::ArticleWidget(Article* article,QWidget* parent):NoteWidget(parent),note(article)
 {
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(title);
-    layout->addWidget(content);
+    text = new QTextEdit(note->getText());
+    title->setText(note->getTitle());
 
-    setLayout(layout);
-    std::map<QString, NotesFactory*>* facto = NotesManager::getInstance()->getFactory();
-    note = new Article(NotesFactory::getNewId(), tit, cont);
-
-    NotesManager::getInstance()->addRessource(note);
+    layout->addWidget(text);
+    connect(text,SIGNAL(textChanged()),this,SLOT(updateNote()));
 }
+
+void ArticleWidget::updateNote()
+{
+    note->setTitle(title->text());
+    note->setText(text->toPlainText());
+    //note->setModified(true);
+}
+
+Note* ArticleWidget::getNote(){
+    return note;
+}
+

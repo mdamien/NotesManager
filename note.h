@@ -15,15 +15,12 @@ public:
     void setTitle(const QString& title);
     bool isModified() const;
     QString exportNote(ExportStrategy* es) const;
-    //QString exportAsPart(ExportStrategy* es) const;
-    //void addSudNote(Note* n);    //Devrait être UNIQUEMENT dans Document, à vérifier
-    //void removeSubNote(const unsigned int i);  //Devrait être UNIQUEMENT dans Document, à vérifier
     void setLoaded(const bool);
     bool isLoaded() const;
 
 protected :
     Note(const unsigned int id, const QString& title = "");
-    virtual void load() = 0; //Chargement différent en fonction du type de fichier
+    virtual void load() = 0;
     unsigned int id;
     QString title;
     bool modified;

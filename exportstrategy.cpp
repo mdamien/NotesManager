@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include "textexport.h"
 #include "htmlexport.h"
+#include "latexexport.h"
 #include "savetextexport.h"
 
 ExportStrategy::ExportStrategy()
@@ -49,9 +50,10 @@ QString ExportStrategy::footer(Note* note)
 std::map<QString, ExportStrategy*>* ExportStrategy::getExportStrategies()
 {
     std::map<QString, ExportStrategy*>* strategies = new std::map<QString, ExportStrategy*>;
-    (*strategies)["TextExport"] = new TextExport;
-    (*strategies)["HTMLExport"] = new HTMLExport;
-    (*strategies)["SaveTextExport"] = new SaveTextExport;
+    (*strategies)["Text"] = new TextExport;
+    (*strategies)["HTML"] = new HTMLExport;
+    (*strategies)["SaveText"] = new SaveTextExport;
+    (*strategies)["LaTeX"] = new LaTeXExport;
     return strategies;
 }
 

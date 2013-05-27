@@ -2,7 +2,6 @@
 #define ARTICLE_H
 
 #include "note.h"
-#include "notesfactory.h"
 
 class Article : public Note
 {

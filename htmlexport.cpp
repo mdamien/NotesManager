@@ -16,6 +16,7 @@ QString HTMLExport::exportArticle(Article* note,unsigned int titleLevel)
 
 QString HTMLExport::exportBinary(QString tag,Binary* note,unsigned int titleLevel)
 {
+    QString src = note->getPath().contains("http://") ? note->getPath() : "file://"+note->getPath();
     QString s = title(note,titleLevel)+"<p>"+note->getDescription().replace("\n","<br/>")+"<\p>\n"
             +"<"+tag+" src='"+note->getPath()+"' alt='"+note->getDescription()+"' />\n";
     return titleLevel == 0 ? indent(s) : s;

@@ -1,31 +1,27 @@
 #ifndef IMAGEWIDGET_H
 #define IMAGEWIDGET_H
 
-#include "notewidget.h"
-#include <QImage>
-#include <QLabel>
-#include <QPixmap>
+#include <QTextEdit>
 #include <QPushButton>
-#include <QFileDialog>
-#include <QObject>
-#include "notesmanager.h"
+#include <QLabel>
+#include "notewidget.h"
+#include "binary.h"
 
 class ImageWidget : public NoteWidget
 {
     Q_OBJECT
-
 public:
-    ImageWidget(const QString& filePath = "", const QString& tit = "Title", const QString& desc = "Description", QWidget* parent = 0);
+    ImageWidget(Image* img,QWidget* parent = 0);
+    Note* getNote();
+signals:
 
-signals :
-
-protected :
-    QString filePath;
+public slots:
+    void updateNote();
+    void chooseImage();
+private:
+    QTextEdit* description;
     QLabel* image;
-    QPushButton* path;
-
-public slots :
-    void openExplorer();
+    QPushButton* button;
+    Image* note;
 };
-
 #endif // IMAGEWIDGET_H

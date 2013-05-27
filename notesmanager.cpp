@@ -1,5 +1,5 @@
 #include "notesmanager.h"
-
+#include <ctime>
 #include <QDebug>
 
 using namespace std;
@@ -9,7 +9,6 @@ NotesManager* NotesManager::notesManager = 0;
 NotesManager::NotesManager()
 {
     notes = new QSet<Note*>();
-    factories = NotesFactory::getFactories();
     strategies = ExportStrategy::getExportStrategies();
 }
 
@@ -24,14 +23,6 @@ NotesManager::~NotesManager()
     notes->clear();
     delete notes;
     notes = 0;
-
-    //Suppression de la map contenant les Factories
-    for(std::map<QString, NotesFactory*>::iterator it = factories->begin(); it != factories->end(); it++)
-    {
-        delete it->second;
-    }
-    delete factories;
-    factories = 0;
 
     //Suppression de la map contenant les Strategies
     for(std::map<QString, ExportStrategy*>::iterator it = strategies->begin(); it != strategies->end(); it++)
@@ -62,9 +53,9 @@ void NotesManager::deleteInstance()
     }
 }
 
-std::map<QString, ExportStrategy*>* NotesManager::getExporter()
+ExportStrategy *NotesManager::getExporter(QString exporter)
 {
-    return strategies;
+    return strategies->at(exporter);
 }
 
 QString NotesManager::getPath() const
@@ -106,14 +97,7 @@ QString NotesManager::getFileName(const unsigned int i) const
 
 void NotesManager::load()
 {
-    NotesManager* nm = NotesManager::getInstance();
-    MainWindow* mw = MainWindow::getInstance();
-
-    for(NotesManager::Iterator it = nm->begin(); it != nm->end(); ++it)
-    {
-        if((*it)->isLoaded())
-            mw->addNoteWidget(*it);
-    }
+    //A définir
 }
 
 void NotesManager::load(const QString& newPath)
@@ -142,7 +126,10 @@ Note* NotesManager::getNoteByID(unsigned int id)
     }
     return NULL;
 }
-
+unsigned int NotesManager::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
+{
+    return std::time(0);
+}
 //Iterator sur le contenu de NotesManager
 
 NotesManager::Iterator NotesManager::begin()
@@ -183,9 +170,4 @@ bool NotesManager::Iterator::operator==(const Iterator& it) const
 bool NotesManager::Iterator::operator!=(const Iterator& it) const
 {
     return itNotes != it.itNotes;
-}
-
-std::map<QString, NotesFactory*>* NotesManager::getFactory()
-{
-    return factories;
 }

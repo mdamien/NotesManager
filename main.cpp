@@ -3,20 +3,16 @@
 #include <QDebug>
 
 #include <iostream>
-#include "imagewidget.h"
 #include "note.h"
 #include "article.h"
 #include "document.h"
 #include "binary.h"
 #include "mainwindow.h"
 #include "notesmanager.h"
-#include "articlefactory.h"
 #include "textexport.h"
 #include "htmlexport.h"
 #include "savetextexport.h"
 #include "tagmanager.h"
-#include "audiowidget.h"
-#include "videowidget.h"
 #include "notesparser.h"
 
 Article a(1212,"titre de l'article 1","texte de l'article 1\nDeuxiéme ligne!");
@@ -35,11 +31,10 @@ int main(int argc, char *argv[])
     nm->setPath("../notesmanager/workplace");
     TagManager* tm = TagManager::getInstance();
     NotesParser().parseWorkplace();
-    //nm->load();
-    //MainWindow::getInstance()->show();
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
-        qDebug() << (*it)->getId();
+        qDebug() << (*it)->getId() << (*it)->getTitle();
     }
-
-    return 0;//app.exec();
+    MainWindow m;
+    m.show();
+    return app.exec();
 }

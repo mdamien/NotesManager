@@ -1,15 +1,23 @@
 #ifndef ARTICLEWIDGET_H
 #define ARTICLEWIDGET_H
 
+#include <QTextEdit>
+
 #include "notewidget.h"
-#include "notesmanager.h"
+#include "article.h"
 
 class ArticleWidget : public NoteWidget
 {
-public :
-    ArticleWidget(const QString& tit = "", const QString& cont = "", QWidget* parent = 0);
+public:
+    ArticleWidget(Article* a,QWidget* parent = 0);
+    Note* getNote();
+signals:
 
-protected :
+public slots:
+    void updateNote();
+private:
+    QTextEdit* text;
+    Article* note;
 };
 
 #endif // ARTICLEWIDGET_H

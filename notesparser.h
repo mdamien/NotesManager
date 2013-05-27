@@ -12,7 +12,6 @@
 #include "article.h"
 #include "document.h"
 #include "binary.h"
-#include "notesfactory.h"
 #include "notesmanager.h"
 #include "tag.h"
 #include "tagmanager.h"

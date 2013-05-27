@@ -1,8 +1,11 @@
 #include "notewidget.h"
 
-NoteWidget::NoteWidget(const QString& tit, const QString& cont, QWidget *parent) : QWidget(parent)
+NoteWidget::NoteWidget(QWidget* parent):QWidget(parent)
 {
-    title = new QLineEdit(tit);
-    content = new QTextEdit();
-    content->setPlainText(cont);
+    layout = new QVBoxLayout(this);
+    title = new QLineEdit();
+    layout->addWidget(title);
+    this->setLayout(layout);
+
+     connect(title,SIGNAL(textChanged(QString)),this,SLOT(updateNote()));
 }
