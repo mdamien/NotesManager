@@ -13,7 +13,7 @@ void ArticleWidget::updateNote()
 {
     note->setTitle(title->text());
     note->setText(text->toPlainText());
-    //note->setModified(true);
+    note->setModified(true);
 }
 
 Note* ArticleWidget::getNote(){

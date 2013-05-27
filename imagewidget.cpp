@@ -7,7 +7,7 @@ ImageWidget::ImageWidget(Image* img,QWidget* parent):NoteWidget(parent),note(img
     image->setPixmap(QPixmap(note->getPath()));
     description = new QTextEdit(note->getDescription());
     title->setText(note->getTitle());
-    button = new QPushButton("Chooser image");
+    button = new QPushButton("Choose image");
     layout->addWidget(image);
     layout->addWidget(button);
     layout->addWidget(description);
@@ -19,7 +19,7 @@ void ImageWidget::updateNote()
 {
     note->setTitle(title->text());
     note->setDescription(description->toPlainText());
-    //note->setModified(true);
+    note->setModified(true);
 }
 
 void ImageWidget::chooseImage()
@@ -27,6 +27,7 @@ void ImageWidget::chooseImage()
     QString path = QFileDialog::getOpenFileName();
     image->setPixmap(QPixmap(path));
     note->setPath(path);
+    note->setModified(true);
 }
 
 Note* ImageWidget::getNote(){

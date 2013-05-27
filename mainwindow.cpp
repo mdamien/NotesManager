@@ -3,6 +3,27 @@
 #include <typeinfo>
 #include <QDebug>
 
+MainWindow* MainWindow::mw = 0;
+
+MainWindow* MainWindow::getInstance(QWidget *parent)
+{
+    if(mw){
+        return mw;
+    }
+    else {
+        mw = new MainWindow(parent);
+        return mw;
+    }
+}
+
+void MainWindow::deleteInstance()
+{
+    if(mw){
+        delete mw;
+        mw = 0;   //Remise du pointeur à 0
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -56,6 +77,10 @@ NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
         return new DocumentWidget((Document*)note, parent);
     else if(typeid(*note) == typeid(Image))
         return new ImageWidget((Image*)note, parent);
+    else if(typeid(*note) == typeid(Audio))
+        return new AudioWidget((Audio*)note, parent);
+    else if(typeid(*note) == typeid(Video))
+        return new VideoWidget((Video*)note, parent);
     else
         qDebug() << "ERROR:Note type not implemented yet in Qt Widgets";
     return NULL;
@@ -104,11 +129,19 @@ void MainWindow::addNote(QAction* a)
     }
     else if(a == ui->actionImage)
     {
-        n = new Image(nm->getNewId(),"Titre Image","Contenu","");
+        n = new Image(nm->getNewId(),"Titre Image","Description");
     }
     else if(a == ui->actionDocument)
     {
-        n = new Document(nm->getNewId(),"Titre Dcoument");
+        n = new Document(nm->getNewId(),"Titre Document");
+    }
+    else if(a == ui->actionAudio)
+    {
+        n = new Audio(nm->getNewId(),"Titre Audio","Description");
+    }
+    else if(a == ui->actionVideo)
+    {
+        n = new Video(nm->getNewId(),"Titre Video","Description");
     }
 
     if(n == NULL){

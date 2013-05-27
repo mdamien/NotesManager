@@ -16,7 +16,7 @@ DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent)
 void DocumentWidget::updateNote()
 {
     note->setTitle(title->text());
-    //note->setModified(true);
+    note->setModified(true);
 }
 
 Note* DocumentWidget::getNote(){

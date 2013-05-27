@@ -1,5 +1,3 @@
-Enlever Factory ^_^
-note() -> loaded = false
 loaded -> opened
 LaTeX a finir
 unit-tests pour le parsage / save

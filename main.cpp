@@ -27,6 +27,7 @@ Document d2(13314,"Document moins important");
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setApplicationName("NotesManager");
     NotesManager* nm = NotesManager::getInstance();
     nm->setPath("../notesmanager/workplace");
     TagManager* tm = TagManager::getInstance();
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
         qDebug() << (*it)->getId() << (*it)->getTitle();
     }
-    MainWindow m;
-    m.show();
+    MainWindow* m = MainWindow::getInstance();
+    m->show();
     return app.exec();
 }

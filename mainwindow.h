@@ -10,6 +10,9 @@
 #include "articlewidget.h"
 #include "documentwidget.h"
 #include "imagewidget.h"
+#include "binary.h"
+#include "audiowidget.h"
+#include "videowidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,8 +23,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    static MainWindow* getInstance(QWidget *parent = 0);
+    static void deleteInstance();
+    void addNoteWidget(Note* n);
+
     void loadNote(NoteWidget* n);
     static NoteWidget* makeWidget(Note* note, QWidget* parent=0);
 
@@ -31,6 +36,12 @@ public slots:
     void loadSidebarNote(QListWidgetItem* item);
 
 private:
+    //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur
+    explicit MainWindow(QWidget *parent = 0);
+    MainWindow& operator=(const MainWindow&);
+    MainWindow(const MainWindow&);
+    ~MainWindow();
+
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
     void updateNotesList();
 
@@ -38,6 +49,8 @@ private:
     NotesManager* nm;
     TagManager* tm;
     NoteWidget* currentNote;
+
+    static MainWindow* mw;
 };
 
 class NoteListItem : public QListWidgetItem{

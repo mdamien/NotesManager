@@ -13,7 +13,7 @@ public:
     explicit NoteWidget(QWidget* parent = 0);
     virtual Note* getNote() = 0;
 signals:
-    
+    void titleChanged(QString q);
 public slots:
     virtual void updateNote() = 0;
 protected:

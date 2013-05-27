@@ -14,6 +14,7 @@ public:
     QString getTitle() const;
     void setTitle(const QString& title);
     bool isModified() const;
+    void setModified(const bool modified);
     QString exportNote(ExportStrategy* es) const;
     void setLoaded(const bool);
     bool isLoaded() const;

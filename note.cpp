@@ -27,6 +27,11 @@ bool Note::isModified() const
     return modified;
 }
 
+void Note::setModified(const bool modified)
+{
+    this->modified = modified;
+}
+
 QString Note::exportNote(ExportStrategy* es) const
 {
     return es->exportNote((Note*)this);
