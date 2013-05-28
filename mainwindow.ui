@@ -146,7 +146,11 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QTextEdit" name="html_textedit"/>
+         <widget class="QTextEdit" name="html_textedit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -459,7 +463,9 @@
   </action>
   <action name="actionClose">
    <property name="icon">
-    <iconset theme="exit"/>
+    <iconset theme="exit">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Close</string>

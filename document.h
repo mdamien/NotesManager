@@ -10,7 +10,7 @@ public:
     Document(const unsigned int id, const QString& title, const QList<Note*>& listeNotes);
     Document(Document* d);
     void addSubNote(Note* n);
-    void removeSurNote(const unsigned int i);
+    void removeSubNote(const unsigned int i);
     Note* getSubNote(const unsigned int i);
     unsigned int getNumberOfSubNotes() const;
     ~Document();

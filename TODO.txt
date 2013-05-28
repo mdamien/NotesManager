@@ -1,12 +1,25 @@
-loaded -> opened
-LaTeX a finir
-unit-tests pour le parsage / save
-Enlever load()!!!
+=== PRINCIPAL ====
 
-Historique:
+HISTORIQUE
 _ copier notes ou sauvegarder opération par opération ?
 
-Nouvelle note: Choisir type avec dialog ?
+TRASH
 
-TRASH (qset dans notesmanager)
+TAG MANAGER INTERFACE
+_ set et search
 
+SETTINGS
+
+
+== SECONDAIRE ==
+
+ExportStrategies avec la version propre
+loaded -> opened
+Enlever load()
+Exceptions
+Save() available only if note modified [ put modified() signal in NoteWidget ]
+noteFocused [ put onFocus() in NoteWidget]
+Iterators avec typedef
+Traduction interface
+Icones (windows / mac)
+Code source HTML (toogle)

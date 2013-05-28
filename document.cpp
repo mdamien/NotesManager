@@ -34,7 +34,7 @@ void Document::addSubNote(Note* n)
     notes->append(n);
 }
 
-void Document::removeSurNote(const unsigned int i)
+void Document::removeSubNote(const unsigned int i)
 {
     notes->removeAt(i);
 }
