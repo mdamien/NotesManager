@@ -6,7 +6,8 @@ TARGET = NotesManager
 TEMPLATE = app
 
 FORMS = \
-    mainwindow.ui
+    mainwindow.ui \
+    settingsdialog.ui
 
 SOURCES += \
     main.cpp \
@@ -29,7 +30,8 @@ SOURCES += \
     documentwidget.cpp \
     imagewidget.cpp \
     audiowidget.cpp \
-    videowidget.cpp
+    videowidget.cpp \
+    settingsdialog.cpp
 
 HEADERS += \
     article.h \
@@ -51,7 +53,8 @@ HEADERS += \
     documentwidget.h \
     imagewidget.h \
     audiowidget.h \
-    videowidget.h
+    videowidget.h \
+    settingsdialog.h
 
 OTHER_FILES += \
     TODO.txt

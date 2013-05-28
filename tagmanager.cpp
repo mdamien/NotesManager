@@ -86,6 +86,14 @@ Tag* TagManager::getTag(QString name) //Notes of a tag
     return NULL;
 }
 
+void TagManager::reset()
+{
+    for(TagManager::Iterator it = this->begin(); it != this->end();++it){
+        delete *it;
+    }
+    tags->clear();
+}
+
 TagManager::~TagManager(){
     for(TagManager::Iterator it = this->begin(); it != this->end();++it){
         delete *it;

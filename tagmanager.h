@@ -19,6 +19,7 @@ public:
     QList<QString> getTags();
     QList<QString> getNoteTags(Note* note); //Tags of a Note
     Tag* getTag(QString name);
+    void reset();
 
     //Iterator
     class Iterator

@@ -19,7 +19,6 @@ public:
     void saveState();
     void addRessource(Note* n);
     void deleteRessource(Note* n);
-    QString getFileName(const unsigned int i) const;
     void load();
     void load(const QString& newPath);
     void reset();

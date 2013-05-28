@@ -13,6 +13,7 @@
 #include "binary.h"
 #include "audiowidget.h"
 #include "videowidget.h"
+#include "settingsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,11 +38,12 @@ private slots:
     void updateNotesList();
     void updateTagsList();
     void updateTag(QListWidgetItem* item);
-    void tagSearch(QString name);
+    void tagSearch();
     void addTag();
     void newNote();
     void save();
     void closeNote();
+    void openSettings();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

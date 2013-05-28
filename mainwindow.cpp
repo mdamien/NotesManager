@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updateNotesList();
     updateTagsList();
-    tagSearch("");//pour remplir remplir une liste de tout les tags / notes
+    tagSearch();//pour remplir remplir une liste de tout les tags / notes
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
@@ -47,8 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->tag_list, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updateTag(QListWidgetItem*)));
     connect(ui->tag_set, SIGNAL(clicked()),this,SLOT(addTag()));
-    connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch(QString)));
+    connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch()));
     connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
+    connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(openSettings()));
 }
 
 void MainWindow::updateNotesList(){
@@ -76,6 +77,7 @@ void MainWindow::updateTagsList(){
             ui->tag_list->addItem(item);
         }
     }
+    tagSearch();
 }
 
 void MainWindow::updateTag(QListWidgetItem *item)
@@ -93,8 +95,9 @@ void MainWindow::updateTag(QListWidgetItem *item)
     }
 }
 
-void MainWindow::tagSearch(QString name)
+void MainWindow::tagSearch()
 {
+    QString name = ui->tag_lineedit->text();
     ui->tag_search->clear();
     for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
         if((*it)->getName().contains(name)){
@@ -139,6 +142,19 @@ void MainWindow::closeNote()
         currentNote = NULL;
         updateNotesList();
         updateTagsList();
+    }
+}
+
+void MainWindow::openSettings()
+{
+    QString old_path = nm->getPath();
+    SettingsDialog d;
+    if(d.exec() == QDialog::Accepted){
+        if(d.workplace() != old_path){
+            updateNotesList();
+            updateTagsList();
+            newNote();
+        }
     }
 }
 

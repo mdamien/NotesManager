@@ -81,7 +81,6 @@ void NotesManager::saveState()
 
 void NotesManager::addRessource(Note* n)
 {
-    //qDebug() << "Ressource added:" << n->getId() << n->getTitle();
     notes->insert(n);
 }
 
@@ -90,15 +89,8 @@ void NotesManager::deleteRessource(Note* n)
     notes->remove(n);
 }
 
-QString NotesManager::getFileName(const unsigned int i) const
-{
-    //A définir : ajouter un filename à chaque Note, non ?
-    return "";
-}
-
 void NotesManager::load()
 {
-    notes->clear();
     NotesParser().parseWorkplace();
 }
 
@@ -110,7 +102,7 @@ void NotesManager::load(const QString& newPath)
 
 void NotesManager::reset()
 {
-    //A définir
+    notes->clear();
 }
 
 void NotesManager::loadNote(const unsigned int i)

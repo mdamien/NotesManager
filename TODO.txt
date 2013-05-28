@@ -5,11 +5,7 @@ _ copier notes ou sauvegarder opération par opération ?
 
 TRASH
 
-TAG MANAGER INTERFACE
-_ set et search
-
-SETTINGS
-
+COPY BINARY
 
 == SECONDAIRE ==
 
@@ -24,3 +20,4 @@ Traduction interface
 Icones (windows / mac)
 Code source HTML (toogle)
 Icones (delete / up / down / edit in new note / copy / paste / set image / ..) qui apparaissent que quand ya le focus sur la note
+open .note

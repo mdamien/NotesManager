@@ -89,6 +89,8 @@ Note* NotesParser::parseNote(QString path,unsigned int id)
 
 void NotesParser::parseWorkplace()
 {
+    NotesManager::getInstance()->reset();
+    TagManager::getInstance()->reset();
     QDir dir;
     dir.setCurrent(nm->getPath());
     dir.setFilter(QDir::Files);
