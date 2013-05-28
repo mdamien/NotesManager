@@ -53,7 +53,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(save()));
     connect(ui->actionClose, SIGNAL(triggered()),this,SLOT(closeNote()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
+    connect(ui->tag_list, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updateTag(QListWidgetItem*)));
+    connect(ui->tag_set, SIGNAL(clicked()),this,SLOT(addTag()));
+
 }
+
 void MainWindow::updateNotesList(){
     ui->notes_list->clear();
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
@@ -63,22 +67,55 @@ void MainWindow::updateNotesList(){
         }
     }
 }
+
 void MainWindow::updateTagsList(){
     ui->tag_list->clear();
-    for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
-        QListWidgetItem* item = new QListWidgetItem((*it)->getName());
-        if(currentNote != NULL){
+    if(currentNote != NULL){
+        for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
+            QListWidgetItem* item = new TagListItem((*it)->getName(),(*it));
             if((*it)->contains(currentNote->getNote())){
                 item->setCheckState(Qt::Checked);
             }
             else{
                 item->setCheckState(Qt::Unchecked);
             }
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+            ui->tag_list->addItem(item);
         }
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        ui->tag_list->addItem(item);
     }
+}
 
+void MainWindow::updateTag(QListWidgetItem *item)
+{
+    TagListItem* i = (TagListItem*)item;
+    bool checked = i->checkState() == Qt::Checked;
+    Tag* tag = i->getTag();
+    if(currentNote != NULL){
+        if(checked && !tag->contains(currentNote->getNote())){
+            tag->addNote(currentNote->getNote());
+        }
+        if(!checked && tag->contains(currentNote->getNote())){
+            tag->removeNote(currentNote->getNote());
+        }
+    }
+}
+
+void MainWindow::addTag()
+{
+    if(currentNote != NULL){
+        QString txt = ui->tag_lineedit->text();
+        if(txt.length() > 0){
+            Tag* t = tm->getTag(txt);
+            if (t == NULL){
+                t = new Tag(txt);
+                t->addNote(currentNote->getNote());
+                tm->addTag(t);
+            }else{
+                t->addNote(currentNote->getNote());
+            }
+        }
+        updateTagsList();
+    }
 }
 
 void MainWindow::newNote()
@@ -151,6 +188,7 @@ void MainWindow::tabChanged(int i)
         }
     }
 }
+
 void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 {
     while (QLayoutItem* item = layout->takeAt(0))

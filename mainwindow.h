@@ -36,6 +36,8 @@ private slots:
     void loadSidebarNote(QListWidgetItem* item);
     void updateNotesList();
     void updateTagsList();
+    void updateTag(QListWidgetItem* item);
+    void addTag();
     void newNote();
     void save();
     void closeNote();
@@ -55,6 +57,14 @@ private:
     NoteWidget* currentNote;
 
     static MainWindow* mw;
+};
+
+class TagListItem : public QListWidgetItem{
+public:
+    TagListItem(QString title,Tag* note):QListWidgetItem(title),tag(note){}
+    Tag* getTag(){return tag;}
+private:
+    Tag* tag;
 };
 
 class NoteListItem : public QListWidgetItem{
