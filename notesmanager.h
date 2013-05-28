@@ -15,7 +15,6 @@ public:
     static void deleteInstance();
     QString getPath() const;
     void setPath(const QString& p);
-    Note* getNote(const unsigned int i);
     void saveState();
     void addRessource(Note* n);
     void deleteRessource(Note* n);

@@ -31,7 +31,8 @@ SOURCES += \
     imagewidget.cpp \
     audiowidget.cpp \
     videowidget.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    historymanager.cpp
 
 HEADERS += \
     article.h \
@@ -54,7 +55,8 @@ HEADERS += \
     imagewidget.h \
     audiowidget.h \
     videowidget.h \
-    settingsdialog.h
+    settingsdialog.h \
+    historymanager.h
 
 OTHER_FILES += \
     TODO.txt

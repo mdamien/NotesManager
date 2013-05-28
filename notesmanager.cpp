@@ -69,11 +69,6 @@ void NotesManager::setPath(const QString& p)
     path = p;
 }
 
-Note* NotesManager::getNote(const unsigned int i)
-{
-    return 0;
-}
-
 void NotesManager::saveState()
 {
     //A définir
@@ -121,6 +116,7 @@ Note* NotesManager::getNoteByID(unsigned int id)
     }
     return NULL;
 }
+
 unsigned int NotesManager::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
 {
     return std::time(0);

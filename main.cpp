@@ -15,10 +15,38 @@
 #include "tagmanager.h"
 #include "notesparser.h"
 #include "settingsdialog.h"
+#include "historymanager.h"
 
+void printNM()
+{
+    NotesManager* nm = NotesManager::getInstance();
+    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
+        qDebug() << (*it)->getId() << (*it)->getTitle();
+    }
+}
+
+int testHistory(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+    app.setApplicationName("Notes Manager");
+    NotesManager* nm = NotesManager::getInstance();
+    nm->load(SettingsDialog::workplace());
+    printNM();
+    HistoryManager hm;
+    qDebug("op 1");
+    ModifyNoteTitle op1(nm->getNoteByID(1),"NEW TITLE");
+    hm.addAndExec(&op1);
+    printNM();
+    qDebug("undo");
+    hm.undo();
+    printNM();
+    return 0;
+}
 
 int main(int argc, char *argv[])
 {
+    testHistory(argc,argv);
+    /*
     QApplication app(argc, argv);
     app.setApplicationName("Notes Manager");
     NotesManager* nm = NotesManager::getInstance();
@@ -27,8 +55,6 @@ int main(int argc, char *argv[])
         qDebug() << (*it)->getId() << (*it)->getTitle();
     }
     MainWindow* m = MainWindow::getInstance();
-    m->show();
-    /*SettingsDialog s;
-    s.show();*/
-    return app.exec();
+    m->show();*/
+    return 0;//app.exec();
 }
