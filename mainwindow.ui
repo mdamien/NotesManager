@@ -65,13 +65,6 @@
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="tag_search">
-               <property name="text">
-                <string>Search</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -202,6 +195,7 @@
     <addaction name="menuAdd"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionClose"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -259,26 +253,41 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset theme="document-new"/>
+    <iconset theme="document-new">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Open</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset theme="document-save"/>
+    <iconset theme="document-save">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionExit">
@@ -288,39 +297,61 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="edit-undo"/>
+    <iconset theme="edit-undo">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Undo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="edit-redo"/>
+    <iconset theme="edit-redo">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Redo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Y, Ctrl+Shift+Z</string>
+   </property>
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset theme="edit-copy"/>
+    <iconset theme="edit-copy">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Copy</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset theme="edit-paste"/>
+    <iconset theme="edit-paste">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Paste</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
   </action>
   <action name="actionEditor">
    <property name="icon">
-    <iconset theme="document"/>
+    <iconset theme="document">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Editor</string>
@@ -328,7 +359,9 @@
   </action>
   <action name="actionHTML">
    <property name="icon">
-    <iconset theme="html"/>
+    <iconset theme="html">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>HTML</string>
@@ -336,7 +369,9 @@
   </action>
   <action name="actionLaTeX">
    <property name="icon">
-    <iconset theme="document"/>
+    <iconset theme="document">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>LaTeX</string>
@@ -344,7 +379,9 @@
   </action>
   <action name="actionText">
    <property name="icon">
-    <iconset theme="text"/>
+    <iconset theme="text">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Text</string>
@@ -357,7 +394,9 @@
   </action>
   <action name="actionHelp">
    <property name="icon">
-    <iconset theme="help"/>
+    <iconset theme="help">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Help</string>
@@ -370,7 +409,9 @@
   </action>
   <action name="actionArticle">
    <property name="icon">
-    <iconset theme="text"/>
+    <iconset theme="text">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Article</string>
@@ -378,7 +419,9 @@
   </action>
   <action name="actionDocument">
    <property name="icon">
-    <iconset theme="document"/>
+    <iconset theme="document">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Document</string>
@@ -386,7 +429,9 @@
   </action>
   <action name="actionVideo">
    <property name="icon">
-    <iconset theme="video"/>
+    <iconset theme="video">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Video</string>
@@ -394,7 +439,9 @@
   </action>
   <action name="actionAudio">
    <property name="icon">
-    <iconset theme="sound"/>
+    <iconset theme="sound">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Audio</string>
@@ -402,10 +449,23 @@
   </action>
   <action name="actionImage">
    <property name="icon">
-    <iconset theme="image"/>
+    <iconset theme="image">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Image</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset theme="exit"/>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
  </widget>

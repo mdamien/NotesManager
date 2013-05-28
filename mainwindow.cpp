@@ -3,6 +3,7 @@
 #include <typeinfo>
 #include <QDebug>
 #include "savetextexport.h"
+#include <QFileDialog>
 
 MainWindow* MainWindow::mw = 0;
 
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
     connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(save()));
+    connect(ui->actionClose, SIGNAL(triggered()),this,SLOT(closeNote()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
 }
 void MainWindow::updateNotesList(){
@@ -61,11 +63,38 @@ void MainWindow::updateNotesList(){
         }
     }
 }
+void MainWindow::updateTagsList(){
+    ui->tag_list->clear();
+    for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
+        QListWidgetItem* item = new QListWidgetItem((*it)->getName());
+        if(currentNote != NULL){
+            if((*it)->contains(currentNote->getNote())){
+                item->setCheckState(Qt::Checked);
+            }
+            else{
+                item->setCheckState(Qt::Unchecked);
+            }
+        }
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        ui->tag_list->addItem(item);
+    }
+
+}
 
 void MainWindow::newNote()
 {
     clearLayout(ui->editor_area->layout());
     currentNote = NULL;
+}
+
+void MainWindow::closeNote()
+{
+    if(currentNote != NULL){
+        currentNote->getNote()->setLoaded(false);
+        clearLayout(ui->editor_area->layout());
+        currentNote = NULL;
+        updateNotesList();
+    }
 }
 
 void MainWindow::save()
@@ -83,6 +112,7 @@ void MainWindow::loadNote(NoteWidget *n)
     clearLayout(ui->editor_area->layout());
     ui->editor_area->layout()->addWidget(n);
     currentNote = n;
+    updateTagsList();
 }
 
 NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)

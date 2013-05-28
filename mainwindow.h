@@ -35,8 +35,10 @@ private slots:
     void addNote(QAction* a);
     void loadSidebarNote(QListWidgetItem* item);
     void updateNotesList();
+    void updateTagsList();
     void newNote();
     void save();
+    void closeNote();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur
