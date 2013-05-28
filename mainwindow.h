@@ -37,6 +37,7 @@ private slots:
     void updateNotesList();
     void updateTagsList();
     void updateTag(QListWidgetItem* item);
+    void tagSearch(QString name);
     void addTag();
     void newNote();
     void save();

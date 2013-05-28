@@ -35,17 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     tm = TagManager::getInstance();
     currentNote = NULL;
 
-    //currentNote = makeWidget(nm->getNoteByID(3),this);
-    //ui->editor_area->layout()->addWidget(currentNote);
-
     updateNotesList();
-
-    for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
-        QListWidgetItem* item = new QListWidgetItem((*it)->getName());
-        item->setCheckState(Qt::Unchecked);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        ui->tag_list->addItem(item);
-    }
+    updateTagsList();
+    tagSearch("");//pour remplir remplir une liste de tout les tags / notes
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
@@ -55,7 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->tag_list, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updateTag(QListWidgetItem*)));
     connect(ui->tag_set, SIGNAL(clicked()),this,SLOT(addTag()));
-
+    connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch(QString)));
+    connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
 }
 
 void MainWindow::updateNotesList(){
@@ -100,6 +93,19 @@ void MainWindow::updateTag(QListWidgetItem *item)
     }
 }
 
+void MainWindow::tagSearch(QString name)
+{
+    ui->tag_search->clear();
+    for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
+        if((*it)->getName().contains(name)){
+            for(Tag::Iterator it2 = (*it)->begin();it2 != (*it)->end();++it2){
+                QListWidgetItem* item = new NoteListItem((*it)->getName() +" - "+ (*it2)->getTitle(),(*it2));
+                ui->tag_search->addItem(item);
+            }
+        }
+    }
+}
+
 void MainWindow::addTag()
 {
     if(currentNote != NULL){
@@ -122,6 +128,7 @@ void MainWindow::newNote()
 {
     clearLayout(ui->editor_area->layout());
     currentNote = NULL;
+    updateTagsList();
 }
 
 void MainWindow::closeNote()
@@ -131,6 +138,7 @@ void MainWindow::closeNote()
         clearLayout(ui->editor_area->layout());
         currentNote = NULL;
         updateNotesList();
+        updateTagsList();
     }
 }
 
@@ -149,6 +157,8 @@ void MainWindow::loadNote(NoteWidget *n)
     clearLayout(ui->editor_area->layout());
     ui->editor_area->layout()->addWidget(n);
     currentNote = n;
+    n->getNote()->setLoaded(true);
+    updateNotesList();
     updateTagsList();
 }
 
