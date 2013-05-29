@@ -15,10 +15,12 @@ public:
     Note* getNote();
     void addNote(Note* n);
     void addNoteWidget(NoteWidget* n);
+
 signals:
 
 public slots:
     void updateNote();
+
 private:
     Document* note;
     QVBoxLayout* childsLayout;

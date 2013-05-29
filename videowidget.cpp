@@ -20,7 +20,6 @@ VideoWidget::VideoWidget(Video* video, QWidget* parent) : note(video)
 
     videoPlayer  = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
 
-    layout->addWidget(title);
     layout->addWidget(videoPlayer);
     layout->addLayout(playerLayout);
     layout->addWidget(description);

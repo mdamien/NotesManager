@@ -14,6 +14,8 @@
 #include "audiowidget.h"
 #include "videowidget.h"
 #include "settingsdialog.h"
+#include <typeinfo>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -27,11 +29,12 @@ public:
     static MainWindow* getInstance(QWidget *parent = 0);
     static void deleteInstance();
     void addNoteWidget(Note* n);
-
+    void closeCurrentNote();
     void loadNote(NoteWidget* n);
     NoteWidget* makeWidget(Note* note, QWidget* parent=0);
+    void removeTextFromTabs();
 
-private slots:
+public slots:
     void tabChanged(int i);
     void addNote(QAction* a);
     void loadSidebarNote(QListWidgetItem* item);
@@ -44,6 +47,9 @@ private slots:
     void save();
     void closeNote();
     void openSettings();
+    void deleteWidget(NoteWidget* nw);
+    void displayView(QAction* a);
+    void closeEvent(QCloseEvent *);
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

@@ -15,7 +15,6 @@ AudioWidget::AudioWidget(Audio* audio,QWidget* parent):NoteWidget(parent),note(a
     fileName = new QLineEdit(note->getPath());
     fileName->setReadOnly(true);
 
-    layout->addWidget(title);
     playerLayout->addWidget(path);
     playerLayout->addWidget(fileName);
     playerLayout->addWidget(play);
@@ -24,7 +23,6 @@ AudioWidget::AudioWidget(Audio* audio,QWidget* parent):NoteWidget(parent),note(a
     layout->addWidget(description);
 
     music = Phonon::createPlayer(Phonon::MusicCategory);
-    description = new QTextEdit(note->getDescription());
 
     connect(description,SIGNAL(textChanged()),this,SLOT(updateNote()));
     connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));

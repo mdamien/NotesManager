@@ -53,3 +53,8 @@ void Document::load()
 {
     //A définir
 }
+
+void Document::removeSubNote(Note* n)
+{
+    notes->removeOne(n);
+}

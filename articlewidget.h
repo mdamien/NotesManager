@@ -11,10 +11,12 @@ class ArticleWidget : public NoteWidget
 public:
     ArticleWidget(Article* a,QWidget* parent = 0);
     Note* getNote();
+
 signals:
 
 public slots:
     void updateNote();
+
 private:
     QPlainTextEdit* text;
     Article* note;

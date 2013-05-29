@@ -11,6 +11,7 @@ public:
     Document(Document* d);
     void addSubNote(Note* n);
     void removeSubNote(const unsigned int i);
+    void removeSubNote(Note* n);
     Note* getSubNote(const unsigned int i);
     unsigned int getNumberOfSubNotes() const;
     ~Document();

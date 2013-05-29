@@ -8,7 +8,8 @@ DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent)
     title->setText(note->getTitle());
     childsLayout = new QVBoxLayout();
     layout->addLayout(childsLayout);
-    for (int i = 0; i < note->getNumberOfSubNotes(); ++i) {
+    for (unsigned int i = 0; i < note->getNumberOfSubNotes(); ++i)
+    {
         addNote(note->getSubNote(i));
     }
 }
@@ -19,7 +20,8 @@ void DocumentWidget::updateNote()
     note->setModified(true);
 }
 
-Note* DocumentWidget::getNote(){
+Note* DocumentWidget::getNote()
+{
     return note;
 }
 
@@ -27,6 +29,7 @@ void DocumentWidget::addNote(Note *n)
 {
     addNoteWidget(MainWindow::getInstance()->makeWidget(n,this));
 }
+
 void DocumentWidget::addNoteWidget(NoteWidget *n)
 {
     childsLayout->addWidget(n);

@@ -50,6 +50,27 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch()));
     connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(openSettings()));
+    connect(ui->menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
+}
+
+void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
+{
+    if(a == ui->actionEditor)
+    {
+        ui->tabs->setCurrentIndex(0);
+    }
+    else if(a == ui->actionText)
+    {
+        ui->tabs->setCurrentIndex(1);
+    }
+    else if(a == ui->actionHTML)
+    {
+        ui->tabs->setCurrentIndex(2);
+    }
+    else if(a == ui->actionLaTeX)
+    {
+        ui->tabs->setCurrentIndex(3);
+    }
 }
 
 void MainWindow::updateNotesList(){
@@ -134,15 +155,30 @@ void MainWindow::newNote()
     updateTagsList();
 }
 
-void MainWindow::closeNote()
+void MainWindow::removeTextFromTabs()
 {
-    if(currentNote != NULL){
+    ui->text_textedit->setPlainText("");
+    ui->html_textedit->setHtml("");
+    ui->latex_textedit->setPlainText("");
+}
+
+
+void MainWindow::closeCurrentNote()
+{
+    if(currentNote != NULL)
+    {
         currentNote->getNote()->setLoaded(false);
         clearLayout(ui->editor_area->layout());
         currentNote = NULL;
         updateNotesList();
         updateTagsList();
+        removeTextFromTabs();
     }
+}
+
+void MainWindow::closeNote() //SLOT
+{
+    closeCurrentNote();
 }
 
 void MainWindow::openSettings()
@@ -291,4 +327,35 @@ void MainWindow::loadSidebarNote(QListWidgetItem *item)
     NoteListItem* i = (NoteListItem*) item;
     loadNote(makeWidget(i->getNote(),this));
     ui->tabs->setCurrentIndex(0);
+}
+
+void MainWindow::deleteWidget(NoteWidget* nw)
+{
+    if(currentNote == nw) //Permet de supprimer TOUTE la note (article etc seul : OK, document entier : OK)
+    {
+        closeNote();
+    }
+    else //On veut supprimer une partie du document
+    {
+        Document* doc = ((Document*)currentNote->getNote());
+        doc->removeSubNote(nw->getNote());
+        closeNote();
+
+        if(doc->getNumberOfSubNotes()) //S'il reste des Notes dans le document on le recharge avec celles-ci
+            loadNote(makeWidget(doc, this));
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent* e)
+{
+    int answer = QMessageBox::question(this, "Closing NotesManager", "Would you like to save your not saved notes ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+    if(answer == QMessageBox::Yes)
+    {
+        emit save();
+    }
+    if(answer == QMessageBox::Yes || answer == QMessageBox::No)
+        e->accept();
+    else
+        e->ignore();
 }

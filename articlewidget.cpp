@@ -6,7 +6,7 @@ ArticleWidget::ArticleWidget(Article* article,QWidget* parent):NoteWidget(parent
     title->setText(note->getTitle());
 
     layout->addWidget(text);
-    connect(text,SIGNAL(textChanged()),this,SLOT(updateNote()));
+    connect(text,SIGNAL(textChanged()), this, SLOT(updateNote()));
 }
 
 void ArticleWidget::updateNote()
@@ -19,4 +19,3 @@ void ArticleWidget::updateNote()
 Note* ArticleWidget::getNote(){
     return note;
 }
-

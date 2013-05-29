@@ -45,8 +45,7 @@ int testHistory(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    testHistory(argc,argv);
-    /*
+
     QApplication app(argc, argv);
     app.setApplicationName("Notes Manager");
     NotesManager* nm = NotesManager::getInstance();
@@ -55,6 +54,6 @@ int main(int argc, char *argv[])
         qDebug() << (*it)->getId() << (*it)->getTitle();
     }
     MainWindow* m = MainWindow::getInstance();
-    m->show();*/
-    return 0;//app.exec();
+    m->show();
+    app.exec();
 }

@@ -24,10 +24,10 @@ private:
     QStack<Operation*>* redo_stack;
 };
 
-class ModifyNoteAttribute :public Operation{
+class ModifyNoteAttribute : public Operation{
 };
 
-class ModifyNoteTitle :public ModifyNoteAttribute{
+class ModifyNoteTitle : public ModifyNoteAttribute{
 public:
     ModifyNoteTitle(Note* note,QString newTitle);
     void redo();
