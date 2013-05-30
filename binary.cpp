@@ -33,6 +33,9 @@ void Binary::setPath(const QString& p)
             QString new_p =  b.absoluteFilePath(QFileInfo(p).fileName());
             QFile(p).copy(new_p);
             path = new_p;
+            qDebug() << "new path of copy:"<<new_p;
+        }else{
+            path = p;
         }
     }else{
         path = p;
