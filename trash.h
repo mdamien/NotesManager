@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QListWidget>
+#include "document.h"
+#include <typeinfo>
 
 class TrashedListItem;
 
@@ -13,7 +15,7 @@ class Trash : public QWidget
 {
     Q_OBJECT
 public:
-    void addItem(Note* note);
+    void addItem(Note* note, Document* parent = 0);
     static Trash* getInstance(QWidget *parent = 0);
     static void deleteInstance();
 
@@ -27,7 +29,7 @@ public slots:
 
 private :
     QSet<Note*>* notes;
-    QSet<TrashedListItem*>* selection;
+    QSet<QListWidgetItem*>* selection;
     QListWidget* notesList;
 
     //Implémentation du Singleton
@@ -46,6 +48,15 @@ public :
 
 private :
     Note* note;
+};
+
+class TrashedSubNoteListItem : public TrashedListItem
+{
+public :
+    TrashedSubNoteListItem(Note* note, Document* parent) : TrashedListItem(note), parentNote(parent) {}
+    Document* getParentDocument() { return parentNote; }
+private :
+    Document* parentNote;
 };
 
 #endif // TRASH_H

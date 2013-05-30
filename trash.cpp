@@ -17,7 +17,7 @@ Trash::Trash(QWidget *parent) : QWidget(parent)
     layout->addLayout(buttonsLayout);
 
     notes = new QSet<Note*>();
-    selection = new QSet<TrashedListItem*>();
+    selection = new QSet<QListWidgetItem*>();
     notesList = new QListWidget(this);
 
     layout->addWidget(notesList);
@@ -33,7 +33,7 @@ Trash::~Trash()
 {
     delete notes;
     delete notesList;
-    for(QSet<TrashedListItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
+    for(QSet<QListWidgetItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
     {
         delete(*it); //Désallocation du pointeur sur chaque TrashListItem
     }
@@ -63,9 +63,15 @@ void Trash::showTrash()
     this->show();
 }
 
-void Trash::addItem(Note* note)
+void Trash::addItem(Note* note, Document* parent)
 {
-    QListWidgetItem* item = new TrashedListItem(note);
+    QListWidgetItem* item = NULL;
+
+    if(!parent)
+        item = new TrashedListItem(note);
+    else
+        item = new TrashedSubNoteListItem(note, parent);
+
     item->setCheckState(Qt::Unchecked);
     notes->insert(note);
     notesList->addItem(item);
@@ -74,7 +80,7 @@ void Trash::addItem(Note* note)
 void Trash::deleteSelection()
 {
     Note* n = NULL;
-    for(QSet<TrashedListItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
+    for(QSet<QListWidgetItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
     {
         n = ((TrashedListItem*)(*it))->getNote();
         n->setLoaded(false);
@@ -97,7 +103,30 @@ void Trash::deleteSelection()
 
 void Trash::restoreSelection()
 {
+    Note* n = NULL;
+    for(QSet<QListWidgetItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
+    {
+        n = ((TrashedListItem*)(*it))->getNote();
 
+        if(typeid(**it) == typeid(TrashedSubNoteListItem)) //On regarde si cette note était une sous-note d'un document
+        {
+            TrashedSubNoteListItem* item = (TrashedSubNoteListItem*)(*it);
+            if(Document* d = (Document*) NotesManager::getInstance()->getNoteByID(item->getParentDocument()->getId())) //Test pour savoir si le document existe toujours
+                d->addSubNote(n);
+            else
+                n->setLoaded(true);        //S'il n'existe pas, on recharge la note séparément
+        }
+        else
+        {
+            n->setLoaded(true);
+        }
+
+        notes->remove(n);
+        notesList->removeItemWidget(*it);
+        delete(*it);
+    }
+
+    selection->clear();
 }
 
 void Trash::addToSelection(QListWidgetItem* item)

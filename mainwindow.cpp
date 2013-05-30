@@ -341,8 +341,8 @@ void MainWindow::deleteWidget(NoteWidget* nw)
     }
     else //On veut supprimer une partie du document
     {
-        Trash::getInstance()->addItem(nw->getNote());
         Document* doc = ((Document*)currentNote->getNote());
+        Trash::getInstance()->addItem(nw->getNote(), doc);
         doc->removeSubNote(nw->getNote());
         closeNote();
 
