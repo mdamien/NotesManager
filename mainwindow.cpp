@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(ui->menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
-    connect(ui->trashButton, SIGNAL(clicked()), trash, SLOT(showTrash()));
+    connect(ui->actionTrash, SIGNAL(triggered()), trash, SLOT(showTrash()));
 }
 
 void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
