@@ -1,6 +1,6 @@
 #include "trash.h"
 #include "notesmanager.h"
-
+#include "mainwindow.h"
 Trash* Trash::trash = 0;
 
 Trash::Trash(QWidget *parent) : QWidget(parent)
@@ -125,8 +125,8 @@ void Trash::restoreSelection()
         notesList->removeItemWidget(*it);
         delete(*it);
     }
-
     selection->clear();
+    MainWindow::getInstance()->updateNotesList();
 }
 
 void Trash::addToSelection(QListWidgetItem* item)
