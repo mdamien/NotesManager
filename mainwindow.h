@@ -16,6 +16,7 @@
 #include "settingsdialog.h"
 #include <typeinfo>
 #include <QMessageBox>
+#include "trash.h"
 
 namespace Ui {
 class MainWindow;
@@ -64,7 +65,7 @@ private:
     NotesManager* nm;
     TagManager* tm;
     NoteWidget* currentNote;
-
+    Trash* trash;
     static MainWindow* mw;
 };
 
@@ -72,6 +73,7 @@ class TagListItem : public QListWidgetItem{
 public:
     TagListItem(QString title,Tag* note):QListWidgetItem(title),tag(note){}
     Tag* getTag(){return tag;}
+
 private:
     Tag* tag;
 };
@@ -80,6 +82,7 @@ class NoteListItem : public QListWidgetItem{
 public:
     NoteListItem(QString title,Note* note):QListWidgetItem(title),note(note){}
     Note* getNote(){return note;}
+
 private:
     Note* note;
 };

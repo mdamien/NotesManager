@@ -32,7 +32,8 @@ SOURCES += \
     audiowidget.cpp \
     videowidget.cpp \
     settingsdialog.cpp \
-    historymanager.cpp
+    historymanager.cpp \
+    trash.cpp
 
 HEADERS += \
     article.h \
@@ -56,7 +57,8 @@ HEADERS += \
     audiowidget.h \
     videowidget.h \
     settingsdialog.h \
-    historymanager.h
+    historymanager.h \
+    trash.h
 
 OTHER_FILES += \
     TODO.txt

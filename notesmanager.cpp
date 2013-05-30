@@ -11,6 +11,7 @@ NotesManager::NotesManager()
 {
     notes = new QSet<Note*>();
     strategies = ExportStrategy::getExportStrategies();
+    trash = Trash::getInstance();
 }
 
 NotesManager::~NotesManager()
@@ -19,7 +20,7 @@ NotesManager::~NotesManager()
 
     for(QSet<Note*>::Iterator it = notes->begin(); it != notes->end() ; it++)
     {
-        notes->erase(it); //Je vois que ça, je sais pas si ça delete le pointeur...
+        delete(*it);
     }
     notes->clear();
     delete notes;
@@ -39,10 +40,8 @@ NotesManager* NotesManager::getInstance()
     if(!notesManager)
     {
         notesManager = new NotesManager;
-        return notesManager;
     }
-    else
-        return notesManager;
+    return notesManager;
 }
 
 void NotesManager::deleteInstance()
@@ -81,6 +80,7 @@ void NotesManager::addRessource(Note* n)
 
 void NotesManager::deleteRessource(Note* n)
 {
+ //   delete(*(notes->find(n))); //Supprime la Note en mémoire
     notes->remove(n);
 }
 

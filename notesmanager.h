@@ -7,6 +7,7 @@
 #include <map>
 #include "textexport.h"
 #include "htmlexport.h"
+#include "trash.h"
 
 class NotesManager
 {
@@ -57,6 +58,7 @@ private:
     QSet<Note*>* notes; //Set pour ne pas avoir deux fois la même Note dans le NM
     QString path;
     std::map<QString, ExportStrategy*>* strategies;
+    Trash* trash;
 };
 
 #endif // NOTESMANAGER_H
