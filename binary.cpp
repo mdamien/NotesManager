@@ -1,8 +1,11 @@
 #include "binary.h"
+#include "settingsdialog.h"
+#include <QDir>
+#include "qdebug.h"
 
-Binary::Binary(const unsigned int id, const QString& title, const QString& desc, const QString& path) : Note(id, title), description(desc), path(path)
+Binary::Binary(const unsigned int id, const QString& title, const QString& desc, const QString& p) : Note(id, title), description(desc)
 {
-
+    setPath(p);
 }
 
 QString Binary::getDescription() const
@@ -21,7 +24,19 @@ QString Binary::getPath() const
 
 void Binary::setPath(const QString& p)
 {
-    path = p;
+    if(SettingsDialog::binaryCopy()){
+        QDir d;
+        d.setCurrent(NotesManager::getInstance()->getPath());
+        if(p != "" && !p.contains(d.absolutePath())){
+            d.mkdir("files");
+            QDir b(d.absoluteFilePath("files"));
+            QString new_p =  b.absoluteFilePath(QFileInfo(p).fileName());
+            QFile(p).copy(new_p);
+            path = new_p;
+        }
+    }else{
+        path = p;
+    }
 }
 
 Image::Image(const unsigned int id, const QString& title, const QString& desc, const QString& path) : Binary(id, title, desc, path)

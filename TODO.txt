@@ -1,11 +1,6 @@
 === PRINCIPAL ====
 
 HISTORIQUE
-_ copier notes ou sauvegarder opération par opération ?
-
-TRASH
-
-COPY BINARY
 
 == SECONDAIRE ==
 
