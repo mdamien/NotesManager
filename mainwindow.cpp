@@ -41,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     trash = Trash::getInstance();
 
+    modified = false; //todo, update with signals
+
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
@@ -353,14 +355,16 @@ void MainWindow::deleteWidget(NoteWidget* nw)
 
 void MainWindow::closeEvent(QCloseEvent* e)
 {
-    int answer = QMessageBox::question(this, "Closing NotesManager", "Would you like to save your unsaved notes ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if(modified){
+        int answer = QMessageBox::question(this, "Closing NotesManager", "Would you like to save your unsaved notes ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
-    if(answer == QMessageBox::Yes)
-    {
-        emit save();
+        if(answer == QMessageBox::Yes)
+        {
+            emit save();
+        }
+        if(answer == QMessageBox::Yes || answer == QMessageBox::No)
+            e->accept();
+        else
+            e->ignore();
     }
-    if(answer == QMessageBox::Yes || answer == QMessageBox::No)
-        e->accept();
-    else
-        e->ignore();
 }

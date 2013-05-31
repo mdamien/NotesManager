@@ -17,12 +17,35 @@
 #include "settingsdialog.h"
 #include "historymanager.h"
 
+SaveTextExport exp;
+
 void printNM()
 {
+    qDebug("NM:");
     NotesManager* nm = NotesManager::getInstance();
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
-        qDebug() << (*it)->getId() << (*it)->getTitle();
+        qDebug() << (*it)->exportNote(&exp);
     }
+}
+
+int testSerialization(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+    app.setApplicationName("Notes Manager");
+    NotesManager* nm = NotesManager::getInstance();
+    nm->setPath(SettingsDialog::workplace());
+    Article* a1 = new Article(1,"TITRE ARTICLE 1","TEXT 1");
+    Article* a2 = new Article(2,"TITRE ARTICLE 2","TEXT 2");
+    Document* d = new Document(3,"DOCUMENT");
+    d->setLoaded(true);
+    d->addSubNote(a1);
+    d->addSubNote(a2);
+    nm->addRessource(a1);
+    nm->addRessource(a2);
+    nm->addRessource(d);
+    printNM();
+    exp.save();
+    return 0;
 }
 
 int testHistory(int argc, char *argv[])
@@ -45,7 +68,6 @@ int testHistory(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-
     QApplication app(argc, argv);
     app.setApplicationName("Notes Manager");
     NotesManager* nm = NotesManager::getInstance();

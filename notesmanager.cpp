@@ -2,6 +2,7 @@
 #include <ctime>
 #include <QDebug>
 #include "notesparser.h"
+#include <QTime>
 
 using namespace std;
 
@@ -119,7 +120,8 @@ Note* NotesManager::getNoteByID(unsigned int id)
 
 unsigned int NotesManager::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
 {
-    return std::time(0);
+    return qrand() % 1000;
+    //return std::time(0);
 }
 //Iterator sur le contenu de NotesManager
 
