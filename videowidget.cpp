@@ -20,7 +20,6 @@ VideoWidget::VideoWidget(Video* video, QWidget* parent) : note(video)
     playerLayout->addWidget(restart);
 
     videoPlayer  = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
-
     layout->addWidget(videoPlayer);
     layout->addLayout(playerLayout);
     layout->addWidget(description);
@@ -28,6 +27,7 @@ VideoWidget::VideoWidget(Video* video, QWidget* parent) : note(video)
     title->setText(note->getTitle());
 
     videoPlayer->setMinimumSize(400, 400);
+
     QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
     QObject::connect(play, SIGNAL(clicked()), this, SLOT(player()));
     QObject::connect(restart, SIGNAL(clicked()), this, SLOT(restartPlayer()));
@@ -42,6 +42,11 @@ void VideoWidget::player()
     }
     else
     {
+        if(videoPlayer->mediaObject()->currentSource().fileName() == "")
+        {
+            videoPlayer->mediaObject()->clear();
+            videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(note->getPath()));
+        }
         videoPlayer->play();
         play->setText("Pause");
     }
@@ -58,11 +63,8 @@ void VideoWidget::openExplorer()
         videoPlayer->mediaObject()->clear();
         videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(s));
         note->setPath(s);
-        if(playing)
-        {
-            playing = false;
-            play->setText("Play");
-        }
+        playing = false;
+        play->setText("Play");
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }

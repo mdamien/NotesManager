@@ -24,6 +24,9 @@ AudioWidget::AudioWidget(Audio* audio, QWidget* parent):NoteWidget(parent),note(
 
     music = Phonon::createPlayer(Phonon::MusicCategory);
 
+    if(note->getPath() != "")
+        music->setCurrentSource(note->getPath());
+
     connect(description,SIGNAL(textChanged()),this,SLOT(updateNote()));
     connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
     connect(play, SIGNAL(clicked()), this, SLOT(player()));
@@ -53,11 +56,8 @@ void AudioWidget::openExplorer()
         fileName->setText(a);
         music->setCurrentSource(a);
         note->setPath(a);
-        if(playing)
-        {
-            playing = false;
-            play->setText("Play");
-        }
+        playing = false;
+        play->setText("Play");
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }
