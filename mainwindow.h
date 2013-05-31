@@ -47,6 +47,7 @@ public slots:
     void newNote();
     void save();
     void closeNote();
+    void chooseNoteToOpen();
     void openSettings();
     void deleteWidget(NoteWidget* nw);
     void displayView(QAction* a);

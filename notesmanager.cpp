@@ -101,9 +101,9 @@ void NotesManager::reset()
     notes->clear();
 }
 
-void NotesManager::loadNote(const unsigned int i)
+Note* NotesManager::loadNote(const unsigned int i)
 {
-    //A définir
+    return NotesParser().parseNote(path,i);
 }
 
 Note* NotesManager::getNoteByID(unsigned int id)
@@ -120,7 +120,12 @@ Note* NotesManager::getNoteByID(unsigned int id)
 
 unsigned int NotesManager::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
 {
-    return qrand() % 1000;
+
+    unsigned int id = 0;
+    do{
+        id = qrand() % 10000;
+    }while(getNoteByID(id) != NULL);
+    return id;
     //return std::time(0);
 }
 //Iterator sur le contenu de NotesManager

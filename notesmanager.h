@@ -22,7 +22,7 @@ public:
     void load();
     void load(const QString& newPath);
     void reset();
-    void loadNote(const unsigned int i);
+    Note* loadNote(const unsigned int i);
     ExportStrategy* getExporter(QString exporter);
     Note* getNoteByID(unsigned int id);
 

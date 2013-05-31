@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
+    connect(ui->actionOpen, SIGNAL(triggered()),this,SLOT(chooseNoteToOpen()));
     connect(ui->actionSave, SIGNAL(triggered()),this,SLOT(save()));
     connect(ui->actionClose, SIGNAL(triggered()),this,SLOT(closeNote()));
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
@@ -168,6 +169,7 @@ void MainWindow::removeTextFromTabs()
 }
 
 
+
 void MainWindow::closeCurrentNote()
 {
     if(currentNote != NULL)
@@ -184,6 +186,15 @@ void MainWindow::closeCurrentNote()
 void MainWindow::closeNote() //SLOT
 {
     closeCurrentNote();
+}
+
+void MainWindow::chooseNoteToOpen()
+{
+    QString path = QFileDialog::getOpenFileName(this,"Choose note",nm->getPath(),"*.note");
+    qDebug() << "path:" << path;
+    QFileInfo info(path);
+    Note* n = nm->loadNote(info.baseName().toUInt());
+    loadNote(makeWidget(n));
 }
 
 void MainWindow::openSettings()
