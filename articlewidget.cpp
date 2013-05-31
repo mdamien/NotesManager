@@ -11,11 +11,16 @@ ArticleWidget::ArticleWidget(Article* article,QWidget* parent):NoteWidget(parent
 
 void ArticleWidget::updateNote()
 {
-    note->setTitle(title->text());
-    note->setText(text->toPlainText());
-    note->setModified(true);
+    if(note->getTitle() != title->text() || note->getText() != text->toPlainText())
+    {
+        note->setTitle(title->text());
+        note->setText(text->toPlainText());
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
 }
 
-Note* ArticleWidget::getNote(){
+Note* ArticleWidget::getNote()
+{
     return note;
 }

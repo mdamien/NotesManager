@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include "note.h"
+#include "notesmanager.h"
 
 class NoteWidget : public QWidget
 {

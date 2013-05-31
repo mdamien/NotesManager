@@ -7,6 +7,7 @@ VideoWidget::VideoWidget(Video* video, QWidget* parent) : note(video)
     path = new QPushButton("Set Video", this);
     play = new QPushButton("Play", this);
     restart = new QPushButton("Restart", this);
+    filePath = video->getPath();
 
     QHBoxLayout* playerLayout = new QHBoxLayout;
 
@@ -50,15 +51,21 @@ void VideoWidget::player()
 void VideoWidget::openExplorer()
 {
     QString s(QFileDialog::getOpenFileName(this, "Sélectionnez un enregistrement vidéo","*.avi"));
-    fileName->setText(s);
-    videoPlayer->mediaObject()->clear();
-    videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(s));
-    note->setPath(s);
-    if(playing)
+
+    if(s != note->getPath())
     {
-        playing = false;
+        fileName->setText(s);
+        videoPlayer->mediaObject()->clear();
+        videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(s));
+        note->setPath(s);
+        if(playing)
+        {
+            playing = false;
+            play->setText("Play");
+        }
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
     }
-    note->setModified(true);
 }
 
 void VideoWidget::restartPlayer()
@@ -71,11 +78,16 @@ void VideoWidget::restartPlayer()
 
 void VideoWidget::updateNote()
 {
-    note->setTitle(title->text());
-    note->setDescription(description->toPlainText());
-    note->setModified(true);
+    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
+    {
+        note->setTitle(title->text());
+        note->setDescription(description->toPlainText());
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
 }
 
-Note* VideoWidget::getNote(){
+Note* VideoWidget::getNote()
+{
     return note;
 }

@@ -77,5 +77,5 @@ int main(int argc, char *argv[])
     }
     MainWindow* m = MainWindow::getInstance();
     m->show();
-    app.exec();
+    return app.exec();
 }

@@ -13,6 +13,7 @@ NotesManager::NotesManager()
     notes = new QSet<Note*>();
     strategies = ExportStrategy::getExportStrategies();
     trash = Trash::getInstance();
+    receivedModif = false;
 }
 
 NotesManager::~NotesManager()
@@ -54,7 +55,7 @@ void NotesManager::deleteInstance()
     }
 }
 
-ExportStrategy *NotesManager::getExporter(QString exporter)
+ExportStrategy *NotesManager::getExporter(const QString& exporter)
 {
     return strategies->at(exporter);
 }
@@ -118,18 +119,19 @@ Note* NotesManager::getNoteByID(unsigned int id)
     return NULL;
 }
 
-unsigned int NotesManager::getNewId()  //Renvoie un id unique en fonction de la date "actuelle"
+unsigned int NotesManager::getNewId() //Renvoie un id unique en fonction de la date "actuelle"
 {
-
     unsigned int id = 0;
-    do{
+    do
+    {
         id = qrand() % 10000;
-    }while(getNoteByID(id) != NULL);
+    }
+    while(getNoteByID(id) != NULL);
     return id;
     //return std::time(0);
 }
-//Iterator sur le contenu de NotesManager
 
+//Iterator sur le contenu de NotesManager
 NotesManager::Iterator NotesManager::begin()
 {
     return Iterator(notes->begin());
@@ -168,4 +170,14 @@ bool NotesManager::Iterator::operator==(const Iterator& it) const
 bool NotesManager::Iterator::operator!=(const Iterator& it) const
 {
     return itNotes != it.itNotes;
+}
+
+bool NotesManager::noteModified() const
+{
+    return receivedModif;
+}
+
+void NotesManager::setNoteModified(const bool& modif)
+{
+    receivedModif = modif;
 }

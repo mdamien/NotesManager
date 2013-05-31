@@ -1,7 +1,7 @@
 #include "audiowidget.h"
 #include <QFileDialog>
 
-AudioWidget::AudioWidget(Audio* audio,QWidget* parent):NoteWidget(parent),note(audio)
+AudioWidget::AudioWidget(Audio* audio, QWidget* parent):NoteWidget(parent),note(audio)
 {
     description = new QTextEdit(note->getDescription());
     title->setText(note->getTitle());
@@ -48,15 +48,19 @@ void AudioWidget::player()
 void AudioWidget::openExplorer()
 {
     QString a(QFileDialog::getOpenFileName(this, "Sélectionnez un enregistrement audio", "*.mp3;*.wav"));
-    fileName->setText(a);
-    music->setCurrentSource(a);
-    note->setPath(a);
-    if(playing)
+    if(a != note->getPath())
     {
-        playing = false;
-        play->setText("Play");
+        fileName->setText(a);
+        music->setCurrentSource(a);
+        note->setPath(a);
+        if(playing)
+        {
+            playing = false;
+            play->setText("Play");
+        }
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
     }
-    note->setModified(true);
 }
 
 void AudioWidget::restartPlayer()
@@ -68,11 +72,16 @@ void AudioWidget::restartPlayer()
 
 void AudioWidget::updateNote()
 {
-    note->setTitle(title->text());
-    note->setDescription(description->toPlainText());
-    note->setModified(true);
+    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
+    {
+        note->setTitle(title->text());
+        note->setDescription(description->toPlainText());
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
 }
 
-Note* AudioWidget::getNote(){
+Note* AudioWidget::getNote()
+{
     return note;
 }

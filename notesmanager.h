@@ -23,9 +23,10 @@ public:
     void load(const QString& newPath);
     void reset();
     Note* loadNote(const unsigned int i);
-    ExportStrategy* getExporter(QString exporter);
-    Note* getNoteByID(unsigned int id);
-
+    ExportStrategy* getExporter(const QString& exporter);
+    Note* getNoteByID(const unsigned int id);
+    bool noteModified() const;
+    void setNoteModified(const bool& modif = true);
     unsigned int getNewId();
 
     //Iterator
@@ -59,6 +60,7 @@ private:
     QString path;
     std::map<QString, ExportStrategy*>* strategies;
     Trash* trash;
+    bool receivedModif;
 };
 
 #endif // NOTESMANAGER_H

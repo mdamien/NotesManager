@@ -17,17 +17,25 @@ ImageWidget::ImageWidget(Image* img,QWidget* parent):NoteWidget(parent),note(img
 
 void ImageWidget::updateNote()
 {
-    note->setTitle(title->text());
-    note->setDescription(description->toPlainText());
-    note->setModified(true);
+    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
+    {
+        note->setTitle(title->text());
+        note->setDescription(description->toPlainText());
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
 }
 
 void ImageWidget::chooseImage()
 {
     QString path = QFileDialog::getOpenFileName();
-    image->setPixmap(QPixmap(path));
-    note->setPath(path);
-    note->setModified(true);
+    if(path != note->getPath())
+    {
+        image->setPixmap(QPixmap(path));
+        note->setPath(path);
+        note->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
 }
 
 Note* ImageWidget::getNote(){

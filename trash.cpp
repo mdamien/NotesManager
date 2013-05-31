@@ -1,6 +1,8 @@
 #include "trash.h"
 #include "notesmanager.h"
 #include "mainwindow.h"
+#include "tagmanager.h"
+
 Trash* Trash::trash = 0;
 
 Trash::Trash(QWidget *parent) : QWidget(parent)
@@ -88,6 +90,9 @@ void Trash::deleteSelection()
         NotesManager::getInstance()->deleteRessource(n);
         notesList->removeItemWidget(*it);
         delete(*it); //Désallocation du pointeur sur chaque TrashListItem
+        QFile::remove(QString(n->getId()));
+        TagManager::getInstance()->removeTaggedNote(n);
+        NotesManager::getInstance()->setNoteModified();
     }
 //    selection->clear(); //Suppression de chaque widget de la selection
 
@@ -120,10 +125,10 @@ void Trash::restoreSelection()
         {
             n->setLoaded(true);
         }
-
         notes->remove(n);
         notesList->removeItemWidget(*it);
         delete(*it);
+        NotesManager::getInstance()->setNoteModified();
     }
     selection->clear();
     MainWindow::getInstance()->updateNotesList();

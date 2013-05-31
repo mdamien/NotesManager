@@ -68,7 +68,6 @@ private:
     NoteWidget* currentNote;
     Trash* trash;
     static MainWindow* mw;
-    bool modified;
 };
 
 class TagListItem : public QListWidgetItem{

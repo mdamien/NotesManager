@@ -41,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     trash = Trash::getInstance();
 
-    modified = false; //todo, update with signals
-
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
     connect(ui->actionNew, SIGNAL(triggered()),this,SLOT(newNote()));
@@ -112,13 +110,15 @@ void MainWindow::updateTag(QListWidgetItem *item)
     TagListItem* i = (TagListItem*)item;
     bool checked = i->checkState() == Qt::Checked;
     Tag* tag = i->getTag();
-    if(currentNote != NULL){
+    if(currentNote != NULL)
+    {
         if(checked && !tag->contains(currentNote->getNote())){
             tag->addNote(currentNote->getNote());
         }
         if(!checked && tag->contains(currentNote->getNote())){
             tag->removeNote(currentNote->getNote());
         }
+        nm->setNoteModified();
     }
 }
 
@@ -138,18 +138,24 @@ void MainWindow::tagSearch()
 
 void MainWindow::addTag()
 {
-    if(currentNote != NULL){
+    if(currentNote != NULL)
+    {
         QString txt = ui->tag_lineedit->text();
-        if(txt.length() > 0){
+        if(txt.length() > 0)
+        {
             Tag* t = tm->getTag(txt);
-            if (t == NULL){
+            if (t == NULL)
+            {
                 t = new Tag(txt);
                 t->addNote(currentNote->getNote());
                 tm->addTag(t);
-            }else{
+            }
+            else
+            {
                 t->addNote(currentNote->getNote());
             }
         }
+        nm->setNoteModified();
         updateTagsList();
     }
 }
@@ -309,10 +315,12 @@ void MainWindow::addNote(QAction* a)
     {
         n = new Video(nm->getNewId(),"Titre Video","Description");
     }
-    if(n == NULL){
+    if(n == NULL)
+    {
         return;
     }
     nm->addRessource(n);
+    nm->setNoteModified();
 
     NoteWidget* w = makeWidget(n,this);
 
@@ -362,12 +370,13 @@ void MainWindow::deleteWidget(NoteWidget* nw)
         if(doc->getNumberOfSubNotes()) //S'il reste des Notes dans le document on le recharge avec celles-ci
             loadNote(makeWidget(doc, this));
     }
+    NotesManager::getInstance()->setNoteModified();
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
 {
-    if(modified){
-        int answer = QMessageBox::question(this, "Closing NotesManager", "Would you like to save your unsaved notes ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if(nm->noteModified()){
+        int answer = QMessageBox::question(this, "Closing NotesManager", "You have unsaved changes (tags, notes modifications...).\nWould you like to save these changes ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
         if(answer == QMessageBox::Yes)
         {

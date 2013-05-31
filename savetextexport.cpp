@@ -94,6 +94,8 @@ void SaveTextExport::save()
     NotesManager* nm = NotesManager::getInstance();
     QString workplace = nm->getPath();
 
+    nm->setNoteModified(false);
+
     //CLEAN
     QDir dir;
     dir.setCurrent(workplace);

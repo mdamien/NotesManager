@@ -38,6 +38,7 @@ public:
 
     Iterator begin();
     Iterator end();
+
 private:
     //Implémentation du design pattern Singleton
     TagManager();

@@ -10,6 +10,7 @@ class Tag
 {
 public:
     Tag(QString name);
+    ~Tag();
     QString getName();
     void addNote(Note* note);
     void removeNote(Note* note);
@@ -33,7 +34,6 @@ public:
     Iterator begin();
     Iterator end();
 
-    ~Tag();
 private:
     QString name;
     QSet<Note*>* notes;
