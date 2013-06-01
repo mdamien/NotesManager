@@ -71,4 +71,5 @@ private:
 };
 
 
+
 #endif // HISTORYMANAGER_H

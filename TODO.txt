@@ -1,18 +1,9 @@
 === PRINCIPAL ====
 
-HISTORIQUE
+DOCUMENTATION
 
 == SECONDAIRE ==
 
-ExportStrategies avec la version propre
-loaded -> opened
-Enlever load()
-Exceptions
-Save() available only if note modified [ put modified() signal in NoteWidget ]
-noteFocused [ put onFocus() in NoteWidget]
-Iterators avec typedef
 Traduction interface
 Icones (windows / mac)
-Code source HTML (toogle)
-Icones (delete / up / down / edit in new note / copy / paste / set image / ..) qui apparaissent que quand ya le focus sur la note
-open .note
+Document add notes
