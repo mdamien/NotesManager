@@ -57,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionTrash, SIGNAL(triggered()), trash, SLOT(showTrash()));
     connect(ui->actionExportAsHTML, SIGNAL(triggered()), this, SLOT(saveHTML()));
     connect(ui->actionExportAsLatex, SIGNAL(triggered()), this, SLOT(saveLatex()));
+    connect(ui->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(ui->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
 }
 
 void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
@@ -230,6 +232,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadNote(NoteWidget *n)
 {
+    if(n == NULL){
+        updateNotesList();
+        updateTagsList();
+        return;
+    }
     clearLayout(ui->editor_area->layout());
     ui->editor_area->layout()->addWidget(n);
     currentNote = n;
@@ -240,6 +247,9 @@ void MainWindow::loadNote(NoteWidget *n)
 
 NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
 {
+    if(note == NULL){
+        return NULL;
+    }
     NoteWidget* n = NULL;
     if(typeid(*note) == typeid(Article))
         n = new ArticleWidget((Article*)note, parent);
@@ -418,5 +428,20 @@ void MainWindow::saveLatex()
         QTextStream out(&f);
         out << currentNote->getNote()->exportNote(nm->getExporter("LaTeX"));
         f.close();
+    }
+}
+
+void MainWindow::undo()
+{
+    if(currentNote != NULL){
+        nm->getHistory()->undo();
+        loadNote(makeWidget(currentNote->getNote(),this));
+    }
+}
+void MainWindow::redo()
+{
+    if(currentNote != NULL){
+        nm->getHistory()->redo();
+        loadNote(makeWidget(currentNote->getNote(),this));
     }
 }

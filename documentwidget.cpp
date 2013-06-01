@@ -14,16 +14,6 @@ DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent)
     }
 }
 
-void DocumentWidget::updateNote()
-{
-    if(note->getTitle() != title->text())
-    {
-        note->setTitle(title->text());
-        note->setModified(true);
-        NotesManager::getInstance()->setNoteModified();
-    }
-}
-
 Note* DocumentWidget::getNote()
 {
     return note;

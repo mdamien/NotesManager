@@ -54,6 +54,8 @@ public slots:
     void closeEvent(QCloseEvent *);
     void saveHTML();
     void saveLatex();
+    void undo();
+    void redo();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

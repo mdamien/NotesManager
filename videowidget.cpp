@@ -62,9 +62,10 @@ void VideoWidget::openExplorer()
         fileName->setText(s);
         videoPlayer->mediaObject()->clear();
         videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(s));
-        note->setPath(s);
         playing = false;
         play->setText("Play");
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryPath(note,s));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }
@@ -80,10 +81,10 @@ void VideoWidget::restartPlayer()
 
 void VideoWidget::updateNote()
 {
-    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
-    {
-        note->setTitle(title->text());
-        note->setDescription(description->toPlainText());
+    NoteWidget::updateNote();
+    if(note->getDescription() != description->toPlainText()){
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryDescription(note,description->toPlainText()));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }

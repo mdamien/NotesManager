@@ -55,9 +55,10 @@ void AudioWidget::openExplorer()
     {
         fileName->setText(a);
         music->setCurrentSource(a);
-        note->setPath(a);
         playing = false;
         play->setText("Play");
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryPath(note,a));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }
@@ -72,10 +73,10 @@ void AudioWidget::restartPlayer()
 
 void AudioWidget::updateNote()
 {
-    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
-    {
-        note->setTitle(title->text());
-        note->setDescription(description->toPlainText());
+    NoteWidget::updateNote();
+    if(note->getDescription() != description->toPlainText()){
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryDescription(note,description->toPlainText()));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }

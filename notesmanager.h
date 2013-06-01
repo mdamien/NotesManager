@@ -8,6 +8,7 @@
 #include "textexport.h"
 #include "htmlexport.h"
 #include "trash.h"
+#include "historymanager.h"
 
 class NotesManager
 {
@@ -28,6 +29,7 @@ public:
     bool noteModified() const;
     void setNoteModified(const bool& modif = true);
     unsigned int getNewId();
+    HistoryManager* getHistory();
 
     //Iterator
     class Iterator
@@ -61,6 +63,7 @@ private:
     std::map<QString, ExportStrategy*>* strategies;
     Trash* trash;
     bool receivedModif;
+    HistoryManager* history;
 };
 
 #endif // NOTESMANAGER_H

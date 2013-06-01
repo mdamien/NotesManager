@@ -18,9 +18,6 @@ public:
 
 signals:
 
-public slots:
-    void updateNote();
-
 private:
     Document* note;
     QVBoxLayout* childsLayout;

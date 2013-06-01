@@ -17,10 +17,10 @@ ImageWidget::ImageWidget(Image* img,QWidget* parent):NoteWidget(parent),note(img
 
 void ImageWidget::updateNote()
 {
-    if(note->getTitle() != title->text() || note->getDescription() != description->toPlainText())
-    {
-        note->setTitle(title->text());
-        note->setDescription(description->toPlainText());
+    NoteWidget::updateNote();
+    if(note->getDescription() != description->toPlainText()){
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryDescription(note,description->toPlainText()));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }
@@ -32,7 +32,8 @@ void ImageWidget::chooseImage()
     if(path != note->getPath())
     {
         image->setPixmap(QPixmap(path));
-        note->setPath(path);
+        NotesManager::getInstance()->getHistory()->addAndExec(
+                    new ModifyBinaryPath(note,path));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }

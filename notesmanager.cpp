@@ -14,6 +14,7 @@ NotesManager::NotesManager()
     strategies = ExportStrategy::getExportStrategies();
     trash = Trash::getInstance();
     receivedModif = false;
+    history = new HistoryManager();
 }
 
 NotesManager::~NotesManager()
@@ -129,6 +130,11 @@ unsigned int NotesManager::getNewId() //Renvoie un id unique en fonction de la d
     while(getNoteByID(id) != NULL);
     return id;
     //return std::time(0);
+}
+
+HistoryManager *NotesManager::getHistory()
+{
+    return history;
 }
 
 //Iterator sur le contenu de NotesManager

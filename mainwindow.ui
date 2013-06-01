@@ -377,6 +377,9 @@
    <addaction name="actionSave"/>
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+   <addaction name="separator"/>
    <addaction name="actionArticle"/>
    <addaction name="actionDocument"/>
    <addaction name="actionVideo"/>

@@ -20,7 +20,7 @@ signals:
     void deleteClicked(NoteWidget* nw);
 
 public slots:
-    virtual void updateNote() = 0;
+    virtual void updateNote();
     void sendWidgetToDelete();
 
 protected:
