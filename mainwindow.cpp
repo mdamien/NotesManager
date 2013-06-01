@@ -35,11 +35,15 @@ MainWindow::MainWindow(QWidget *parent) :
     tm = TagManager::getInstance();
     currentNote = NULL;
 
-    updateNotesList();
+ //   updateNotesList();
     updateTagsList();
-    tagSearch();//pour remplir remplir une liste de tout les tags / notes
+    tagSearch();//Pour remplir remplir une liste de tous les tags / notes
 
     trash = Trash::getInstance();
+    checkedTags = new QSet<QListWidgetItem*>();
+    filteredNotes = new QSet<Note*>();
+    ui->tabWidget->setCurrentIndex(0);
+    updateNotesList();
 
     connect(ui->tabs,SIGNAL(currentChanged(int)),this,SLOT(tabChanged(int)));
     connect(ui->menuAdd, SIGNAL(triggered(QAction*)), this, SLOT(addNote(QAction*)));
@@ -52,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tag_set, SIGNAL(clicked()),this,SLOT(addTag()));
     connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch()));
     connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
+    connect(ui->tag_filter, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(addFilter(QListWidgetItem*)));
+    connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(filterNotesList(int)));
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(ui->menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
     connect(ui->actionTrash, SIGNAL(triggered()), trash, SLOT(showTrash()));
@@ -81,8 +87,21 @@ void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action d
 
 void MainWindow::updateNotesList(){
     ui->notes_list->clear();
-    for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
-        if((*it)->isLoaded()){
+    if(ui->tabWidget->currentIndex() != 2)
+    {
+        for(NotesManager::Iterator it = nm->begin();it != nm->end();++it)
+        {
+            if((*it)->isLoaded())
+            {
+                QListWidgetItem* item = new NoteListItem((*it)->getTitle(),(*it));
+                ui->notes_list->addItem(item);
+            }
+        }
+    }
+    else
+    {
+        for(QSet<Note*>::Iterator it = filteredNotes->begin(); it != filteredNotes->end(); ++it)
+        {
             QListWidgetItem* item = new NoteListItem((*it)->getTitle(),(*it));
             ui->notes_list->addItem(item);
         }
@@ -91,6 +110,7 @@ void MainWindow::updateNotesList(){
 
 void MainWindow::updateTagsList(){
     ui->tag_list->clear();
+
     if(currentNote != NULL){
         for(TagManager::Iterator it = tm->begin();it != tm->end();++it){
             QListWidgetItem* item = new TagListItem((*it)->getName(),(*it));
@@ -105,6 +125,17 @@ void MainWindow::updateTagsList(){
         }
     }
     tagSearch();
+
+    //Initialisation de la liste des tags pour le filtrage au démarrage
+    {
+    if(ui->tag_filter->count() == 0)
+        for(TagManager::Iterator it = tm->begin();it != tm->end();++it)
+        {
+            QListWidgetItem* item = new TagListItem((*it)->getName(),(*it));
+            item->setCheckState(Qt::Unchecked);
+            ui->tag_filter->addItem(item);
+        }
+    }
 }
 
 void MainWindow::updateTag(QListWidgetItem *item)
@@ -151,6 +182,9 @@ void MainWindow::addTag()
                 t = new Tag(txt);
                 t->addNote(currentNote->getNote());
                 tm->addTag(t);
+                QListWidgetItem* item = new TagListItem(t->getName(),t);
+                item->setCheckState(Qt::Unchecked);
+                ui->tag_filter->addItem(item);
             }
             else
             {
@@ -175,8 +209,6 @@ void MainWindow::removeTextFromTabs()
     ui->html_textedit->setHtml("");
     ui->latex_textedit->setPlainText("");
 }
-
-
 
 void MainWindow::closeCurrentNote()
 {
@@ -226,6 +258,8 @@ void MainWindow::save()
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete filteredNotes;
+    delete checkedTags;
 }
 
 void MainWindow::loadNote(NoteWidget *n)
@@ -290,7 +324,6 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
     }
 }
 
-//TODO: TOO much magic happens here
 void MainWindow::addNote(QAction* a)
 {
     NotesManager* nm = NotesManager::getInstance();
@@ -420,3 +453,51 @@ void MainWindow::saveLatex()
         f.close();
     }
 }
+
+void MainWindow::updateTagFilter()
+{
+    ui->notes_list->clear();
+    filteredNotes->clear();
+
+    //On remplit un set contenant chaque note ayant au moins un tag
+    for(QSet<QListWidgetItem*>::Iterator it = checkedTags->begin(); it != checkedTags->end(); ++it)
+    {
+        Tag* tag = ((TagListItem*)(*it))->getTag();
+        for(Tag::Iterator itTag = tag->begin(); itTag != tag->end(); ++itTag)
+        {
+            filteredNotes->insert(*itTag);
+        }
+    }
+
+    for(QSet<Note*>::Iterator it = filteredNotes->begin(); it != filteredNotes->end(); it++)
+    {
+        NoteListItem* item = new NoteListItem((*it)->getTitle(), (*it));
+        ui->notes_list->addItem(item);
+    }
+}
+
+void MainWindow::filterNotesList(int tab)
+{
+    if(tab < 2) //Si on clique sur "tag" ou "search", on affiche la liste des notes normale
+    {
+        updateNotesList();
+        return;
+    }
+
+    //Sinon on fait une recherche personnalisée
+    updateTagFilter();
+}
+
+void MainWindow::addFilter(QListWidgetItem* item)
+{
+    if(item->checkState() == Qt::Checked)
+    {
+        checkedTags->insert(item);
+    }
+    else if(checkedTags->contains(item))
+    {
+        checkedTags->remove(item);
+    }
+    updateTagFilter();
+}
+
