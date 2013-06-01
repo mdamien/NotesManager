@@ -7,14 +7,14 @@ ArticleWidget::ArticleWidget(Article* article,QWidget* parent):NoteWidget(parent
 
     layout->addWidget(text);
     connect(text,SIGNAL(textChanged()), this, SLOT(updateNote()));
+
 }
 
 void ArticleWidget::updateNote()
 {
-    if(note->getTitle() != title->text() || note->getText() != text->toPlainText())
-    {
-        note->setTitle(title->text());
-        note->setText(text->toPlainText());
+    NoteWidget::updateNote();
+    if(note->getText() != text->toPlainText()){
+        NotesManager::getInstance()->getHistory()->addAndExec(new ModifyArticleText(note,text->toPlainText()));
         note->setModified(true);
         NotesManager::getInstance()->setNoteModified();
     }

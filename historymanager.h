@@ -2,8 +2,9 @@
 #define HISTORYMANAGER_H
 
 #include <QStack>
-#include "notesmanager.h"
 #include "note.h"
+#include "article.h"
+#include "binary.h"
 
 class Operation{
 public:
@@ -20,14 +21,12 @@ public:
     void redo();
     void undo();
 private:
+    //TODO Copy
     QStack<Operation*>* undo_stack;
     QStack<Operation*>* redo_stack;
 };
 
-class ModifyNoteAttribute : public Operation{
-};
-
-class ModifyNoteTitle : public ModifyNoteAttribute{
+class ModifyNoteTitle : public Operation{
 public:
     ModifyNoteTitle(Note* note,QString newTitle);
     void redo();
@@ -38,7 +37,37 @@ private:
     Note* note;
 };
 
-class ModifyTag :public Operation{
+class ModifyArticleText : public Operation{
+public:
+    ModifyArticleText(Article* note,QString newText);
+    void redo();
+    void undo();
+private:
+    QString old;
+    QString newText;
+    Article* note;
+};
+
+class ModifyBinaryPath : public Operation{
+public:
+    ModifyBinaryPath(Binary* note,QString newText);
+    void redo();
+    void undo();
+private:
+    QString old;
+    QString newText;
+    Binary* note;
+};
+
+class ModifyBinaryDescription : public Operation{
+public:
+    ModifyBinaryDescription(Binary* note,QString newText);
+    void redo();
+    void undo();
+private:
+    QString old;
+    QString newText;
+    Binary* note;
 };
 
 

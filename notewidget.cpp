@@ -25,3 +25,13 @@ void NoteWidget::sendWidgetToDelete()
 {
     emit deleteClicked(this);
 }
+
+
+void NoteWidget::updateNote()
+{
+    if(getNote()->getTitle() != title->text()){
+        NotesManager::getInstance()->getHistory()->addAndExec(new ModifyNoteTitle(getNote(),title->text()));
+        getNote()->setModified(true);
+        NotesManager::getInstance()->setNoteModified();
+    }
+}

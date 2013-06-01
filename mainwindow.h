@@ -57,6 +57,8 @@ public slots:
     void saveLatex();
     void filterNotesList(int);
     void addFilter(QListWidgetItem*);
+    void undo();
+    void redo();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur
