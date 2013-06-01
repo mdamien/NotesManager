@@ -34,6 +34,7 @@ public:
     void loadNote(NoteWidget* n);
     NoteWidget* makeWidget(Note* note, QWidget* parent=0);
     void removeTextFromTabs();
+    void updateTagFilter();
 
 public slots:
     void tabChanged(int i);
@@ -54,6 +55,8 @@ public slots:
     void closeEvent(QCloseEvent *);
     void saveHTML();
     void saveLatex();
+    void filterNotesList(int);
+    void addFilter(QListWidgetItem*);
     void undo();
     void redo();
     void toogleShowHTMLSource();
@@ -73,6 +76,8 @@ private:
     NoteWidget* currentNote;
     Trash* trash;
     static MainWindow* mw;
+    QSet<QListWidgetItem*>* checkedTags;
+    QSet<Note*>* filteredNotes;
 };
 
 class TagListItem : public QListWidgetItem{

@@ -95,16 +95,8 @@ void Trash::deleteSelection()
         TagManager::getInstance()->removeTaggedNote(n);
         NotesManager::getInstance()->setNoteModified();
     }
-//    selection->clear(); //Suppression de chaque widget de la selection
 
     selection->clear(); //On vide le QSet, chaque pointeur ayant été désalloué correctement plus tôt
-
- //   notesList->clear();
-/*
-    for(QSet<Note*>::Iterator it = notes->begin(); it != notes->end(); ++it)
-    {
-        this->addItem(*it);
-    }*/
 }
 
 void Trash::restoreSelection()
