@@ -1,3 +1,4 @@
 NotesManager2.pro.us*
 NotesManager2.pro.user
-main.cpp.autosave
+*.autosave
+workplace/*

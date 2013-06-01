@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
     connect(ui->html_showsource, SIGNAL(clicked()),this,SLOT(toogleShowHTMLSource()));
+
 }
 
 void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions

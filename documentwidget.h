@@ -15,12 +15,22 @@ public:
     Note* getNote();
     void addNote(Note* n);
     void addNoteWidget(NoteWidget* n);
-
+public slots:
+    void addAudio();
+    void addVideo();
+    void addArticle();
+    void addImage();
+    void addDocument();
 signals:
 
 private:
     Document* note;
     QVBoxLayout* childsLayout;
+    QPushButton* addArticleB;
+    QPushButton* addDocumentB;
+    QPushButton* addVideoB;
+    QPushButton* addImageB;
+    QPushButton* addAudioB;
 };
 
 #endif // DOCUMENTWIDGET_H

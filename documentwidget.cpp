@@ -54,21 +54,35 @@ void DocumentWidget::addNoteWidget(NoteWidget *n)
 
 void DocumentWidget::addAudio()
 {
-    addNote(new Audio(NotesManager::getInstance()->getNewId(),"Title"));
+    Note* n = new Audio(NotesManager::getInstance()->getNewId(),"Title");
+    note->addSubNote(n);
+    NotesManager::getInstance()->addRessource(n);
+    addNote(n);
 }
 void DocumentWidget::addVideo()
 {
-    addNote(new Video(NotesManager::getInstance()->getNewId(),"Title"));
+    Note* n = new Video(NotesManager::getInstance()->getNewId(),"Title");
+    note->addSubNote(n);
+    NotesManager::getInstance()->addRessource(n);
+    addNote(n);
 }
 void DocumentWidget::addDocument()
 {
-    addNote(new Document(NotesManager::getInstance()->getNewId(),"Title"));
+    Note* n = new Document(NotesManager::getInstance()->getNewId(),"Title");
+    note->addSubNote(n);
+    NotesManager::getInstance()->addRessource(n);
+    addNote(n);
 }
 void DocumentWidget::addArticle()
 {
-    addNote(new Article(NotesManager::getInstance()->getNewId(),"Title"));
+    Note* n = new Article(NotesManager::getInstance()->getNewId(),"Title");
+    note->addSubNote(n);
+    NotesManager::getInstance()->addRessource(n);
+    addNote(n);
 }
 void DocumentWidget::addImage()
 {
-    addNote(new Image(NotesManager::getInstance()->getNewId(),"Title"));
+    Note* n = new Image(NotesManager::getInstance()->getNewId(),"Title");
+    NotesManager::getInstance()->addRessource(n);
+    addNote(n);
 }
