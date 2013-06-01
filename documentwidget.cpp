@@ -28,6 +28,7 @@ DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent)
     buttons->addWidget(addVideoB);
     buttonsLayout->addLayout(buttons);
     layout->addLayout(buttonsLayout);
+    buttons->setAlignment(buttonsLayout,Qt::AlignLeft);
 
     connect(addArticleB,SIGNAL(clicked()),this,SLOT(addArticle()));
     connect(addDocumentB,SIGNAL(clicked()),this,SLOT(addDocument()));
