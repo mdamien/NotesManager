@@ -30,7 +30,16 @@
        </size>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_8">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -45,7 +54,16 @@
           <property name="spacing">
            <number>2</number>
           </property>
-          <property name="margin">
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
            <number>1</number>
           </property>
           <item>
@@ -58,7 +76,16 @@
           <item>
            <widget class="QWidget" name="tags_buttons" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
             </layout>
@@ -77,7 +104,16 @@
               <property name="spacing">
                <number>2</number>
               </property>
-              <property name="margin">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
                <number>2</number>
               </property>
               <item>
@@ -104,7 +140,16 @@
               <property name="spacing">
                <number>2</number>
               </property>
-              <property name="margin">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
                <number>2</number>
               </property>
               <item>
@@ -164,7 +209,7 @@
              <x>0</x>
              <y>0</y>
              <width>522</width>
-             <height>328</height>
+             <height>324</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -225,7 +270,7 @@
      <x>0</x>
      <y>0</y>
      <width>720</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -242,10 +287,18 @@
      <addaction name="actionAudio"/>
      <addaction name="actionImage"/>
     </widget>
+    <widget class="QMenu" name="menuExport_as">
+     <property name="title">
+      <string>Export as...</string>
+     </property>
+     <addaction name="actionExportAsHTML"/>
+     <addaction name="actionExportAsLatex"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="menuAdd"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="menuExport_as"/>
     <addaction name="actionClose"/>
     <addaction name="actionExit"/>
    </widget>
@@ -528,6 +581,16 @@
   <action name="actionTrash">
    <property name="text">
     <string>Trash</string>
+   </property>
+  </action>
+  <action name="actionExportAsHTML">
+   <property name="text">
+    <string>HTML</string>
+   </property>
+  </action>
+  <action name="actionExportAsLatex">
+   <property name="text">
+    <string>LaTeX</string>
    </property>
   </action>
  </widget>

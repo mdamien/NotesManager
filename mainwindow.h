@@ -52,6 +52,8 @@ public slots:
     void deleteWidget(NoteWidget* nw);
     void displayView(QAction* a);
     void closeEvent(QCloseEvent *);
+    void saveHTML();
+    void saveLatex();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

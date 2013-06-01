@@ -55,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(openSettings()));
     connect(ui->menuView, SIGNAL(triggered(QAction*)), this, SLOT(displayView(QAction*)));
     connect(ui->actionTrash, SIGNAL(triggered()), trash, SLOT(showTrash()));
+    connect(ui->actionExportAsHTML, SIGNAL(triggered()), this, SLOT(saveHTML()));
+    connect(ui->actionExportAsLatex, SIGNAL(triggered()), this, SLOT(saveLatex()));
 }
 
 void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
@@ -386,5 +388,35 @@ void MainWindow::closeEvent(QCloseEvent* e)
             e->accept();
         else
             e->ignore();
+    }
+}
+
+void MainWindow::saveHTML()
+{
+    QString filename = QFileDialog::getSaveFileName(this,"Save as HTML");
+    if(filename != ""){
+        if(!filename.endsWith(".html")){
+            filename.append(".html");
+        }
+        QFile f( filename );
+        f.open( QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&f);
+        out << currentNote->getNote()->exportNote(nm->getExporter("HTML"));
+        f.close();
+    }
+}
+
+void MainWindow::saveLatex()
+{
+    QString filename = QFileDialog::getSaveFileName(this,"Save as LaTeX");
+    if(filename != ""){
+        if(!filename.endsWith(".tex")){
+            filename.append(".tex");
+        }
+        QFile f( filename );
+        f.open( QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&f);
+        out << currentNote->getNote()->exportNote(nm->getExporter("LaTeX"));
+        f.close();
     }
 }
