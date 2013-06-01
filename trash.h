@@ -19,6 +19,24 @@ public:
     static Trash* getInstance(QWidget *parent = 0);
     static void deleteInstance();
 
+    //Iterator
+    class Iterator
+    {
+        friend class Trash;
+    public :
+        Iterator& operator++();
+        Iterator& operator--();
+        Note* operator*();
+        bool operator==(const Iterator& it) const;
+        bool operator!=(const Iterator& it) const;
+    private :
+        Iterator(const QSet<Note*>::Iterator& it);
+        QSet<Note*>::Iterator itNotes;
+    };
+
+    Iterator begin();
+    Iterator end();
+
 signals:
     
 public slots:

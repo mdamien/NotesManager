@@ -7,6 +7,7 @@
 #include "notesmanager.h"
 #include <QDir>
 #include <QDebug>
+#include "trash.h"
 
 SaveTextExport::SaveTextExport()
 {
@@ -74,6 +75,10 @@ QString SaveTextExport::exportNotesMetafile()
             str += QString::number((*it)->getId())+"\n";
         }
     }
+    Trash* trash = Trash::getInstance();
+    for(Trash::Iterator it = trash->begin();it != trash->end();++it){
+        str += "~"+QString::number((*it)->getId())+"\n";
+    }
     return str;
 }
 
@@ -115,6 +120,10 @@ void SaveTextExport::save()
     writeToFile(base+"/.notes",e.exportNotesMetafile());
     writeToFile(base+"/.tags",e.exportTagsMetafile());
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
+        writeToFile(base+"/"+QString::number((*it)->getId())+".note",e.exportNote(*it));
+    }
+    Trash* trash = Trash::getInstance();
+    for(Trash::Iterator it = trash->begin();it != trash->end();++it){
         writeToFile(base+"/"+QString::number((*it)->getId())+".note",e.exportNote(*it));
     }
 }

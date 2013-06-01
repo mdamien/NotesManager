@@ -56,6 +56,7 @@ public slots:
     void saveLatex();
     void undo();
     void redo();
+    void toogleShowHTMLSource();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

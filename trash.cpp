@@ -60,6 +60,7 @@ void Trash::deleteInstance()
     }
 }
 
+
 void Trash::showTrash()
 {
     this->show();
@@ -147,4 +148,46 @@ void Trash::addToSelection(QListWidgetItem* item)
         if(selection->contains(i))
             selection->remove(i);
     }
+}
+
+//Iterator
+
+Trash::Iterator Trash::begin()
+{
+    return Iterator(notes->begin());
+}
+
+Trash::Iterator Trash::end()
+{
+    return Iterator(notes->end());
+}
+
+Trash::Iterator::Iterator(const QSet<Note*>::Iterator& it)
+{
+    itNotes = it;
+}
+
+Trash::Iterator& Trash::Iterator::operator++()
+{
+    itNotes++;
+}
+
+Trash::Iterator& Trash::Iterator::operator--()
+{
+    itNotes--;
+}
+
+Note* Trash::Iterator::operator*()
+{
+    return *itNotes;
+}
+
+bool Trash::Iterator::operator==(const Iterator& it) const
+{
+    return itNotes == it.itNotes;
+}
+
+bool Trash::Iterator::operator!=(const Iterator& it) const
+{
+    return itNotes != it.itNotes;
 }

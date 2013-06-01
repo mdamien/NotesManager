@@ -214,7 +214,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="editor_tab">
        <attribute name="title">
@@ -262,11 +262,18 @@
        <attribute name="title">
         <string>HTML</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QTextEdit" name="html_textedit">
           <property name="readOnly">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="html_showsource">
+          <property name="text">
+           <string>Show source code</string>
           </property>
          </widget>
         </item>

@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionExportAsLatex, SIGNAL(triggered()), this, SLOT(saveLatex()));
     connect(ui->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
+    connect(ui->html_showsource, SIGNAL(clicked()),this,SLOT(toogleShowHTMLSource()));
 }
 
 void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
@@ -276,6 +277,10 @@ void MainWindow::tabChanged(int i)
             ui->text_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("Text")));
             break;
         case 2 :   //ExportHTML
+            if(ui->html_showsource->isChecked()){
+                ui->html_textedit->setPlainText(currentNote->getNote()->exportNote(nm->getExporter("HTML")));
+                break;
+            }
             ui->html_textedit->setHtml(currentNote->getNote()->exportNote(nm->getExporter("HTML")));
             break;
         case 3 :   //ExportLaTeX
@@ -444,4 +449,8 @@ void MainWindow::redo()
         nm->getHistory()->redo();
         loadNote(makeWidget(currentNote->getNote(),this));
     }
+}
+
+void MainWindow::toogleShowHTMLSource(){
+    tabChanged(ui->tabs->currentIndex());
 }

@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "notesmanager.h"
+#include "trash.h"
 
 NotesParser::NotesParser()
 {
@@ -118,10 +119,19 @@ void NotesParser::parseMetafile(QString path)
     QTextStream in(&file);
     QList<QString> notes_s = in.readAll().split("\n");
     NotesManager* nm = NotesManager::getInstance();
+    Trash* trash = Trash::getInstance();
     for (int i = 0; i < notes_s.size(); ++i) {
-        Note* n = nm->getNoteByID(notes_s.at(i).toUInt());
-        if(n != NULL){
-            n->setLoaded(true);
+        QString id = notes_s.at(i);
+        if(id.contains("~")){
+            Note* n = nm->getNoteByID(QString(notes_s.at(i)).replace("~","").toUInt());
+            if(n != NULL){
+                trash->addItem(n); // TODO: save parent
+            }
+        }else{
+            Note* n = nm->getNoteByID(notes_s.at(i).toUInt());
+            if(n != NULL){
+                n->setLoaded(true);
+            }
         }
     }
 }
