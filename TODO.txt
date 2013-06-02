@@ -6,3 +6,4 @@ DOCUMENTATION
 
 Traduction interface
 Icones !!! Delete / play / pause
+Help / about
