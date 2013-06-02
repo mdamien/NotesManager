@@ -1,5 +1,6 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
+#include <QNetworkProxy>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
@@ -9,6 +10,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->workplace_linedit->setText(workplace());
     ui->copy_binary->setChecked(binaryCopy());
     ui->proxy->setText(proxy());
+    ui->proxy_port->setValue(proxy_port().toInt());
 
     connect(ui->workplace_choose,SIGNAL(clicked()),this,SLOT(chooseWorkplace()));
     connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(saveSettings()));
@@ -28,6 +30,26 @@ QString SettingsDialog::proxy()
 {
     QSettings settings("lo21-maxetdam", "NotesManager");
     return settings.value("proxy","").toString();
+}
+QString SettingsDialog::proxy_port()
+{
+    QSettings settings("lo21-maxetdam", "NotesManager");
+    return settings.value("proxy_port","").toString();
+}
+
+void SettingsDialog::setProxyApplicationWide()
+{
+    if(proxy() == ""){
+        QNetworkProxy p;
+        p.setType(QNetworkProxy::NoProxy);
+        QNetworkProxy::setApplicationProxy(p);
+    }else{
+        QNetworkProxy p;
+        p.setType(QNetworkProxy::HttpProxy);
+        p.setHostName(proxy());
+        p.setPort(proxy_port().toInt());
+        QNetworkProxy::setApplicationProxy(p);
+    }
 }
 
 bool SettingsDialog::binaryCopy()
@@ -49,5 +71,8 @@ void SettingsDialog::saveSettings()
     if(NotesManager::getInstance()->getPath() != ui->workplace_linedit->text()){
         NotesManager::getInstance()->load(workplace());
     }
+    settings.setValue("proxy", ui->proxy->text());
+    settings.setValue("proxy_port", QString::number(ui->proxy_port->value()));
+    setProxyApplicationWide();
     settings.setValue("binary_copy", ui->copy_binary->isChecked());
 }

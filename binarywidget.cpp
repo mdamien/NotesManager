@@ -1,5 +1,7 @@
 #include "binarywidget.h"
 #include "settingsdialog.h"
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
 BinaryWidget::BinaryWidget(Binary *bin, QWidget *parent):NoteWidget(parent),note(bin)
 {
@@ -32,7 +34,8 @@ void BinaryWidget::updateNote()
             d.mkdir("files");
             QDir b(d.absoluteFilePath("files"));
             if(p.indexOf("http://") == 0){ // download from internet with a dialog
-                //TODO...
+                tmp_dest = b.absoluteFilePath(p.split("/").last());
+                download(p);
             }
             else if(p != "" && !p.contains(d.absolutePath())){
                 QString new_p =  b.absoluteFilePath(QFileInfo(p).fileName());
@@ -53,7 +56,26 @@ void BinaryWidget::updateNote()
         NotesManager::getInstance()->setNoteModified();
     }
 }
+
 Note* BinaryWidget::getNote()
 {
     return note;
+}
+
+void BinaryWidget::onNetworkReply(QNetworkReply* reply)
+{
+    QByteArray data = reply->readAll();
+    QFile file(tmp_dest);
+    file.open(QIODevice::WriteOnly);
+    file.write(data);
+    file.close();
+    path->setText(tmp_dest);
+}
+
+void BinaryWidget::download(QString path)
+{
+    QNetworkAccessManager networkManager(this);
+    QObject::connect(&networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onNetworkReply(QNetworkReply*)));
+    QNetworkRequest request = QNetworkRequest(QUrl(path));
+    networkManager.get(request);
 }

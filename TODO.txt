@@ -6,4 +6,4 @@ DOCUMENTATION
 
 Traduction interface
 Icones !!! Delete / play / pause
-Help / about
+download sans le copy binary (dans un attibut data puis tu le load dans la qicon)

@@ -1,6 +1,6 @@
 #include "audiowidget.h"
 #include <QFileDialog>
-
+#include <QDebug>
 AudioWidget::AudioWidget(Audio* audio, QWidget* parent):BinaryWidget(audio,parent)
 {
     playing = false;

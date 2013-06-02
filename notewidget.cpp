@@ -10,6 +10,11 @@ NoteWidget::NoteWidget(QWidget* parent):QWidget(parent)
     layoutTitle->addWidget(title);
 
     deleteButton = new QPushButton("Delete", this);
+    QIcon icon = QIcon::fromTheme("edit-delete");
+    if(!icon.isNull()){
+        deleteButton->setText("");
+        deleteButton->setIcon(icon);
+    }
     layoutTitle->addWidget(deleteButton);
 
     layout->addLayout(layoutTitle);

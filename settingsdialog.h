@@ -24,6 +24,8 @@ public:
     static QString workplace();
     static bool binaryCopy();
     static QString proxy();
+    static QString proxy_port();
+    static void setProxyApplicationWide();
 
 public slots:
     void chooseWorkplace();
