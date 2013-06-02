@@ -19,7 +19,7 @@
 #include "trash.h"
 
 /*! \namespace Ui
- * Espace de nom pour l'interface générée par le .ui
+ *  \brief Espace de nom pour l'interface générée par le .ui
  */
 namespace Ui {
 class MainWindow;
@@ -66,6 +66,8 @@ public slots:
     void undo();
     void redo();
     void toogleShowHTMLSource();
+    void showAbout();
+    void showHelp();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

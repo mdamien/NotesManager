@@ -1,4 +1,4 @@
-QT       += core gui phonon
+QT       += core gui phonon network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -7,7 +7,8 @@ TEMPLATE = app
 
 FORMS = \
     mainwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    aboutdialog.ui
 
 SOURCES += \
     main.cpp \
@@ -33,7 +34,9 @@ SOURCES += \
     videowidget.cpp \
     settingsdialog.cpp \
     historymanager.cpp \
-    trash.cpp
+    trash.cpp \
+    binarywidget.cpp \
+    aboutdialog.cpp
 
 HEADERS += \
     article.h \
@@ -58,7 +61,9 @@ HEADERS += \
     videowidget.h \
     settingsdialog.h \
     historymanager.h \
-    trash.h
+    trash.h \
+    binarywidget.h \
+    aboutdialog.h
 
 OTHER_FILES += \
     TODO.txt

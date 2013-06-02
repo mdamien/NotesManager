@@ -1,36 +1,24 @@
 #include "videowidget.h"
 
-VideoWidget::VideoWidget(Video* video, QWidget* parent) : note(video)
+VideoWidget::VideoWidget(Video* video, QWidget* parent) :BinaryWidget(video,parent)
 {
-    description = new QPlainTextEdit(note->getDescription());
     playing = false;
-    path = new QPushButton("Set Video", this);
     play = new QPushButton("Play", this);
     restart = new QPushButton("Restart", this);
-    filePath = video->getPath();
 
-    QHBoxLayout* playerLayout = new QHBoxLayout;
-
-    fileName = new QLineEdit(filePath);
-    fileName->setReadOnly(true);
-
-    playerLayout->addWidget(path);
-    playerLayout->addWidget(fileName);
-    playerLayout->addWidget(play);
-    playerLayout->addWidget(restart);
+    binaryLayout->addWidget(play);
+    binaryLayout->addWidget(restart);
 
     videoPlayer  = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
-    layout->addWidget(videoPlayer);
-    layout->addLayout(playerLayout);
-    layout->addWidget(description);
+    layout->insertWidget(1,videoPlayer);
 
     title->setText(note->getTitle());
 
     videoPlayer->setMinimumSize(400, 400);
+    updateBinaryWidget();
 
-    QObject::connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
-    QObject::connect(play, SIGNAL(clicked()), this, SLOT(player()));
-    QObject::connect(restart, SIGNAL(clicked()), this, SLOT(restartPlayer()));
+    connect(play, SIGNAL(clicked()), this, SLOT(player()));
+    connect(restart, SIGNAL(clicked()), this, SLOT(restartPlayer()));
 }
 
 void VideoWidget::player()
@@ -53,23 +41,16 @@ void VideoWidget::player()
     playing = !playing;
 }
 
-void VideoWidget::openExplorer()
-{
-    QString s(QFileDialog::getOpenFileName(this, "Sélectionnez un enregistrement vidéo","*.avi"));
 
-    if(s != note->getPath())
-    {
-        fileName->setText(s);
+void VideoWidget::updateBinaryWidget(){
+    if(note->getPath() != ""){
         videoPlayer->mediaObject()->clear();
-        videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(s));
+        videoPlayer->mediaObject()->setCurrentSource(Phonon::MediaSource(note->getPath()));
         playing = false;
         play->setText("Play");
-        NotesManager::getInstance()->getHistory()->addAndExec(
-                    new ModifyBinaryPath(note,s));
-        note->setModified(true);
-        NotesManager::getInstance()->setNoteModified();
     }
 }
+
 
 void VideoWidget::restartPlayer()
 {
@@ -78,19 +59,8 @@ void VideoWidget::restartPlayer()
     playing = false;
 }
 
-
-void VideoWidget::updateNote()
+void VideoWidget::changePath()
 {
-    NoteWidget::updateNote();
-    if(note->getDescription() != description->toPlainText()){
-        NotesManager::getInstance()->getHistory()->addAndExec(
-                    new ModifyBinaryDescription(note,description->toPlainText()));
-        note->setModified(true);
-        NotesManager::getInstance()->setNoteModified();
-    }
+    path->setText(QFileDialog::getOpenFileName(this, "Sélectionnez un enregistrement vidéo","*.avi"));
 }
 
-Note* VideoWidget::getNote()
-{
-    return note;
-}

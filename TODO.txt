@@ -5,5 +5,5 @@ DOCUMENTATION
 == SECONDAIRE ==
 
 Traduction interface
-Icones (windows / mac)
-Document add notes
+Icones !!! Delete / play / pause
+Help / about

@@ -8,6 +8,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->workplace_linedit->setText(workplace());
     ui->copy_binary->setChecked(binaryCopy());
+    ui->proxy->setText(proxy());
 
     connect(ui->workplace_choose,SIGNAL(clicked()),this,SLOT(chooseWorkplace()));
     connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(saveSettings()));
@@ -22,6 +23,11 @@ QString SettingsDialog::workplace()
 {
     QSettings settings("lo21-maxetdam", "NotesManager");
     return settings.value("workplace","../notesmanager/workplace").toString();
+}
+QString SettingsDialog::proxy()
+{
+    QSettings settings("lo21-maxetdam", "NotesManager");
+    return settings.value("proxy","").toString();
 }
 
 bool SettingsDialog::binaryCopy()
