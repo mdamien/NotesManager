@@ -12,7 +12,6 @@ NotesManager::NotesManager()
 {
     notes = new QSet<Note*>();
     strategies = ExportStrategy::getExportStrategies();
-    trash = Trash::getInstance();
     receivedModif = false;
     history = new HistoryManager();
 }
@@ -69,11 +68,6 @@ QString NotesManager::getPath() const
 void NotesManager::setPath(const QString& p)
 {
     path = p;
-}
-
-void NotesManager::saveState()
-{
-    //A définir
 }
 
 void NotesManager::addRessource(Note* n)
