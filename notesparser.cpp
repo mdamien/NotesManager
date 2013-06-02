@@ -150,11 +150,13 @@ void NotesParser::parseTags(QString path)
         QStringList fields = line.split("|");
 
         Tag* tag = new Tag(fields.at(0));
-        QStringList ids = fields.at(1).split(";");
-        for (int i = 0; i < ids.size(); i++) {
-            Note* n = NotesManager::getInstance()->getNoteByID(ids.at(i).toUInt());
-            if(n != NULL){
-                tag->addNote(n);
+        if(fields.size() > 1){
+            QStringList ids = fields.at(1).split(";");
+            for (int i = 0; i < ids.size(); i++) {
+                Note* n = NotesManager::getInstance()->getNoteByID(ids.at(i).toUInt());
+                if(n != NULL){
+                    tag->addNote(n);
+                }
             }
         }
         TagManager::getInstance()->addTag(tag);
