@@ -73,7 +73,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
+/*!
+ * SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
+ *
+ * \brief MainWindow::displayView
+ * \param a : QAction sur laquelle l'utilisateur a cliqué
+ */
+void MainWindow::displayView(QAction* a)
 {
     if(a == ui->actionEditor)
     {
@@ -93,8 +99,14 @@ void MainWindow::displayView(QAction* a) //SLOT gérant le clic sur une action d
     }
 }
 
-void MainWindow::updateNotesList(){
+/*!
+ * Met à jour la liste des Notes que l'utilisateur peut charger en fonction de l'onglet de filtre sur lequel il est
+ * \brief MainWindow::updateNotesList
+ */
+void MainWindow::updateNotesList()
+{
     ui->notes_list->clear();
+
     if(ui->tabWidget->currentIndex() != 2)
     {
         for(NotesManager::Iterator it = nm->begin();it != nm->end();++it)
@@ -116,6 +128,10 @@ void MainWindow::updateNotesList(){
     }
 }
 
+/*!
+ * Met à jour la liste des tags affichés en fonction de la note affichée à l'utilisateur
+ * \brief MainWindow::updateTagsList
+ */
 void MainWindow::updateTagsList(){
     ui->tag_list->clear();
 
@@ -146,6 +162,11 @@ void MainWindow::updateTagsList(){
     }
 }
 
+/*!
+ * Met à jour le tag sélectionné
+ * \brief MainWindow::updateTag
+ * \param item : Widget contenant un tag en attribut, ce tag sera mis à jour
+ */
 void MainWindow::updateTag(QListWidgetItem *item)
 {
     TagListItem* i = (TagListItem*)item;
@@ -177,6 +198,10 @@ void MainWindow::tagSearch()
     }
 }
 
+/*!
+ * Ajoute un nouveau tag à la liste des tags en cliquant sur le bouton d'ajout de tag dans l'interface
+ * \brief MainWindow::addTag
+ */
 void MainWindow::addTag()
 {
     if(currentNote != NULL)
@@ -204,13 +229,20 @@ void MainWindow::addTag()
     }
 }
 
+/*!
+ * \brief Efface le contenu dans l'éditeur permettant d'accueillir une nouvelle note.
+ */
 void MainWindow::newNote()
 {
     clearLayout(ui->editor_area->layout());
     currentNote = NULL;
     updateTagsList();
+    removeTextFromTabs();
 }
 
+/*!
+ * \brief Supprime le texte des onglets HTML, Text et LaTeX
+ */
 void MainWindow::removeTextFromTabs()
 {
     ui->text_textedit->setPlainText("");
@@ -218,6 +250,9 @@ void MainWindow::removeTextFromTabs()
     ui->latex_textedit->setPlainText("");
 }
 
+/*!
+ * \brief Ferme la note courante, ouverte dans l'éditeur et les onglets
+ */
 void MainWindow::closeCurrentNote()
 {
     if(currentNote != NULL)
