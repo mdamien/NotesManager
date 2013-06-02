@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>158</height>
+    <height>236</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,6 +44,16 @@
       <string>Copy Binary files to Workplace</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="proxy_label">
+     <property name="text">
+      <string>HTTP proxy</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="proxy"/>
    </item>
    <item>
     <spacer name="verticalSpacer">

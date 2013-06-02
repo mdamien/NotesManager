@@ -1,6 +1,7 @@
 #include "imagewidget.h"
 #include <QFileDialog>
 
+
 ImageWidget::ImageWidget(Image* img,QWidget* parent):BinaryWidget(img,parent)
 {
     image = new QLabel(this);

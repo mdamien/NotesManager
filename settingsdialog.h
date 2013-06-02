@@ -23,6 +23,7 @@ public:
     ~SettingsDialog();
     static QString workplace();
     static bool binaryCopy();
+    static QString proxy();
 
 public slots:
     void chooseWorkplace();

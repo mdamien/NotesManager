@@ -15,7 +15,7 @@ BinaryWidget::BinaryWidget(Binary *bin, QWidget *parent):NoteWidget(parent),note
     layout->addWidget(description);
 
     connect(changePathB, SIGNAL(clicked()), this, SLOT(changePath()));
-    connect(path,SIGNAL(textChanged()),this,SLOT(updateNote()));
+    connect(path,SIGNAL(textChanged(QString)),this,SLOT(updateNote()));
     connect(description,SIGNAL(textChanged()),this,SLOT(updateNote()));
 }
 

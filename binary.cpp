@@ -27,6 +27,9 @@ void Binary::setPath(const QString& p)
     if(SettingsDialog::binaryCopy()){
         QDir d;
         d.setCurrent(NotesManager::getInstance()->getPath());
+        if(p.contains("http://")){
+            //TODO:Download
+        }
         if(p != "" && !p.contains(d.absolutePath())){
             d.mkdir("files");
             QDir b(d.absoluteFilePath("files"));
