@@ -23,15 +23,15 @@ QString HTMLExport::exportBinary(QString tag,Binary* note,unsigned int titleLeve
 }
 QString HTMLExport::exportImage(Image* note,unsigned int titleLevel)
 {
-    return exportBinary("img",note,titleLevel);
+    return exportBinary("img ",note,titleLevel);
 }
 QString HTMLExport::exportVideo(Video* note,unsigned int titleLevel)
 {
-    return exportBinary("video",note,titleLevel);
+    return exportBinary("video controls=\"controls\" ",note,titleLevel);
 }
 QString HTMLExport::exportAudio(Audio* note,unsigned int titleLevel)
 {
-    return exportBinary("audio",note,titleLevel);
+    return exportBinary("audio controls=\"controls\" ",note,titleLevel);
 }
 
 QString HTMLExport::exportDocument(Document* note,unsigned int titleLevel)

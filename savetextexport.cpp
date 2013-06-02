@@ -121,11 +121,14 @@ void SaveTextExport::save()
     writeToFile(base+"/.tags",e.exportTagsMetafile());
     for(NotesManager::Iterator it = nm->begin();it != nm->end();++it){
         writeToFile(base+"/"+QString::number((*it)->getId())+".note",e.exportNote(*it));
+        (*it)->setModified(false);
     }
     Trash* trash = Trash::getInstance();
     for(Trash::Iterator it = trash->begin();it != trash->end();++it){
         writeToFile(base+"/"+QString::number((*it)->getId())+".note",e.exportNote(*it));
+        (*it)->setModified(false);
     }
+    nm->setNoteModified(false);
 }
 QString SaveTextExport::exportDocument(Document* note,unsigned int titleLevel)
 {

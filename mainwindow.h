@@ -19,7 +19,7 @@
 #include "trash.h"
 
 /*! \namespace Ui
- * Espace de nom pour l'interface générée par le .ui
+ *  \brief Espace de nom pour l'interface générée par le .ui
  */
 namespace Ui {
 class MainWindow;

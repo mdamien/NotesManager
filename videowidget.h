@@ -8,32 +8,28 @@
 #include <QFileDialog>
 #include "notesmanager.h"
 #include "binary.h"
+#include "binarywidget.h"
 
 /*! \class VideoWidget
  * \brief Widget permettant la visualisation et l'édition d'une note de type Video dans l'interface graphique
  */
-class VideoWidget : public NoteWidget
+class VideoWidget : public BinaryWidget
 {
     Q_OBJECT
 public:
     explicit VideoWidget(Video* video, QWidget* parent = 0);
-    Note* getNote();
 signals:
 
 public slots:
-    void updateNote();
+    void updateBinaryWidget();
     void player();
-    void openExplorer();
+    void changePath();
     void restartPlayer();
 private :
     Phonon::VideoPlayer *videoPlayer;
-    QPushButton *path, *play, *restart;
+    QPushButton *play, *restart;
     bool playing;
-    QLineEdit* fileName;
-    QString filePath;
     QPlainTextEdit* description;
-
-    Video* note;
 };
 
 #endif // VIDEOWIDGET_H

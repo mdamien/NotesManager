@@ -1,34 +1,18 @@
 #include "audiowidget.h"
 #include <QFileDialog>
 
-AudioWidget::AudioWidget(Audio* audio, QWidget* parent):NoteWidget(parent),note(audio)
+AudioWidget::AudioWidget(Audio* audio, QWidget* parent):BinaryWidget(audio,parent)
 {
-    description = new QTextEdit(note->getDescription());
-    title->setText(note->getTitle());
-
     playing = false;
-    path = new QPushButton("Set Audio", this);
     play = new QPushButton("Play", this);
     restart = new QPushButton("Restart", this);
-    QHBoxLayout* playerLayout = new QHBoxLayout;
-
-    fileName = new QLineEdit(note->getPath());
-    fileName->setReadOnly(true);
-
-    playerLayout->addWidget(path);
-    playerLayout->addWidget(fileName);
-    playerLayout->addWidget(play);
-    playerLayout->addWidget(restart);
-    layout->addLayout(playerLayout);
-    layout->addWidget(description);
+    binaryLayout->addWidget(play);
+    binaryLayout->addWidget(restart);
 
     music = Phonon::createPlayer(Phonon::MusicCategory);
 
-    if(note->getPath() != "")
-        music->setCurrentSource(note->getPath());
+    updateBinaryWidget();
 
-    connect(description,SIGNAL(textChanged()),this,SLOT(updateNote()));
-    connect(path, SIGNAL(clicked()), this, SLOT(openExplorer()));
     connect(play, SIGNAL(clicked()), this, SLOT(player()));
     connect(restart, SIGNAL(clicked()), this, SLOT(restartPlayer()));
 }
@@ -48,20 +32,9 @@ void AudioWidget::player()
     playing = !playing;
 }
 
-void AudioWidget::openExplorer()
+void AudioWidget::changePath()
 {
-    QString a(QFileDialog::getOpenFileName(this, "Sélectionnez un enregistrement audio", "*.mp3;*.wav"));
-    if(a != note->getPath())
-    {
-        fileName->setText(a);
-        music->setCurrentSource(a);
-        playing = false;
-        play->setText("Play");
-        NotesManager::getInstance()->getHistory()->addAndExec(
-                    new ModifyBinaryPath(note,a));
-        note->setModified(true);
-        NotesManager::getInstance()->setNoteModified();
-    }
+    path->setText(QFileDialog::getOpenFileName(this,"Sélectionnez un enregistrement audio", "*.mp3;*.wav"));
 }
 
 void AudioWidget::restartPlayer()
@@ -70,19 +43,10 @@ void AudioWidget::restartPlayer()
     play->setText("Play");
     playing = false;
 }
-
-void AudioWidget::updateNote()
-{
-    NoteWidget::updateNote();
-    if(note->getDescription() != description->toPlainText()){
-        NotesManager::getInstance()->getHistory()->addAndExec(
-                    new ModifyBinaryDescription(note,description->toPlainText()));
-        note->setModified(true);
-        NotesManager::getInstance()->setNoteModified();
+void AudioWidget::updateBinaryWidget(){
+    if(note->getPath() != ""){
+        music->setCurrentSource(note->getPath());
+        playing = false;
+        play->setText("Play");
     }
-}
-
-Note* AudioWidget::getNote()
-{
-    return note;
 }
