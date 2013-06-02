@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->notes_list, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->tag_list, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(updateTag(QListWidgetItem*)));
     connect(ui->tag_set, SIGNAL(clicked()),this,SLOT(addTag()));
+    connect(ui->tag_remove, SIGNAL(clicked()),this,SLOT(removeTag()));
     connect(ui->tag_lineedit, SIGNAL(textChanged(QString)),this,SLOT(tagSearch()));
     connect(ui->tag_search, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(loadSidebarNote(QListWidgetItem*)));
     connect(ui->tag_filter, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(addFilter(QListWidgetItem*)));
@@ -237,6 +238,16 @@ void MainWindow::addTag()
         nm->setNoteModified();
         updateTagsList();
     }
+}
+void MainWindow::removeTag()
+{
+    QString txt = ui->tag_lineedit->text();
+    if(txt.length() > 0)
+    {
+        tm->removeTag(txt);
+    }
+    nm->setNoteModified();
+    updateTagsList();
 }
 
 /*!

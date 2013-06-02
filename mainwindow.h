@@ -51,6 +51,7 @@ public slots:
     void updateTag(QListWidgetItem* item);
     void tagSearch();
     void addTag();
+    void removeTag();
     void newNote();
     void save();
     void closeNote();

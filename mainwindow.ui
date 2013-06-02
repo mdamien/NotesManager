@@ -30,16 +30,7 @@
        </size>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_8">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
+       <property name="margin">
         <number>0</number>
        </property>
        <item>
@@ -54,16 +45,7 @@
           <property name="spacing">
            <number>2</number>
           </property>
-          <property name="leftMargin">
-           <number>1</number>
-          </property>
-          <property name="topMargin">
-           <number>1</number>
-          </property>
-          <property name="rightMargin">
-           <number>1</number>
-          </property>
-          <property name="bottomMargin">
+          <property name="margin">
            <number>1</number>
           </property>
           <item>
@@ -76,16 +58,7 @@
           <item>
            <widget class="QWidget" name="tags_buttons" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
+             <property name="margin">
               <number>0</number>
              </property>
             </layout>
@@ -94,7 +67,7 @@
           <item>
            <widget class="QTabWidget" name="tabWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tab_set">
              <attribute name="title">
@@ -104,24 +77,26 @@
               <property name="spacing">
                <number>2</number>
               </property>
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>2</number>
               </property>
               <item>
-               <widget class="QPushButton" name="tag_set">
-                <property name="text">
-                 <string>Add</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QPushButton" name="tag_set">
+                  <property name="text">
+                   <string>Add</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="tag_remove">
+                  <property name="text">
+                   <string>Remove</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
                <widget class="QListWidget" name="tag_list">
@@ -140,16 +115,7 @@
               <property name="spacing">
                <number>2</number>
               </property>
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>2</number>
               </property>
               <item>
@@ -166,16 +132,7 @@
               <string>Filter</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_2">
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>2</number>
               </property>
               <item>
@@ -235,7 +192,7 @@
              <x>0</x>
              <y>0</y>
              <width>522</width>
-             <height>324</height>
+             <height>328</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -303,7 +260,7 @@
      <x>0</x>
      <y>0</y>
      <width>720</width>
-     <height>27</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
