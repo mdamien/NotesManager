@@ -230,6 +230,7 @@ void MainWindow::closeCurrentNote()
 void MainWindow::closeNote() //SLOT
 {
     closeCurrentNote();
+    nm->setNoteModified();
 }
 
 void MainWindow::chooseNoteToOpen()

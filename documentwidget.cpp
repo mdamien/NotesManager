@@ -83,6 +83,7 @@ void DocumentWidget::addArticle()
 void DocumentWidget::addImage()
 {
     Note* n = new Image(NotesManager::getInstance()->getNewId(),"Title");
+    note->addSubNote(n);
     NotesManager::getInstance()->addRessource(n);
     addNote(n);
 }
