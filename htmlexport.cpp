@@ -48,8 +48,9 @@ QString HTMLExport::exportDocument(Document* note,unsigned int titleLevel)
 
 QString HTMLExport::title(Note* n,unsigned int titleLevel)
 {
-    return "<h"+QString::number(titleLevel+1)+">"+n->getTitle()
-            +"</h"+QString::number(titleLevel+1)+">\n"; // add ID to make links ?
+    unsigned int level = titleLevel+1 > 6 ? 6 : titleLevel+1;
+    return "<h"+QString::number(level)+">"+n->getTitle()
+            +"</h"+QString::number(level)+">\n";
 }
 
 QString HTMLExport::header(Note* note)

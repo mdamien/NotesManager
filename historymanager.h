@@ -21,7 +21,8 @@ public:
     void redo();
     void undo();
 private:
-    //TODO Copy
+    HistoryManager(const HistoryManager&); //On interdit la recopie à l'utilisateur
+    void operator=(const HistoryManager&);
     QStack<Operation*>* undo_stack;
     QStack<Operation*>* redo_stack;
 };

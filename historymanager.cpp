@@ -7,14 +7,12 @@ HistoryManager::HistoryManager()
 }
 HistoryManager::~HistoryManager()
 {
-    /*
     while (!undo_stack->isEmpty())
         delete undo_stack->pop();
     delete undo_stack;
     while (!redo_stack->isEmpty())
         delete redo_stack->pop();
     delete redo_stack;
-    */
 }
 void HistoryManager::redo()
 {
