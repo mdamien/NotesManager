@@ -8,6 +8,9 @@
 #include "note.h"
 #include "notesmanager.h"
 
+/*! \class NoteWidget
+ * \brief Widget abstrait pour visualiser et éditer une note dans l'interface graphique
+ */
 class NoteWidget : public QWidget
 {
     Q_OBJECT

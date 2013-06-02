@@ -6,12 +6,18 @@
 #include "article.h"
 #include "binary.h"
 
+/*! \class Operation
+ * \brief Opération basique et réversible
+ */
 class Operation{
 public:
     virtual void redo() = 0;
     virtual void undo() = 0;
 };
 
+/*! \class HistoryManager
+ * \brief Gestionnaire de l'historique des opérations
+ */
 class HistoryManager
 {
 public:
@@ -27,6 +33,9 @@ private:
     QStack<Operation*>* redo_stack;
 };
 
+/*! \class ModifyNoteTitle
+ * \brief Opération de modification du titre d'une note
+ */
 class ModifyNoteTitle : public Operation{
 public:
     ModifyNoteTitle(Note* note,QString newTitle);
@@ -38,6 +47,9 @@ private:
     Note* note;
 };
 
+/*! \class ModifyArticleText
+ * \brief Opération de modification du texte d'un article
+ */
 class ModifyArticleText : public Operation{
 public:
     ModifyArticleText(Article* note,QString newText);
@@ -49,6 +61,9 @@ private:
     Article* note;
 };
 
+/*! \class ModifyBinaryPath
+ * \brief Opération de modification du chemin d'un binaire
+ */
 class ModifyBinaryPath : public Operation{
 public:
     ModifyBinaryPath(Binary* note,QString newText);
@@ -60,6 +75,9 @@ private:
     Binary* note;
 };
 
+/*! \class ModifyBinaryDescription
+ * \brief Opération de modification de la description d'un binaire
+ */
 class ModifyBinaryDescription : public Operation{
 public:
     ModifyBinaryDescription(Binary* note,QString newText);

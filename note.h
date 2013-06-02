@@ -7,6 +7,9 @@
 
 class ExportStrategy;
 
+/*! \class Note
+ * \brief Classe abstraite représentant une note et ses états (modifiée et/ou ouverte)
+ */
 class Note
 {
 public:

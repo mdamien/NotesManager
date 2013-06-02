@@ -3,6 +3,9 @@
 
 #include "exportstrategy.h"
 
+/*! \class SaveTextExport
+ * \brief Classe permettant d'exporter dans le format de sauvegarde sur disque
+ */
 class SaveTextExport : public ExportStrategy
 {
 private:

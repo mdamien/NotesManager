@@ -6,6 +6,9 @@
 
 #include "note.h"
 
+/*! \class Tag
+ * \brief Classe représentant un tag de note et contenant toutes les notes associés à ce tag
+ */
 class Tag
 {
 public:

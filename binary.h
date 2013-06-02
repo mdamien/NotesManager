@@ -3,7 +3,9 @@
 
 #include "note.h"
 
-class Note;
+/*! \class Binary
+ * \brief Note abstraite pour tout les types de fichiers binaires
+ */
 class Binary : public Note
 {
 public:
@@ -21,7 +23,9 @@ protected :
 };
 
 //Image, Vidéo, Audio :
-
+/*! \class Image
+ * \brief Classe concréte représentant une note contenant une image,un titre et une description
+ */
 class Image : public Binary
 {
 public :
@@ -34,6 +38,9 @@ private :
     void load();
 };
 
+/*! \class Video
+ * \brief Classe concréte représentant une note contenant une vidéo,un titre et une description
+ */
 class Video : public Binary
 {
 public :
@@ -45,6 +52,9 @@ private :
     void load();
 };
 
+/*! \class Audio
+ * \brief Classe concréte représentant une note contenant un fichier audio,un titre et une description
+ */
 class Audio : public Binary
 {
 public :

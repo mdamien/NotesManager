@@ -4,6 +4,9 @@
 #include  <QString>
 #include "exportstrategy.h"
 
+/*! \class HTMLExport
+ * \brief Classe d'export de note en HTML
+ */
 class HTMLExport : public ExportStrategy
 {
 private:

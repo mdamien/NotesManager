@@ -7,6 +7,9 @@
 #include "note.h"
 #include "tag.h"
 
+/*! \class TagManager
+ * \brief Classe perméttant la gestion des tag
+ */
 class TagManager
 {
 public:

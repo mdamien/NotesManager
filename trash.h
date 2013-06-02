@@ -11,6 +11,9 @@
 
 class TrashedListItem;
 
+/*! \class Trash
+ * \brief Classe perméttant la gestion graphique des notes mises à la corbeille
+ */
 class Trash : public QWidget
 {
     Q_OBJECT

@@ -10,6 +10,9 @@
 #include "trash.h"
 #include "historymanager.h"
 
+/*! \class NotesManager
+ * \brief Classe gérant les notes, le chargement des notes et son historique
+ */
 class NotesManager
 {
 public:

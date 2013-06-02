@@ -18,7 +18,9 @@
 
 class NotesManager;
 
-//static helper for loading .note files and the workplace
+/*! \class NotesParser
+ * \brief Classe permettant de charger les notes et les meta-fichiers stockée sur disque dur
+ */
 class NotesParser
 {
 public:

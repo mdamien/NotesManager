@@ -11,6 +11,9 @@ namespace Ui {
 class SettingsDialog;
 }
 
+/*! \class SettingsDialog
+ * \brief Classe gérant l'édition par l'utilisateur des paramétres
+ */
 class SettingsDialog : public QDialog
 {
     Q_OBJECT

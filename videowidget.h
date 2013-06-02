@@ -9,6 +9,9 @@
 #include "notesmanager.h"
 #include "binary.h"
 
+/*! \class VideoWidget
+ * \brief Widget permettant la visualisation et l'édition d'une note de type Video dans l'interface graphique
+ */
 class VideoWidget : public NoteWidget
 {
     Q_OBJECT

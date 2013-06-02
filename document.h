@@ -3,6 +3,9 @@
 
 #include "note.h"
 
+/*! \class Video
+ * \brief Classe concréte représentant une note contenant un titre et d'autres notes
+ */
 class Document : public Note
 {
 public:
