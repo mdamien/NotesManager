@@ -22,7 +22,7 @@ void MainWindow::deleteInstance()
 {
     if(mw){
         delete mw;
-        mw = 0;   //Remise du pointeur à 0
+        mw = 0;
     }
 }
 
@@ -35,9 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tm = TagManager::getInstance();
     currentNote = NULL;
 
- //   updateNotesList();
     updateTagsList();
-    tagSearch();//Pour remplir remplir une liste de tous les tags / notes
 
     trash = Trash::getInstance();
     checkedTags = new QSet<QListWidgetItem*>();
@@ -227,7 +225,7 @@ void MainWindow::closeCurrentNote()
     }
 }
 
-void MainWindow::closeNote() //SLOT
+void MainWindow::closeNote()
 {
     closeCurrentNote();
     nm->setNoteModified();
