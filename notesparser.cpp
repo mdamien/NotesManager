@@ -125,7 +125,7 @@ void NotesParser::parseMetafile(QString path)
         if(id.contains("~")){
             Note* n = nm->getNoteByID(QString(notes_s.at(i)).replace("~","").toUInt());
             if(n != NULL){
-                trash->addItem(n); // TODO: save parent
+                trash->addItem(n);
             }
         }else{
             Note* n = nm->getNoteByID(notes_s.at(i).toUInt());
