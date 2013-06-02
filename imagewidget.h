@@ -7,6 +7,9 @@
 #include "notewidget.h"
 #include "binary.h"
 
+/*! \class ImageWidget
+ * \brief Widget permettant la visualisation et l'édition d'une note de type Image dans l'interface graphique
+ */
 class ImageWidget : public NoteWidget
 {
     Q_OBJECT

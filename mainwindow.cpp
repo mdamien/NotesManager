@@ -24,6 +24,9 @@ MainWindow* MainWindow::getInstance(QWidget *parent)
     }
 }
 
+/*!
+ * \brief Supprime l'instance courante de la MainWindow
+ */
 void MainWindow::deleteInstance()
 {
     if(mw){
@@ -32,9 +35,7 @@ void MainWindow::deleteInstance()
     }
 }
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     nm = NotesManager::getInstance();
@@ -73,10 +74,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete filteredNotes;
+    delete checkedTags;
+}
+
 /*!
- * SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
- *
- * \brief MainWindow::displayView
+ * \brief SLOT gérant le clic sur une action du menu du choix d'affichage : permet de n'utiliser qu'une méthode pour 4 actions
  * \param a : QAction sur laquelle l'utilisateur a cliqué
  */
 void MainWindow::displayView(QAction* a)
@@ -100,8 +106,7 @@ void MainWindow::displayView(QAction* a)
 }
 
 /*!
- * Met à jour la liste des Notes que l'utilisateur peut charger en fonction de l'onglet de filtre sur lequel il est
- * \brief MainWindow::updateNotesList
+ * \brief Met à jour la liste des Notes que l'utilisateur peut charger en fonction de l'onglet de filtre sur lequel il est
  */
 void MainWindow::updateNotesList()
 {
@@ -129,8 +134,7 @@ void MainWindow::updateNotesList()
 }
 
 /*!
- * Met à jour la liste des tags affichés en fonction de la note affichée à l'utilisateur
- * \brief MainWindow::updateTagsList
+ * \brief Met à jour la liste des tags affichés en fonction de la note affichée à l'utilisateur
  */
 void MainWindow::updateTagsList(){
     ui->tag_list->clear();
@@ -163,8 +167,7 @@ void MainWindow::updateTagsList(){
 }
 
 /*!
- * Met à jour le tag sélectionné
- * \brief MainWindow::updateTag
+ * \brief Met à jour le tag sélectionné
  * \param item : Widget contenant un tag en attribut, ce tag sera mis à jour
  */
 void MainWindow::updateTag(QListWidgetItem *item)
@@ -184,6 +187,9 @@ void MainWindow::updateTag(QListWidgetItem *item)
     }
 }
 
+/*!
+ * Met à jour la liste des notes ayant pour tag celui entré
+ */
 void MainWindow::tagSearch()
 {
     QString name = ui->tag_lineedit->text();
@@ -199,8 +205,7 @@ void MainWindow::tagSearch()
 }
 
 /*!
- * Ajoute un nouveau tag à la liste des tags en cliquant sur le bouton d'ajout de tag dans l'interface
- * \brief MainWindow::addTag
+ * \brief Ajoute un nouveau tag à la liste des tags en cliquant sur le bouton d'ajout de tag dans l'interface
  */
 void MainWindow::addTag()
 {
@@ -266,12 +271,18 @@ void MainWindow::closeCurrentNote()
     }
 }
 
+/*!
+ * \brief SLOT appellant la fonction de fermeture de note
+ */
 void MainWindow::closeNote()
 {
     closeCurrentNote();
     nm->setNoteModified();
 }
 
+/*!
+ * \brief SLOT permettant à l'utilisateur de choisir facilement une note à ouvrir et charger
+ */
 void MainWindow::chooseNoteToOpen()
 {
     QString path = QFileDialog::getOpenFileName(this,"Choose note",nm->getPath(),"*.note");
@@ -282,6 +293,9 @@ void MainWindow::chooseNoteToOpen()
     nm->setNoteModified();
 }
 
+/*!
+ * \brief SLOT déclenchant l'ouverture d'une fenêtre contenant les paramètres du logiciel
+ */
 void MainWindow::openSettings()
 {
     QString old_path = nm->getPath();
@@ -295,18 +309,18 @@ void MainWindow::openSettings()
     }
 }
 
+/*!
+ * \brief Appelle le SaveTextExport pour sauvegarder toutes les modifications non enregistrées
+ */
 void MainWindow::save()
 {
     SaveTextExport().save();
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-    delete filteredNotes;
-    delete checkedTags;
-}
-
+/*!
+ * \brief Charge la note passée en paramètre sous forme de widget
+ * \param n : Widget à charger, il contient une note
+ */
 void MainWindow::loadNote(NoteWidget *n)
 {
     if(n == NULL){
@@ -322,6 +336,12 @@ void MainWindow::loadNote(NoteWidget *n)
     updateTagsList();
 }
 
+/*!
+ * \brief Crée un widget en fonction de la note passée en paramètre
+ * \param note : Note à partir de laquelle on veut créer un widget
+ * \param parent : Parent du widget retourné
+ * \return Retourne le widget créé depuis la note donnée
+ */
 NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
 {
     if(note == NULL){
@@ -345,6 +365,10 @@ NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
     return n;
 }
 
+/*!
+ * \brief SLOT gérant le changement d'onglet du tableau d'affichage des notes
+ * \param i : Indice du nouvel onglet
+ */
 void MainWindow::tabChanged(int i)
 {
     if(currentNote != NULL){
@@ -367,6 +391,11 @@ void MainWindow::tabChanged(int i)
     }
 }
 
+/*!
+ * \brief Supprime tous les widgets contenus dans le layout passé en paramètre et désalloue la mémoire occupée sur demande
+ * \param layout : Layout à "nettoyer"
+ * \param deleteWidgets : Indique s'il faut désallouer la mémoire des widgets (true par défaut)
+ */
 void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
 {
     while (QLayoutItem* item = layout->takeAt(0))
@@ -382,6 +411,10 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
     }
 }
 
+/*!
+ * \brief SLOT ajoutant une note à la note courante en fonction de l'action choisie par l'utilisateur. S'il n'y a pas de note courante, la note créée est chargée et devient la note courante.
+ * \param a : Action choisie par l'utilisateur
+ */
 void MainWindow::addNote(QAction* a)
 {
     NotesManager* nm = NotesManager::getInstance();
@@ -439,6 +472,10 @@ void MainWindow::addNote(QAction* a)
     }
 }
 
+/*!
+ * \brief Charge la note sur laquelle l'utilisateur a cliqué depuis la liste des notes.
+ * \param item : Contient une note qui sera ensuite utilisé. Facilite la liaison interface-objet.
+ */
 void MainWindow::loadSidebarNote(QListWidgetItem *item)
 {
     NoteListItem* i = (NoteListItem*) item;
@@ -446,6 +483,10 @@ void MainWindow::loadSidebarNote(QListWidgetItem *item)
     ui->tabs->setCurrentIndex(0);
 }
 
+/*!
+ * \brief SLOT permettant de supprimer graphiquement un widget (une note) et de l'ajouter à la Trash
+ * \param nw : Widget qui sera supprimé
+ */
 void MainWindow::deleteWidget(NoteWidget* nw)
 {
     if(currentNote == nw) //Permet de supprimer TOUTE la note (article etc seul : OK, document entier : OK)
@@ -466,6 +507,10 @@ void MainWindow::deleteWidget(NoteWidget* nw)
     NotesManager::getInstance()->setNoteModified();
 }
 
+/*!
+ * \brief Propose à l'utilisateur de sauvegarder si des modifications ont été aperçues
+ * \param e
+ */
 void MainWindow::closeEvent(QCloseEvent* e)
 {
     if(nm->noteModified()){
@@ -482,6 +527,9 @@ void MainWindow::closeEvent(QCloseEvent* e)
     }
 }
 
+/*!
+ * \brief Enregistre la note courante au format HTML
+ */
 void MainWindow::saveHTML()
 {
     QString filename = QFileDialog::getSaveFileName(this,"Save as HTML");
@@ -497,6 +545,9 @@ void MainWindow::saveHTML()
     }
 }
 
+/*!
+ * \brief Enregistre la note courante au format LaTeX
+ */
 void MainWindow::saveLatex()
 {
     QString filename = QFileDialog::getSaveFileName(this,"Save as LaTeX");
@@ -512,6 +563,9 @@ void MainWindow::saveLatex()
     }
 }
 
+/*!
+ * \brief Met à jour la liste des notes filtrée en fonction des tags sélectionnés
+ */
 void MainWindow::updateTagFilter()
 {
     ui->notes_list->clear();
@@ -534,6 +588,10 @@ void MainWindow::updateTagFilter()
     }
 }
 
+/*!
+ * \brief Détermine en fonction de l'onglet des tags sur lequel on est, quelles notes afficher dans la liste des notes ouvertes
+ * \param tab : Indice de l'onglet des tags sélectionné
+ */
 void MainWindow::filterNotesList(int tab)
 {
     if(tab < 2) //Si on clique sur "tag" ou "search", on affiche la liste des notes normale
@@ -546,6 +604,10 @@ void MainWindow::filterNotesList(int tab)
     updateTagFilter();
 }
 
+/*!
+ * \brief Ajoute un tag à la liste des tags pour filtrer les notes
+ * \param item : Contient un tag qui sera ensuite utilisé. Facilite la liaison interface-objet.
+ */
 void MainWindow::addFilter(QListWidgetItem* item)
 {
     if(item->checkState() == Qt::Checked)
@@ -559,6 +621,9 @@ void MainWindow::addFilter(QListWidgetItem* item)
     updateTagFilter();
 }
 
+/*!
+ * \brief Recharge la note actuelle avec la précédente modification de l'utilisateur
+ */
 void MainWindow::undo()
 {
     if(currentNote != NULL){
@@ -566,6 +631,10 @@ void MainWindow::undo()
         loadNote(makeWidget(currentNote->getNote(),this));
     }
 }
+
+/*!
+ * \brief Recharge la note actuelle avec la modification "suivante" de l'utilisateur (nécessite au moins un undo pour faire un redo)
+ */
 void MainWindow::redo()
 {
     if(currentNote != NULL){
@@ -574,6 +643,10 @@ void MainWindow::redo()
     }
 }
 
-void MainWindow::toogleShowHTMLSource(){
+/*!
+ * \brief SLOT permettant d'afficher le code source de l'onglet vue HTML
+ */
+void MainWindow::toogleShowHTMLSource()
+{
     tabChanged(ui->tabs->currentIndex());
 }

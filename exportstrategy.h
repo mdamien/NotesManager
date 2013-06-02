@@ -8,6 +8,9 @@
 #include "article.h"
 #include "document.h"
 
+/*! \class ExportStrategy
+ * \brief Classe abstraite d'export de note
+ */
 class ExportStrategy
 {
 public:

@@ -71,6 +71,9 @@ void AudioWidget::restartPlayer()
     playing = false;
 }
 
+/*!
+ * \brief Met à jour le contenu de l'audio en fonction de ce qu'a fait l'utilisateur
+ */
 void AudioWidget::updateNote()
 {
     NoteWidget::updateNote();
@@ -82,6 +85,10 @@ void AudioWidget::updateNote()
     }
 }
 
+/*!
+ * \brief Renvoie la note que contient le widget
+ * \return Note contenue par le widget.
+ */
 Note* AudioWidget::getNote()
 {
     return note;

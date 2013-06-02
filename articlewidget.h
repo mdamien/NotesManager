@@ -5,6 +5,9 @@
 #include "notewidget.h"
 #include "article.h"
 
+/*! \class ArticleWidget
+ * \brief Widget permettant la visualisation et l'édition d'une note de type Article dans l'interface graphique
+ */
 class ArticleWidget : public NoteWidget
 {
 public:

@@ -2,6 +2,7 @@
 #include "notesmanager.h"
 #include "mainwindow.h"
 #include "tagmanager.h"
+#include <typeinfo>
 
 Trash* Trash::trash = 0;
 
@@ -60,12 +61,19 @@ void Trash::deleteInstance()
     }
 }
 
-
+/*!
+ * \brief Affiche la fenêtre contenant le widget de la Trash
+ */
 void Trash::showTrash()
 {
     this->show();
 }
 
+/*!
+ * \brief Ajoute une note dans la Trash
+ * \param note : Note à ajouter à la Trash
+ * \param parent : Parent(document) de la note à ajouter à la Trash (peut être 0)
+ */
 void Trash::addItem(Note* note, Document* parent)
 {
     QListWidgetItem* item = NULL;
@@ -80,18 +88,23 @@ void Trash::addItem(Note* note, Document* parent)
     notesList->addItem(item);
 }
 
+/*!
+ * \brief Supprime toutes les notes sélectionnées ("checkées") dans la liste des notes de la Trash. Supprimées du disque dur et du NotesManager.
+ */
 void Trash::deleteSelection()
 {
     Note* n = NULL;
     for(QSet<QListWidgetItem*>::Iterator it = selection->begin(); it != selection->end(); ++it)
     {
         n = ((TrashedListItem*)(*it))->getNote();
-        n->setLoaded(false);
+        if(typeid(*n) == typeid(Document))        //Si le document à supprimer est un document : il faut supprimer chacune de ses sous-notes
+        {
+            ((Document*)n)->deleteEverySubNotes();
+        }
         notes->remove(n);      //Suppression du pointeur vers la note de la corbeille
         NotesManager::getInstance()->deleteRessource(n);
         notesList->removeItemWidget(*it);
         delete(*it); //Désallocation du pointeur sur chaque TrashListItem
-        QFile::remove(QString(n->getId()));
         TagManager::getInstance()->removeTaggedNote(n);
         NotesManager::getInstance()->setNoteModified();
     }
@@ -99,6 +112,9 @@ void Trash::deleteSelection()
     selection->clear(); //On vide le QSet, chaque pointeur ayant été désalloué correctement plus tôt
 }
 
+/*!
+ * \brief Restaure toutes les notes sélectionnées ("checkées") dans la liste des notes de la Trash. Elles sont rechargées dans la MainWindow.
+ */
 void Trash::restoreSelection()
 {
     Note* n = NULL;
@@ -127,6 +143,10 @@ void Trash::restoreSelection()
     MainWindow::getInstance()->updateNotesList();
 }
 
+/*!
+ * \brief Ajoute ou supprime la note sur laquelle l'utilisateur a clické, en fonction de l'état ("checkée" ou non)
+ * \param item : Contient une note qui permet une synchronisation interface-objet facile.
+ */
 void Trash::addToSelection(QListWidgetItem* item)
 {
     TrashedListItem* i = (TrashedListItem*) item; //Cast de l'item en notre item personnalisé
@@ -143,7 +163,6 @@ void Trash::addToSelection(QListWidgetItem* item)
 }
 
 //Iterator
-
 Trash::Iterator Trash::begin()
 {
     return Iterator(notes->begin());

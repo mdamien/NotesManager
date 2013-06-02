@@ -3,6 +3,9 @@
 
 #include "note.h"
 
+/*! \class Article
+ * \brief Note de type Article contenant un titre et un texte
+ */
 class Article : public Note
 {
 public:

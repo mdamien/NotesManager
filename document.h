@@ -3,6 +3,10 @@
 
 #include "note.h"
 
+
+/*! \class Video
+ * \brief Classe concréte représentant une note contenant un titre et d'autres notes
+ */
 class Document : public Note
 {
 public:
@@ -15,6 +19,7 @@ public:
     Note* getSubNote(const unsigned int i);
     unsigned int getNumberOfSubNotes() const;
     ~Document();
+    void deleteEverySubNotes();
 
 private :
     QList<Note*>* notes;

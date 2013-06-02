@@ -4,6 +4,9 @@
 #include  <QString>
 #include "exportstrategy.h"
 
+/*! \class LaTeXExport
+ * \brief Classe d'export de note en LaTeX
+ */
 class LaTeXExport : public ExportStrategy
 {
 private:

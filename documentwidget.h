@@ -6,6 +6,9 @@
 #include "notewidget.h"
 #include "document.h"
 
+/*! \class DocumentWidget
+ * \brief Widget permettant la visualisation et l'édition d'une note de type Document dans l'interface graphique
+ */
 class DocumentWidget : public NoteWidget
 {
     Q_OBJECT
