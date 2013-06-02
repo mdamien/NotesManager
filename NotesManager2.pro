@@ -7,7 +7,8 @@ TEMPLATE = app
 
 FORMS = \
     mainwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    aboutdialog.ui
 
 SOURCES += \
     main.cpp \
@@ -34,7 +35,8 @@ SOURCES += \
     settingsdialog.cpp \
     historymanager.cpp \
     trash.cpp \
-    binarywidget.cpp
+    binarywidget.cpp \
+    aboutdialog.cpp
 
 HEADERS += \
     article.h \
@@ -60,7 +62,8 @@ HEADERS += \
     settingsdialog.h \
     historymanager.h \
     trash.h \
-    binarywidget.h
+    binarywidget.h \
+    aboutdialog.h
 
 OTHER_FILES += \
     TODO.txt

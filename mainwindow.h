@@ -66,6 +66,8 @@ public slots:
     void undo();
     void redo();
     void toogleShowHTMLSource();
+    void showAbout();
+    void showHelp();
 
 private:
     //MainWindow est un Singleton : pas de copie autorisée ni de création pour l'utilisateur

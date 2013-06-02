@@ -4,6 +4,8 @@
 #include <QDebug>
 #include "savetextexport.h"
 #include <QFileDialog>
+#include "aboutdialog.h"
+#include <QDesktopServices>
 
 MainWindow* MainWindow::mw = 0;
 
@@ -70,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
     connect(ui->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
     connect(ui->html_showsource, SIGNAL(clicked()),this,SLOT(toogleShowHTMLSource()));
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
+    connect(ui->actionHelp, SIGNAL(triggered()), this, SLOT(showHelp()));
 
 }
 
@@ -540,4 +544,13 @@ void MainWindow::redo()
 
 void MainWindow::toogleShowHTMLSource(){
     tabChanged(ui->tabs->currentIndex());
+}
+
+void MainWindow::showAbout()
+{
+    AboutDialog(this).exec();
+}
+void MainWindow::showHelp()
+{
+    QDesktopServices::openUrl(QUrl("http://dam.io/notesmanager"));
 }
