@@ -7,6 +7,12 @@
 
 MainWindow* MainWindow::mw = 0;
 
+/*!
+ *  Retourne l'instance courante de la MainWindow
+ *
+ *  \param parent : parent de la MainWindow
+ *  \return MainWindow* : instance unique de la MainWindow
+ */
 MainWindow* MainWindow::getInstance(QWidget *parent)
 {
     if(mw){
