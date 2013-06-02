@@ -1,4 +1,5 @@
 #include "binarywidget.h"
+#include "settingsdialog.h"
 
 BinaryWidget::BinaryWidget(Binary *bin, QWidget *parent):NoteWidget(parent),note(bin)
 {
@@ -24,6 +25,21 @@ void BinaryWidget::updateNote()
     NoteWidget::updateNote();
     if(note->getPath() != path->text())
     {
+        QString p = path->text();
+        if(SettingsDialog::binaryCopy()){
+            QDir d;
+            d.setCurrent(NotesManager::getInstance()->getPath());
+            d.mkdir("files");
+            QDir b(d.absoluteFilePath("files"));
+            if(p.indexOf("http://") == 0){ // download from internet with a dialog
+                //TODO...
+            }
+            else if(p != "" && !p.contains(d.absolutePath())){
+                QString new_p =  b.absoluteFilePath(QFileInfo(p).fileName());
+                QFile(p).copy(new_p);
+                path->setText(new_p);
+            }
+        }
         NotesManager::getInstance()->getHistory()->addAndExec(
                     new ModifyBinaryPath(note,path->text()));
         updateBinaryWidget();
