@@ -7,6 +7,12 @@
 
 MainWindow* MainWindow::mw = 0;
 
+/*!
+ *  Retourne l'instance courante de la MainWindow
+ *
+ *  \param parent : parent de la MainWindow
+ *  \return MainWindow* : instance unique de la MainWindow
+ */
 MainWindow* MainWindow::getInstance(QWidget *parent)
 {
     if(mw){
@@ -22,7 +28,7 @@ void MainWindow::deleteInstance()
 {
     if(mw){
         delete mw;
-        mw = 0;   //Remise du pointeur à 0
+        mw = 0;
     }
 }
 
@@ -35,9 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tm = TagManager::getInstance();
     currentNote = NULL;
 
- //   updateNotesList();
     updateTagsList();
-    tagSearch();//Pour remplir remplir une liste de tous les tags / notes
 
     trash = Trash::getInstance();
     checkedTags = new QSet<QListWidgetItem*>();
@@ -227,7 +231,7 @@ void MainWindow::closeCurrentNote()
     }
 }
 
-void MainWindow::closeNote() //SLOT
+void MainWindow::closeNote()
 {
     closeCurrentNote();
     nm->setNoteModified();
@@ -289,18 +293,19 @@ NoteWidget *MainWindow::makeWidget(Note *note, QWidget* parent)
         return NULL;
     }
     NoteWidget* n = NULL;
-    if(typeid(*note) == typeid(Article))
+    QString name = typeid(*note).name();
+    if(name == typeid(Article).name())
         n = new ArticleWidget((Article*)note, parent);
-    else if(typeid(*note) == typeid(Document))
+    else if(name == typeid(Document).name())
         n = new DocumentWidget((Document*)note, parent);
-    else if(typeid(*note) == typeid(Image))
+    else if(name == typeid(Image).name())
         n = new ImageWidget((Image*)note, parent);
-    else if(typeid(*note) == typeid(Audio))
+    else if(name == typeid(Audio).name())
         n = new AudioWidget((Audio*)note, parent);
-    else if(typeid(*note) == typeid(Video))
+    else if(name == typeid(Video).name())
         n = new VideoWidget((Video*)note, parent);
     else
-        qDebug() << "ERROR:Note type not implemented yet in Qt Widgets";
+        qDebug() << "ERROR:Note type "+name+" not implemented yet in Qt Widgets";
     connect(n,SIGNAL(titleChanged(QString)),this,SLOT(updateNotesList()));
     return n;
 }

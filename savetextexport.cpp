@@ -21,7 +21,7 @@ QString SaveTextExport::base(QString name,Note* note,unsigned int n)
 QString SaveTextExport::exportArticle(Article* note,unsigned int titleLevel)
 {
     QString str = base("Article",note,titleLevel);
-    str += note->getText();//+"\n";
+    str += note->getText();
     return str;
 }
 
@@ -29,7 +29,7 @@ QString SaveTextExport::exportBinary(QString name,Binary* note,unsigned int titl
 {
     QString str = base(name,note,titleLevel);
     str += note->getPath()+"\n";
-    str += note->getDescription();//+"\n";
+    str += note->getDescription();
     return str;
 }
 
