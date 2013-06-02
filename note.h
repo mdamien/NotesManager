@@ -24,7 +24,7 @@ public:
 
 protected :
     Note(const unsigned int id, const QString& title = "");
-    virtual void load() = 0;
+    virtual void load() = 0; //Note est ainsi abstraite
     unsigned int id;
     QString title;
     bool modified;

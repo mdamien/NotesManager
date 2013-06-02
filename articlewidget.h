@@ -2,7 +2,6 @@
 #define ARTICLEWIDGET_H
 
 #include <QPlainTextEdit>
-
 #include "notewidget.h"
 #include "article.h"
 

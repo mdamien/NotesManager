@@ -57,8 +57,7 @@ Audio::Audio(Audio* a) : Binary(a->getId(), a->getTitle(), a->getDescription(), 
 
 }
 
-//Binary ne possède pas load, et est donc bien abstraite, ses filles ont bien load
-
+//Binary ne possède pas load, et est donc bien abstraite, ses filles ont bien load et sont donc instanciables
 void Image::load()
 {
 

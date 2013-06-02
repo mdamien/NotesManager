@@ -43,6 +43,7 @@ void AudioWidget::restartPlayer()
     play->setText("Play");
     playing = false;
 }
+
 void AudioWidget::updateBinaryWidget(){
     if(note->getPath() != ""){
         music->setCurrentSource(note->getPath());

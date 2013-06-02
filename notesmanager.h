@@ -33,7 +33,7 @@ public:
     unsigned int getNewId();
     HistoryManager* getHistory();
 
-    //Iterator
+    //Iterator : non const car les Notes seront amenées à être modifiées ailleurs
     class Iterator
     {
         friend class NotesManager; //Pour accéder au constructeur de l'Iterator

@@ -14,12 +14,12 @@ void Article::setText(const QString& t)
     text = t;
 }
 
-void Article::load()
+Article::Article(Article* a) : Note(a->getId(), a->getTitle()), text(a->getText())
 {
-//A définir
+
 }
 
-Article::Article(Article* a) : Note(a->getId(), a->getTitle()), text(a->getText())
+void Article::load()
 {
 
 }

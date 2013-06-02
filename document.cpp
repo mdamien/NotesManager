@@ -1,5 +1,6 @@
 #include "document.h"
 #include "exportstrategy.h"
+#include "notesmanager.h"
 
 Document::Document(const unsigned int id, const QString& title) : Note(id, title)
 {
@@ -49,12 +50,24 @@ unsigned int Document::getNumberOfSubNotes() const
     return notes->size();
 }
 
-void Document::load()
-{
-    //A définir
-}
-
 void Document::removeSubNote(Note* n)
 {
     notes->removeOne(n);
+}
+
+void Document::load()
+{
+
+}
+
+/*!
+ * \brief Supprime toutes les notes d'un document en demandant au NotesManager de les supprimer
+ */
+void Document::deleteEverySubNotes()
+{
+    while(notes->count())
+    {
+        NotesManager::getInstance()->deleteRessource(notes->at(0));
+        notes->removeAt(0);
+    }
 }

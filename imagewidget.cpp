@@ -9,7 +9,8 @@ ImageWidget::ImageWidget(Image* img,QWidget* parent):BinaryWidget(img,parent)
     updateBinaryWidget();
 }
 
-void ImageWidget::updateBinaryWidget(){
+void ImageWidget::updateBinaryWidget()
+{
     image->setPixmap(QPixmap(note->getPath()));
 }
 
@@ -17,4 +18,3 @@ void ImageWidget::changePath()
 {
     path->setText(QFileDialog::getOpenFileName());
 }
-

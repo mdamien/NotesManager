@@ -3,6 +3,8 @@
 
 #include "note.h"
 
+class Note;
+
 /*! \class Binary
  * \brief Note abstraite pour tout les types de fichiers binaires
  */

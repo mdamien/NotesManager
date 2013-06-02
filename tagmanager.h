@@ -20,7 +20,7 @@ public:
     void removeTag(QString name);
     void removeTaggedNote(Note* note);
     QList<QString> getTags();
-    QList<QString> getNoteTags(Note* note); //Tags of a Note
+    QList<QString> getNoteTags(Note* note); //Tags d'une Note
     Tag* getTag(QString name);
     void reset();
 
@@ -49,6 +49,7 @@ private:
     TagManager& operator=(const TagManager&);
     ~TagManager();
 
+    //Attributs
     static TagManager* tagManager;
     QSet<Tag*>* tags;
 };

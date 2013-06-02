@@ -19,7 +19,7 @@
 class NotesManager;
 
 /*! \class NotesParser
- * \brief Classe permettant de charger les notes et les meta-fichiers stockée sur disque dur
+ * \brief Classe permettant de charger les notes et les meta-fichiers stockés sur disque dur
  */
 class NotesParser
 {
@@ -29,10 +29,10 @@ public:
     Note* parseBinary(QTextStream* in,unsigned int id,QString type);
     Note* parseDocument(QTextStream* in,unsigned int id, QString path);
     Note* parseNote(QString path,unsigned int id);
-    void parseWorkplace(); //put all notes in the NotesManager / +tags / +opened
+    void parseWorkplace(); //Put all notes in the NotesManager / +tags / +opened
 private:
-    void parseMetafile(QString path); //set witch note are opened
-    void parseTags(QString path); // put all tags in the tagmanager
+    void parseMetafile(QString path); //Set witch note are opened
+    void parseTags(QString path); //Put all tags in the tagmanager
 
     NotesManager* nm;
 };
