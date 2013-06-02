@@ -28,7 +28,7 @@ void ImageWidget::updateNote()
 
 void ImageWidget::chooseImage()
 {
-    QString path = QFileDialog::getOpenFileName();
+    QString path(QFileDialog::getOpenFileName(this, "Sélectionnez une image")); //Pas de restriction sur le type car il y a de très nombreux formats compatibles
     if(path != note->getPath())
     {
         image->setPixmap(QPixmap(path));

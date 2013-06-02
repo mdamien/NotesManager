@@ -49,12 +49,12 @@ unsigned int Document::getNumberOfSubNotes() const
     return notes->size();
 }
 
-void Document::load()
-{
-    //A définir
-}
-
 void Document::removeSubNote(Note* n)
 {
     notes->removeOne(n);
+}
+
+void Document::load()
+{
+
 }

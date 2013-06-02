@@ -29,7 +29,6 @@ private :
     QLineEdit* fileName;
     QString filePath;
     QPlainTextEdit* description;
-
     Video* note;
 };
 

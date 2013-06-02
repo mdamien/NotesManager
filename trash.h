@@ -58,7 +58,8 @@ private :
     static Trash* trash;
 };
 
-class TrashedListItem : public QListWidgetItem //Héritage de QListWidgetItem pour permettre de retrouver facilement les notes sélectionnées
+//Héritages de QListWidgetItem pour permettre de retrouver facilement les notes sélectionnées
+class TrashedListItem : public QListWidgetItem
 {
 public :
     TrashedListItem(Note* note) : QListWidgetItem(note->getTitle()), note(note) {}

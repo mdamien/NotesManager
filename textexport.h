@@ -7,8 +7,8 @@
 class TextExport : public ExportStrategy
 {
 private:
-    QString base(QString name, Note* note, unsigned int n);//base commune à chaque export
-    QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//helper pour les binaires
+    QString base(QString name, Note* note, unsigned int n);//Base commune à chaque export
+    QString exportBinary(QString name,Binary* note,unsigned int titleLevel=0);//Helper pour les binaires
 public:
     TextExport();
 protected:

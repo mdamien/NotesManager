@@ -68,8 +68,10 @@ private:
     MainWindow(const MainWindow&);
     ~MainWindow();
 
+    //Méthode privée
     void clearLayout(QLayout* layout, bool deleteWidgets = true);
 
+    //Attributs
     Ui::MainWindow *ui;
     NotesManager* nm;
     TagManager* tm;
@@ -80,6 +82,7 @@ private:
     QSet<Note*>* filteredNotes;
 };
 
+// Classes utilisées pour faciliter la synchronisation entre les tags et l'interface
 class TagListItem : public QListWidgetItem{
 public:
     TagListItem(QString title,Tag* note):QListWidgetItem(title),tag(note){}

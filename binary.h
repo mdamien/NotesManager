@@ -4,6 +4,7 @@
 #include "note.h"
 
 class Note;
+
 class Binary : public Note
 {
 public:

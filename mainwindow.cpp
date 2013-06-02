@@ -240,6 +240,7 @@ void MainWindow::chooseNoteToOpen()
     QFileInfo info(path);
     Note* n = nm->loadNote(info.baseName().toUInt());
     loadNote(makeWidget(n));
+    nm->setNoteModified();
 }
 
 void MainWindow::openSettings()
