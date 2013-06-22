@@ -95,6 +95,7 @@ void NotesParser::parseWorkplace()
     QDir dir;
     dir.setCurrent(nm->getPath());
     dir.setFilter(QDir::Files);
+    dir.mkpath(".");
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i)
     {

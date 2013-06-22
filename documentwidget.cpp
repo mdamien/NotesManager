@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <typeinfo>
 #include <QDebug>
+#include <QSpacerItem>
 
 DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent),note(doc)
 {
@@ -12,23 +13,22 @@ DocumentWidget::DocumentWidget(Document* doc,QWidget *parent):NoteWidget(parent)
     {
         addNote(note->getSubNote(i));
     }
-    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    QSpacerItem* spacer = new QSpacerItem(0,0,QSizePolicy::Expanding);
     QHBoxLayout* buttons = new QHBoxLayout();
     QPushButton* addArticleB = new QPushButton("Article");
     QPushButton* addDocumentB = new QPushButton("Document");
     QPushButton* addVideoB = new QPushButton("Video");
     QPushButton* addImageB = new QPushButton("Image");
     QPushButton* addAudioB = new QPushButton("Audio");
-    buttonsLayout->addWidget(new QLabel("Add:"));
+    buttons->addSpacerItem(spacer);
+    buttons->addWidget(new QLabel("Add:"));
     buttons->addWidget(addArticleB);
     buttons->addWidget(addDocumentB);
     buttons->addWidget(addImageB);
-    buttons->addWidget(addArticleB);
     buttons->addWidget(addAudioB);
     buttons->addWidget(addVideoB);
-    buttonsLayout->addLayout(buttons);
-    layout->addLayout(buttonsLayout);
-    buttons->setAlignment(buttonsLayout,Qt::AlignLeft);
+    layout->addLayout(buttons);
+    buttons->setAlignment(layout,Qt::AlignLeft);
 
     connect(addArticleB,SIGNAL(clicked()),this,SLOT(addArticle()));
     connect(addDocumentB,SIGNAL(clicked()),this,SLOT(addDocument()));

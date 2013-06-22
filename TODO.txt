@@ -1,9 +1,0 @@
-=== PRINCIPAL ====
-
-DOCUMENTATION
-
-== SECONDAIRE ==
-
-Traduction interface
-Icones !!! Delete / play / pause
-download sans le copy binary (dans un attibut data puis tu le load dans la qicon)

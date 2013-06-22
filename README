@@ -1,0 +1,3 @@
+INSTRUCTION DE COMPILATION
+
+La compilation necessite QT4 et phonon d'installé. Puis charger le .pro dans QtCreator.

@@ -77,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->html_showsource, SIGNAL(clicked()),this,SLOT(toogleShowHTMLSource()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
     connect(ui->actionHelp, SIGNAL(triggered()), this, SLOT(showHelp()));
-
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
 }
 
 MainWindow::~MainWindow()

@@ -87,12 +87,18 @@
                   <property name="text">
                    <string>Add</string>
                   </property>
+                  <property name="icon">
+                   <iconset theme="add"/>
+                  </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="tag_remove">
                   <property name="text">
-                   <string>Remove</string>
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="remove"/>
                   </property>
                  </widget>
                 </item>
@@ -572,6 +578,9 @@
    </property>
   </action>
   <action name="actionTrash">
+   <property name="icon">
+    <iconset theme="gnome-dev-trash-empty"/>
+   </property>
    <property name="text">
     <string>Trash</string>
    </property>

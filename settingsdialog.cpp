@@ -24,7 +24,7 @@ SettingsDialog::~SettingsDialog()
 QString SettingsDialog::workplace()
 {
     QSettings settings("lo21-maxetdam", "NotesManager");
-    return settings.value("workplace","../notesmanager/workplace").toString();
+    return settings.value("workplace","../workplace").toString();
 }
 QString SettingsDialog::proxy()
 {
