@@ -1,3 +1,11 @@
-INSTRUCTION DE COMPILATION
+Projet de LO21 fait par Maxime UZAN et Damien MARIE
+
+Le but du projet étant de respecter un cahier des charges d'un gestionnaire de notes comprenant entre autre:
+_ 5 types de notes: Article, Document (Note pouvant contenir des notes), Video, Audio et Image
+_ Un gestionnaire de Tag
+_ Des exports vers HTML, TXT et LATEX
+_ Un historique et une corbeille
+
+INSTRUCTIONS DE COMPILATION
 
 La compilation necessite QT4 et phonon d'installé. Puis charger le .pro dans QtCreator.
