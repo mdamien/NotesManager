@@ -9,3 +9,7 @@ _ Un historique et une corbeille
 INSTRUCTIONS DE COMPILATION
 
 La compilation necessite QT4 et phonon d'installé. Puis charger le .pro dans QtCreator.
+
+NOTES
+
+Le projet ayant été rendu deux semaines avant la date limite soit 2 semaines aprés avoir recu le sujet, celui-ci implémente le strict minimum et des bugs sont encores présents
